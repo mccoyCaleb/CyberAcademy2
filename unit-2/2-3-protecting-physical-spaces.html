@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.3 — Protecting Physical Spaces | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a class="active" href="index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">2.3 • Protecting Physical Spaces</p>
+      <h1>Protecting Physical Spaces</h1>
+      <p class="unit-intro">Once a vulnerability is identified, the next question is: what control should be used to reduce the risk? Strong physical security depends on people, policies, physical barriers, and layered protections that work together.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Risk mitigation</span></div>
+        <div class="progress-meter"><span style="width: 80%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="2-1-cyber-foundations.html">2.1</a>
+      <a href="2-2-physical-vulnerabilities.html">2.2</a>
+      <a class="active" href="2-3-protecting-physical-spaces.html">2.3</a>
+      <a href="2-4-network-and-routing.html">2.4</a>
+      <a href="2-5-logs-basics.html">2.5</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Good defenses match the vulnerability.</h2>
+          <p>A strong security decision does not just name a control. It explains why that control fits the specific weakness in the environment. A control is most useful when it prevents, detects, or corrects the scenario being considered.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">People</span>
+            <h3>Security awareness</h3>
+            <p>Employees are part of the security system. Training helps them recognize phishing, social engineering, suspicious requests, and unauthorized physical access.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Policies</span>
+            <h3>Workstation security</h3>
+            <p>Rules such as locking devices, using clean desks, protecting screens, and controlling device placement reduce accidental exposure and theft.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Physical controls</span>
+            <h3>Access and power protection</h3>
+            <p>Locks, cameras, bollards, guards, UPS devices, and surge protectors are physical controls that help prevent access, detect issues, and reduce disruption.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">Risk mitigation and decision-making</h2>
+        <p>Once a risk has been identified and assessed, an organization chooses among four strategies: <strong>avoidance</strong>, <strong>transference</strong>, <strong>mitigation</strong>, and <strong>acceptance</strong>.</p>
+
+        <div class="accordion" aria-label="Risk management and controls">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Risk avoidance <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>Risk avoidance</strong> means stopping the activity that creates the risk. If a technology or task is too risky, the organization removes it entirely.</p>
+              <p><strong>Key phrase:</strong> Avoid = stop the risky activity.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Risk transference <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Risk transference</strong> means shifting some of the burden or consequences to another entity, such as an insurance company or a contractor.</p>
+              <p>The original organization may still experience some effects, but some responsibilities or costs are shifted elsewhere.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Risk mitigation <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Risk mitigation</strong> means implementing controls to reduce the likelihood or impact of a risk. This is usually the most common response to a security weakness.</p>
+              <p>Examples include installing locks, adding authentication, encrypting data, training employees, installing cameras, creating backups, and improving access controls.</p>
+              <p><strong>Important idea:</strong> Mitigation reduces the risk. It does not necessarily eliminate it.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Risk acceptance <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Risk acceptance</strong> means the organization knowingly decides to live with the risk because the likelihood or impact is low, the cost of mitigation is not worth it, or the activity is necessary.</p>
+              <p>Accepting risk does not mean the risk is gone. It means the organization has chosen not to reduce it further.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Residual risk <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Residual risk</strong> is the risk that remains after controls and other risk-management actions have been applied. No organization can guarantee zero risk.</p>
+              <p>Organizations aim to reduce risk to a level they can manage.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">Security controls</h2>
+        <div class="accordion" aria-label="Security controls types and functions">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">CIA triad <span>−</span></button>
+            <div class="accordion-panel">
+              <p>The <strong>CIA triad</strong> describes the main goals of information security: <strong>confidentiality</strong>, <strong>integrity</strong>, and <strong>availability</strong>.</p>
+              <p><strong>Confidentiality</strong> = information is only available to those authorized to access it. <strong>Integrity</strong> = information remains accurate and trustworthy. <strong>Availability</strong> = authorized users can access systems and data when needed.</p>
+              <p><strong>Memory trick:</strong> Confidentiality = private; Integrity = correct; Availability = accessible when needed.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Control types <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Physical controls</strong> protect physical spaces, equipment, and people. Examples include locks, fences, cameras, security guards, bollards, and access-controlled doors.</p>
+              <p><strong>Technical controls</strong> use technology such as firewalls, encryption, anti-malware software, and authentication systems.</p>
+              <p><strong>Managerial controls</strong> are policies, procedures, training, access reviews, and incident response plans used to guide behavior and decision-making.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Control functions <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Preventative controls</strong> try to stop a problem before it happens. Examples include locks, authentication, encryption, and barriers.</p>
+              <p><strong>Detective controls</strong> help identify attacks or suspicious activity. Examples include cameras, motion sensors, IDS, and SIEM systems.</p>
+              <p><strong>Corrective controls</strong> help restore systems after an event. These include system recovery, backups, patching, and repairing damaged equipment.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Control type vs. control function <span>+</span></button>
+            <div class="accordion-panel">
+              <p>This is a common AP confusion point. Ask two separate questions:</p>
+              <p><strong>1. What kind of control is it?</strong> Physical, technical, or managerial.
+              <br><strong>2. What does it do?</strong> Preventative, detective, or corrective.</p>
+              <p><strong>Example:</strong> A security camera is a <strong>physical</strong> control and a <strong>detective</strong> control. Encryption is a <strong>technical</strong> control and often <strong>preventative</strong>. A security policy is a <strong>managerial</strong> control.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Defense in depth <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Defense in depth</strong> uses multiple layers of security to protect systems and data. If one control fails, another may still stop, detect, or reduce the attack.</p>
+              <p>The AP framework identifies six possible layers: <strong>human</strong>, <strong>physical</strong>, <strong>network</strong>, <strong>device</strong>, <strong>application</strong>, and <strong>data</strong>.</p>
+              <p><strong>Key idea:</strong> Defense in depth is not about making one defense stronger. It is about building multiple barriers.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">Practical protection measures</h2>
+        <div class="scenario-card">
+          <h3>Controls that reduce physical risk</h3>
+          <ul class="compare-list">
+            <li><strong>Security awareness training:</strong> teaches employees what suspicious behavior looks like and how to respond.</li>
+            <li><strong>Lock your device:</strong> prevents unauthorized use when the computer is left unattended.</li>
+            <li><strong>Clean desk policy:</strong> reduces exposure of sensitive documents and printed data.</li>
+            <li><strong>Privacy screens:</strong> reduce visual disclosure in open areas or shared spaces.</li>
+            <li><strong>Surge protectors and UPS devices:</strong> reduce equipment damage and support availability when power is interrupted.</li>
+            <li><strong>Locks, guards, cameras, and access-controlled doors:</strong> provide physical barriers that reduce unauthorized entry.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-card" data-correct="mitigate">
+          <p>A school discovers that anyone can walk into a room containing a server and no one monitors it. What response best matches the risk?</p>
+          <div class="choice-row">
+            <button class="option-button" type="button" data-answer="mitigate">Install a lock, access-control policy, and monitoring to reduce the risk</button>
+            <button class="option-button" type="button" data-answer="accept">Do nothing because the server is already working</button>
+            <button class="option-button" type="button" data-answer="transfer">Ask another school to take responsibility</button>
+          </div>
+          <div class="answer-box" hidden>
+            <strong>Correct:</strong> This is <strong>risk mitigation</strong>. The school is reducing the likelihood and impact of unauthorized physical access.
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="Notes on physical protection" placeholder="Pick one control from this section and explain: what the vulnerability is, what kind of control it is, and what function it serves. For example: physical, preventative, detective, or corrective..."></textarea>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain the difference between avoid, transfer, mitigate, and accept.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can identify a control as physical, technical, or managerial.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know the difference between preventative, detective, and corrective controls.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain defense in depth using multiple layers of protection.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Good security is layered, not single-point.</li>
+            <li>The best response often depends on the vulnerability and the asset at risk.</li>
+            <li>Controls can protect confidentiality, integrity, and availability.</li>
+            <li>Physical security is a foundational layer in cybersecurity.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Final section</h2>
+        <div class="unit-card-list">
+          <a class="unit-link-card" href="2-4-network-and-routing.html">
+            <span>2.4</span>
+            <strong>Network and Routing</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Review and assess.</h2>
+        <p>Use the Unit 2 review page to test your recognition of social engineering tactics, risk analysis, physical vulnerabilities, and the right controls to protect spaces.</p>
+        <a href="2-4-network-and-routing.html">Open 2.4 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 2 • 2.3</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.3 — Protecting Networks | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a class="active" href="index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">3.3 • Protecting Networks</p>
+      <h1>Protecting Networks</h1>
+      <p class="unit-intro">Defenders protect networks through policies, layered controls, and careful configuration. A secure network combines access rules, encryption, monitoring, segmentation, and operational choices that reduce attack exposure.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Defense controls</span></div>
+        <div class="progress-meter"><span style="width: 40%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="3-1-network-vulnerabilities.html">3.1</a>
+      <a href="3-2-mac-addresses-and-arp.html">3.2</a>
+      <a class="active" href="3-3-protecting-networks.html">3.3</a>
+      <a href="3-4-network-segmentation.html">3.4</a>
+      <a href="3-5-firewalls.html">3.5</a>
+      <a href="3-6-acl-tables.html">3.6</a>
+      <a href="3-7-detecting-network-attacks.html">3.7</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Network defense is layered.</h2>
+          <p>Security is rarely one setting or one tool. Organizations use multiple layers of control, including policies, network devices, authentication, encryption, monitoring, and network design choices. The goal is to reduce exposure while maintaining the services people need.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Policies</span>
+            <h3>Rules and standards</h3>
+            <p>Security policies determine which devices can connect, how users authenticate, what services are allowed, and which network controls must be enforced.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Router and switch</span>
+            <h3>Network devices</h3>
+            <p>Routers and switches should be hardened by disabling unnecessary services, using strong authentication, and restricting access to approved devices.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Wireless</span>
+            <h3>Secure communication</h3>
+            <p>Wireless security depends on strong authentication, strong encryption, controlled signal strength, and careful management of access points.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">Network security policies and controls</h2>
+        <div class="accordion" aria-label="Security policy controls">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Security policies <span>−</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>security policy</strong> establishes the rules and expected behavior for technology and users. For network security, policies can define who can connect, how remote access works, the allowed services, and required wireless protections.</p>
+              <p>Policies are important because technical controls need rules behind them to work consistently.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Router security <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Organizations may require routers to use centralized authentication, disable unnecessary services, use firewalls, and avoid unnecessary local accounts.</p>
+              <p><strong>Why disable unnecessary services?</strong> Every extra service creates another potential attack surface.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Switch security <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Switches can use <strong>port security</strong>, <strong>MAC filtering</strong>, authentication, and restrictions on connected devices. These controls reduce the chance that unauthorized devices can connect.</p>
+              <p>Switch security helps protect against unauthorized access and some forms of network manipulation.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">VPN security <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>VPN</strong> allows users to create a protected connection to another network. This is common for remote users who need access to internal resources.</p>
+              <p>Policies may define who can use the VPN, how users authenticate, and what security requirements a device must meet.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Split tunneling <span>+</span></button>
+            <div class="accordion-panel">
+              <p>With <strong>split tunneling</strong>, some traffic goes through the VPN while other traffic goes directly to the internet. Organizations often restrict this because it can create security gaps.</p>
+              <p>Company traffic may be protected, while personal or unrelated traffic bypasses the protected path.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">Wireless and endpoint protection</h2>
+        <div class="accordion" aria-label="Wireless protection">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Wireless security <span>−</span></button>
+            <div class="accordion-panel">
+              <p>Wireless security controls can limit authentication, encryption, signal strength, access points, and network naming. Organizations must control which devices are allowed to connect.</p>
+              <p>Wireless networks are exposed to the air, so they require careful protection.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Wireless encryption <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Encryption protects wireless data by turning readable information into a form that an attacker should not easily understand. The notes identify <strong>WEP</strong>, <strong>WPS</strong>, and <strong>original WPA</strong> as weak options, while <strong>WPA3</strong> is the strongest option discussed.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">MAC filtering <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>MAC filtering</strong> permits only designated MAC addresses to connect. It can help control access, but it is not perfect because MAC addresses can be spoofed.</p>
+              <p>Remember: network restrictions that rely on a single identifier are not always strong security.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Signal strength and beacon frames <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Reducing unnecessary signal range lowers the area from which attackers might interact with the network. An organization may also disable <strong>beacon frames</strong>, but <strong>hidden does not mean secure</strong>. Attackers can still discover or interact with the network.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <h3>Protective design decisions</h3>
+          <p>Network controls should fit the environment. A secure design reduces exposure by making attack paths harder to use.</p>
+          <ul class="compare-list">
+            <li><strong>Disable unnecessary services:</strong> reduces potential entry points.</li>
+            <li><strong>Use encryption:</strong> protects confidentiality even if traffic is observed.</li>
+            <li><strong>Restrict wireless range:</strong> reduces opportunities for random unauthorized access.</li>
+            <li><strong>Control access to devices:</strong> prevents attackers from connecting to out-of-scope network infrastructure.</li>
+          </ul>
+        </div>
+
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="Notes on network protection" placeholder="Explain why a router, switch, or wireless access point should have security rules beyond a default configuration. Connect your answer to reducing attack surface and protecting confidentiality, integrity, or availability."></textarea>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain why policies matter for network security.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know why disabling unnecessary services reduces risk.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can describe the purpose of VPNs and split tunneling rules.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can compare WPA3 to older wireless encryption standards.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Network protection is more than a single firewall.</li>
+            <li>Policies guide what controls are required.</li>
+            <li>Hidden wireless networks are not automatically safe.</li>
+            <li>Encryption and access controls reduce exposure.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Next concept</h2>
+        <div class="unit-card-list">
+          <a class="unit-link-card" href="3-4-network-segmentation.html">
+            <span>3.4</span>
+            <strong>Network Segmentation</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Limit the blast radius.</h2>
+        <p>Network segmentation separates users, devices, and services so an attacker has fewer paths to move through the environment.</p>
+        <a href="3-4-network-segmentation.html">Open 3.4 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 3 • 3.3</span></div></footer>
+</body>
+</html>

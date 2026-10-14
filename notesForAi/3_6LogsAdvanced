@@ -1,0 +1,1722 @@
+# Advanced Log Analysis
+
+## What This Lesson Is About
+
+In the previous lesson, we learned how to read individual log entries:
+
+* IP addresses
+* Usernames
+* Timestamps
+* HTTP methods
+* Requested resources
+* Status codes
+* User-Agents
+* Commands
+* Authentication events
+
+Now we are going to take the next step.
+
+Real cybersecurity analysts do not spend all day looking at logs that obviously say:
+
+```text
+ATTACK DETECTED
+```
+
+Instead, they often have to look through **large amounts of normal activity** and determine whether something unusual is hidden inside it.
+
+This means you need to learn two skills:
+
+1. **Recognize normal activity.**
+2. **Recognize patterns that may indicate suspicious activity.**
+
+The second skill is especially important because suspicious activity often looks like ordinary activity until you look at several log entries together.
+
+---
+
+# 1. Logs Are Not All the Same
+
+Different systems create different types of logs.
+
+You might encounter:
+
+### Web server logs
+
+```text
+192.168.1.50 - jprice [10/Nov/2025:09:02:15 -0500] "GET /index.html HTTP/1.1" 200 4231
+```
+
+These are useful for investigating:
+
+* Website access
+* HTTP requests
+* Web attacks
+* Suspicious URLs
+* Authentication attempts
+* Scanning
+
+### Linux system logs
+
+```text
+Nov 10 09:03:35 ubuntu systemd[1]: Starting Daily apt download activities...
+```
+
+These can tell you about:
+
+* Services
+* System processes
+* Scheduled tasks
+* Software updates
+* System events
+
+### Authentication logs
+
+```text
+Nov 10 14:22:15 ubuntu sshd[2234]: Accepted password for jprice from 192.168.1.50 port 22 ssh2
+```
+
+These are useful for investigating:
+
+* Logins
+* Failed authentication
+* SSH access
+* Privilege escalation
+* Suspicious accounts
+
+### Network logs
+
+These can show:
+
+* Connections
+* Ports
+* Protocols
+* IP addresses
+* ARP activity
+* DNS activity
+* Firewall decisions
+
+---
+
+# 2. Normal Logs Are Important
+
+Before you can identify something suspicious, you need to understand what normal activity looks like.
+
+A server might generate thousands of legitimate events every day.
+
+For example:
+
+```text
+User logs in
+      ↓
+Opens website
+      ↓
+Loads CSS
+      ↓
+Loads JavaScript
+      ↓
+Downloads an image
+      ↓
+Checks email
+      ↓
+Runs software updates
+      ↓
+Checks firewall status
+      ↓
+Logs out
+```
+
+All of these events could appear in logs.
+
+Therefore:
+
+> **A log entry being technical or complicated does not make it suspicious.**
+
+For example:
+
+```text
+sudo: jprice : USER=root ; COMMAND=/usr/bin/apt update
+```
+
+may look intimidating to someone unfamiliar with Linux.
+
+But it could simply mean that a user intentionally ran a software update.
+
+---
+
+# 3. Example: Normal Linux Activity
+
+Consider these logs:
+
+```text
+1 - Nov 10 09:00:11 ubuntu sudo: jprice : TTY=pts/0 ;
+PWD=/home/jprice ; USER=root ; COMMAND=/usr/bin/
+less /var/log/syslog
+
+2 - Nov 10 09:00:15 ubuntu sudo: pam_unix(sudo:
+session): session opened for user root by
+jprice(uid=1000)
+
+3 - Nov 10 09:00:35 ubuntu apt-get[1345]: Get:1
+http://archive.ubuntu.com jammy InRelease [265 kB]
+
+4 - Nov 10 09:00:46 ubuntu apt-get[1345]: Get:2
+http://security.ubuntu.com jammy-security InRelease
+[110 kB]
+
+5 - Nov 10 09:00:55 ubuntu apt-get[1345]: Fetched
+375 kB in 19s (19.7 kB/s)
+
+6 - Nov 10 09:01:00 ubuntu apt-get[1345]: Reading
+package lists... Done
+
+7 - Nov 10 09:01:01 ubuntu sudo: pam_unix(sudo:
+session):
+session closed for user root
+```
+
+At first, these logs contain a lot of unfamiliar terminology.
+
+Let's break them down.
+
+---
+
+## Log 1
+
+```text
+sudo: jprice : TTY=pts/0 ;
+PWD=/home/jprice ;
+USER=root ;
+COMMAND=/usr/bin/less /var/log/syslog
+```
+
+The important information is:
+
+```text
+jprice
+   ↓
+used sudo
+   ↓
+became root for the command
+   ↓
+ran less
+   ↓
+opened /var/log/syslog
+```
+
+`sudo` allows a permitted user to execute a command with elevated privileges.
+
+`USER=root` indicates that the command was executed with root privileges.
+
+The command:
+
+```text
+less /var/log/syslog
+```
+
+opens the system log for viewing.
+
+This is actually a very reasonable action for a system administrator or cybersecurity student.
+
+Someone investigating the system may intentionally open the logs to examine them.
+
+### Is this suspicious?
+
+Not by itself.
+
+The important question is:
+
+> **Does the action make sense in context?**
+
+If `jprice` is an administrator who is troubleshooting the machine, this activity is completely reasonable.
+
+---
+
+# 4. Log 2 — Root Session
+
+```text
+pam_unix(sudo:session): session opened for user root by
+jprice(uid=1000)
+```
+
+This tells us that a sudo session was opened.
+
+The important pieces are:
+
+```text
+user root
+```
+
+and:
+
+```text
+by jprice
+```
+
+So the system recorded that `jprice` opened a privileged session.
+
+Again, this does not automatically mean something bad happened.
+
+The next question should be:
+
+> What did the user do while they had root privileges?
+
+That is an important cybersecurity mindset.
+
+---
+
+# 5. Logs 3–6 — Software Updates
+
+```text
+apt-get[1345]: Get:1
+http://archive.ubuntu.com jammy InRelease [265 kB]
+
+apt-get[1345]: Get:2
+http://security.ubuntu.com jammy-security InRelease
+[110 kB]
+
+apt-get[1345]: Fetched 375 kB in 19s
+
+apt-get[1345]: Reading package lists... Done
+```
+
+These lines show `apt-get` communicating with Ubuntu package repositories.
+
+The system is retrieving information needed for package management.
+
+This is normal operating-system activity.
+
+The important lesson is:
+
+> **Network communication does not automatically mean malicious communication.**
+
+A system regularly connects to legitimate services for:
+
+* Software updates
+* Time synchronization
+* Package repositories
+* DNS
+* Monitoring
+* Backups
+
+---
+
+# 6. Log 7 — Session Closed
+
+```text
+sudo: pam_unix(sudo:session):
+session closed for user root
+```
+
+The elevated sudo session ended.
+
+Now we can see a complete sequence:
+
+```text
+User uses sudo
+      ↓
+Root session opens
+      ↓
+User examines logs
+      ↓
+System performs package activity
+      ↓
+Package lists finish
+      ↓
+Root session closes
+```
+
+This is an example of why **context matters**.
+
+If you only saw:
+
+```text
+USER=root
+```
+
+you might think:
+
+> "Someone became root!"
+
+But the surrounding logs explain what actually happened.
+
+---
+
+# 7. More Normal Command Activity
+
+Here are additional normal-looking administrative actions:
+
+```text
+8 - Nov 10 09:02:14 ubuntu jprice: executed command: 'ufw status verbose'
+
+9 - Nov 10 09:02:14 ubuntu jprice: executed command: 'systemctl status apache2'
+
+10 - Nov 10 09:02:16 ubuntu jprice: executed command: 'tail -n /var/log/auth.log'
+
+11 - Nov 10 09:03:10 ubuntu jprice: executed command: 'systemctl status apache2'
+
+12 - Nov 10 09:03:35 ubuntu systemd[1]: Starting Daily apt download activities...
+
+13 - Nov 10 09:03:36 ubuntu systemd[1]: Finished Daily apt download activities.
+
+14 - Nov 10 09:04:00 ubuntu jprice: executed command: 'ss -tuln'
+
+15 - Nov 10 09:04:01 ubuntu jprice: executed command: 'cat /etc/ufw/user.rules'
+
+16 - Nov 10 09:05:11 ubuntu jprice: executed command: 'journalctl -xe'
+
+17 - Nov 10 09:05:32 ubuntu jprice: executed command: 'df -h'
+
+18 - Nov 10 09:05:50 ubuntu jprice: executed command: 'du -sh /var/log'
+```
+
+A student might see these and think:
+
+> "This person is running a lot of security-related commands, so something must be wrong."
+
+But look at what the commands actually do.
+
+---
+
+## `ufw status verbose`
+
+```text
+ufw status verbose
+```
+
+UFW is Ubuntu's firewall management tool.
+
+This command checks the firewall's status and configuration.
+
+A system administrator or security student might reasonably run this while checking a system.
+
+---
+
+## `systemctl status apache2`
+
+```text
+systemctl status apache2
+```
+
+This checks the status of the Apache web server.
+
+It does not automatically mean someone is attacking Apache.
+
+An administrator may simply want to know:
+
+> "Is my web server running?"
+
+---
+
+## `tail -n /var/log/auth.log`
+
+This examines recent authentication log information.
+
+A security analyst would frequently use logs to investigate authentication activity.
+
+Again, this is normal defensive behavior.
+
+---
+
+## `ss -tuln`
+
+This command displays network sockets and listening services.
+
+A security professional might use it to answer:
+
+> "What ports are currently listening on this machine?"
+
+That is a very normal security-checking activity.
+
+---
+
+## `cat /etc/ufw/user.rules`
+
+This displays firewall rules.
+
+Again, this can be normal administrative activity.
+
+---
+
+## `journalctl -xe`
+
+This displays system journal information and can help troubleshoot system problems.
+
+---
+
+## `df -h`
+
+This checks disk-space usage.
+
+---
+
+## `du -sh /var/log`
+
+This checks how much disk space the logs are using.
+
+This could be especially useful if the administrator is investigating whether logs are consuming too much storage.
+
+---
+
+# 8. Normal Automated Activity
+
+Not every log entry is caused directly by a human.
+
+For example:
+
+```text
+Nov 10 09:03:35 ubuntu systemd[1]:
+Starting Daily apt download activities...
+
+Nov 10 09:03:36 ubuntu systemd[1]:
+Finished Daily apt download activities.
+```
+
+This is an example of an automated system process.
+
+The important lesson is:
+
+> **Computers generate logs even when nobody is actively using them.**
+
+You may see:
+
+* Scheduled tasks
+* System services
+* Automatic updates
+* Background processes
+* Monitoring systems
+* Backups
+* Log rotation
+* Network services
+
+This is why analysts must learn what normal automated behavior looks like.
+
+---
+
+# 9. ARP Logs
+
+ARP stands for **Address Resolution Protocol**.
+
+ARP is used on IPv4 local networks to determine the MAC address associated with an IP address.
+
+For example:
+
+```text
+Who has 192.168.1.13?
+```
+
+A device may respond:
+
+```text
+192.168.1.13 is-at 00:01:5e:00:fc:16
+```
+
+This tells the requesting device:
+
+> The device using IP address `192.168.1.13` is associated with MAC address `00:01:5e:00:fc:16`.
+
+---
+
+# 10. Example of Normal ARP Activity
+
+Consider:
+
+```text
+2025-09-25 08:01:14 ARP Reply:
+192.168.1.13 is-at 00:01:5e:00:fc:16
+```
+
+At this point, we know:
+
+```text
+IP:
+192.168.1.13
+
+MAC:
+00:01:5e:00:fc:16
+```
+
+Later:
+
+```text
+2025-09-25 09:14:15 ARP Reply:
+192.168.1.13 is-at 00:3b:cc:5e:ee:01
+```
+
+Now something has changed.
+
+The same IP address:
+
+```text
+192.168.1.13
+```
+
+is now associated with a different MAC address:
+
+```text
+00:3b:cc:5e:ee:01
+```
+
+---
+
+# 11. Why a Changing ARP Mapping Matters
+
+A change in an IP-to-MAC mapping can be completely legitimate.
+
+For example:
+
+* A device's network interface changed.
+* A device was replaced.
+* DHCP assigned the address differently.
+* A virtual machine changed.
+* A network configuration changed.
+* An administrator changed the network.
+
+Therefore:
+
+> **A changing ARP mapping does not automatically mean ARP poisoning.**
+
+However, it is something a security analyst may investigate.
+
+---
+
+# 12. ARP Poisoning
+
+ARP poisoning, also called **ARP spoofing**, is an attack in which an attacker sends false ARP information to influence devices' IP-to-MAC mappings.
+
+Normally:
+
+```text
+192.168.1.13
+      ↓
+MAC A
+```
+
+But an attacker may attempt to convince another device that:
+
+```text
+192.168.1.13
+      ↓
+MAC Attacker
+```
+
+If successful, traffic intended for the legitimate device may be sent to the attacker's machine.
+
+This can potentially enable a **man-in-the-middle** situation.
+
+---
+
+# 13. What ARP Poisoning Might Look Like in Logs
+
+Imagine seeing:
+
+```text
+08:01:14 ARP Reply:
+192.168.1.13 is-at 00:01:5e:00:fc:16
+
+09:14:15 ARP Reply:
+192.168.1.13 is-at 00:3b:cc:5e:ee:01
+
+09:14:16 ARP Reply:
+192.168.1.1 is-at 00:3b:cc:5e:ee:01
+
+09:14:17 ARP Reply:
+192.168.1.13 is-at 00:3b:cc:5e:ee:01
+```
+
+Now we have more information.
+
+The same MAC address is claiming to represent multiple IP addresses.
+
+That could be legitimate in some network configurations, but it is also a pattern that deserves investigation.
+
+An analyst would compare:
+
+* ARP tables
+* Switch information
+* DHCP records
+* Device inventory
+* Packet captures
+* Network topology
+
+before determining what happened.
+
+---
+
+# 14. XSS in Logs
+
+XSS stands for **Cross-Site Scripting**.
+
+XSS occurs when an application allows attacker-controlled input to be interpreted as executable content in a user's browser.
+
+When analyzing web logs, you may see requests containing suspicious script-like input.
+
+For example:
+
+```text
+192.168.1.75 - - [10/Nov/2025:11:15:20]
+"GET /search?q=<script>...</script> HTTP/1.1" 400
+```
+
+The important clue is the presence of:
+
+```text
+<script>
+```
+
+inside user-controlled input.
+
+The server returned:
+
+```text
+400
+```
+
+which means the request was rejected as a bad request.
+
+That is important.
+
+The log shows an attempt containing suspicious input, but it does **not** prove that XSS successfully occurred.
+
+---
+
+# 15. What Students Should Look For With XSS
+
+When examining web logs, look for suspicious input appearing inside:
+
+* Query strings
+* Form submissions
+* URL parameters
+* HTTP request bodies
+* Search fields
+* Comments
+* Other user-controlled input
+
+For example:
+
+```text
+GET /search?q=<script>...</script>
+```
+
+or encoded versions of suspicious characters.
+
+The important idea is:
+
+> **Look for potentially executable input appearing where ordinary user data would normally appear.**
+
+Then check the response.
+
+For example:
+
+```text
+Suspicious input → 403
+```
+
+may indicate that the application blocked the request.
+
+Whereas:
+
+```text
+Suspicious input → 200
+```
+
+means the server reported success, but still does not prove that the input executed in a browser.
+
+Additional application logs and testing would be needed.
+
+---
+
+# 16. Directory Traversal
+
+Directory traversal is another pattern that can appear in web logs.
+
+The goal of a directory traversal attack is to attempt to access files outside the application's intended directory.
+
+A common pattern involves:
+
+```text
+../
+```
+
+For example:
+
+```text
+GET /download?file=../../etc/passwd HTTP/1.1
+```
+
+The important part is:
+
+```text
+../../
+```
+
+Each `..` can represent moving up one directory in a filesystem path.
+
+Conceptually:
+
+```text
+/current/directory
+        ↓
+..
+        ↓
+/parent
+        ↓
+..
+        ↓
+/higher-level-directory
+```
+
+An application that does not properly validate file paths may accidentally allow a user to access files outside the intended directory.
+
+---
+
+# 17. Directory Traversal in Logs
+
+Consider:
+
+```text
+192.168.1.80 - - [10/Nov/2025:11:30:01]
+"GET /download?file=../../etc/passwd HTTP/1.1" 403
+```
+
+We immediately notice:
+
+```text
+../../
+```
+
+That is a pattern associated with directory traversal.
+
+The server returned:
+
+```text
+403 Forbidden
+```
+
+This suggests the server refused the request.
+
+Now consider:
+
+```text
+192.168.1.80 - - [10/Nov/2025:11:30:02]
+"GET /download?file=../../etc/passwd HTTP/1.1" 200
+```
+
+This deserves much more investigation because the server reported success.
+
+However, even here, `200` does not automatically prove that the sensitive file was successfully returned.
+
+The analyst should inspect:
+
+* Response size
+* Application logs
+* File-access logs
+* Response contents, if available
+* Security alerts
+* Subsequent activity
+
+---
+
+# 18. Important Lesson: Attack Pattern ≠ Successful Attack
+
+This is one of the most important ideas in advanced log analysis.
+
+A log can show:
+
+```text
+ATTEMPT
+```
+
+without showing:
+
+```text
+SUCCESS
+```
+
+For example:
+
+```text
+GET /download?file=../../etc/passwd → 403
+```
+
+shows a request containing a directory traversal pattern.
+
+It does not show successful access.
+
+Similarly:
+
+```text
+GET /search?q=<script>...</script> → 400
+```
+
+shows suspicious input.
+
+It does not prove that XSS executed.
+
+Always distinguish between:
+
+**Attempted**
+
+and:
+
+**Successful**
+
+---
+
+# 19. SSH Logs
+
+SSH is commonly used for remote administration of Linux systems.
+
+Consider:
+
+```text
+1 - Nov 10 14:11:43 ubuntu sshd[1123]:
+Server listening on 0.0.0.0 port 22.
+
+2 - Nov 10 14:11:43 ubuntu sshd[1123]:
+Server listening on :: port 22.
+```
+
+This indicates that the SSH server is listening for connections.
+
+This is normal if SSH is supposed to be running.
+
+---
+
+# 20. Suspicious-Looking FTP Login Pattern
+
+Now consider:
+
+```text
+3 - Nov 10 14:21:01 ubuntu vsftpd[2184]:
+Failed login for invalid user admin from 203.0.113.25 port 21 ftp
+
+4 - Nov 10 14:21:02 ubuntu vsftpd[2186]:
+Failed login for invalid user root from 203.0.113.25 port 21 ftp
+
+5 - Nov 10 14:21:03 ubuntu vsftpd[2188]:
+Failed login for invalid user test from 203.0.113.25 port 21 ftp
+
+6 - Nov 10 14:21:04 ubuntu vsftpd[2190]:
+Failed login for invalid user guest from 203.0.113.25 port 21 ftp
+
+7 - Nov 10 14:21:05 ubuntu vsftpd[2192]:
+Failed login for invalid user ubuntu from 203.0.113.25 port 21 ftp
+```
+
+Now look at the pattern.
+
+The same IP:
+
+```text
+203.0.113.25
+```
+
+tries several different usernames.
+
+The attempts occur almost exactly one second apart.
+
+The usernames include common account names:
+
+```text
+admin
+root
+test
+guest
+ubuntu
+```
+
+This pattern is consistent with **automated account enumeration or password-guessing activity**.
+
+Again, the important word is **consistent**.
+
+The logs show failed attempts. They do not prove that the source successfully compromised an account.
+
+---
+
+# 21. Continuing the Pattern
+
+Suppose we also see:
+
+```text
+10 - Nov 10 14:21:08 ubuntu vsftpd[2198]:
+Failed login for invalid user admin1 from 203.0.113.25 port 21 ftp
+
+11 - Nov 10 14:21:09 ubuntu vsftpd[2200]:
+Failed login for invalid user oracle from 203.0.113.25 port 21 ftp
+
+12 - Nov 10 14:21:10 ubuntu vsftpd[2202]:
+Failed login for invalid user ftp from 203.0.113.25 port 21 ftp
+```
+
+Now the pattern becomes stronger:
+
+```text
+Same source
+     ↓
+Many usernames
+     ↓
+Very short time intervals
+     ↓
+Repeated authentication failures
+```
+
+This is much more meaningful than simply seeing one failed login.
+
+---
+
+# 22. Normal SSH Activity
+
+Now look at:
+
+```text
+13 - Nov 10 14:22:14 ubuntu sshd[2234]:
+Connection closed by authenticating user jprice
+192.168.1.50 port 22 [preauth]
+
+14 - Nov 10 14:22:15 ubuntu sshd[2234]:
+Accepted password for jprice from
+192.168.1.50 port 22 ssh2
+
+15 - Nov 10 14:22:15 ubuntu sshd[2234]:
+pam_unix(sshd:session):
+session opened for user jprice by (uid=0)
+```
+
+This tells us that:
+
+1. An SSH connection was attempted.
+2. The connection reached authentication.
+3. A password was accepted for `jprice`.
+4. An SSH session was opened.
+
+The earlier connection-close message should be interpreted in context with the successful authentication that follows.
+
+This demonstrates another important lesson:
+
+> **You should not analyze log lines in isolation when a sequence is available.**
+
+---
+
+# 23. Normal Administrative Activity After SSH Login
+
+Next:
+
+```text
+16 - Nov 10 14:25:47 ubuntu sudo: jprice :
+TTY=pts/0 ;
+PWD=/home/jprice ;
+USER=root ;
+COMMAND=/usr/bin/apt update
+
+17 - Nov 10 14:25:47 ubuntu sudo:
+pam_unix(sudo:session):
+session opened for user root by jprice(uid=1000)
+
+18 - Nov 10 14:25:48 ubuntu sudo:
+pam_unix(sudo:session):
+session closed for user root
+```
+
+This shows:
+
+```text
+SSH login
+   ↓
+jprice gets a session
+   ↓
+jprice uses sudo
+   ↓
+runs apt update as root
+   ↓
+sudo session closes
+```
+
+If `jprice` is expected to administer the machine, this could be entirely normal.
+
+The important lesson is that **privileged activity deserves attention, but privileged activity is not automatically malicious**.
+
+---
+
+# 24. Finding "Bad Things" in Logs
+
+Now that we understand normal activity, we can start looking for patterns that deserve investigation.
+
+There are several categories worth learning.
+
+---
+
+## Pattern 1 — Repeated Failed Logins
+
+Look for:
+
+```text
+401
+Failed password
+Failed login
+authentication failure
+invalid user
+```
+
+Especially when they occur:
+
+* Many times
+* Very quickly
+* From the same source
+* Against many usernames
+* Against the same account
+
+Example:
+
+```text
+14:21:01 failed admin
+14:21:02 failed root
+14:21:03 failed test
+14:21:04 failed guest
+14:21:05 failed ubuntu
+```
+
+This pattern may indicate automated authentication attempts.
+
+---
+
+# 25. Pattern 2 — Suspicious URLs
+
+Look for requests containing unusual input.
+
+Examples include:
+
+```text
+../
+../../
+%2e%2e%2f
+<script>
+```
+
+These may indicate attempts at:
+
+* Directory traversal
+* XSS
+* Other forms of input manipulation
+
+Again, the presence of a suspicious string shows an **attempt or pattern**, not automatically a successful attack.
+
+---
+
+# 26. Pattern 3 — ARP Mapping Changes
+
+Look for an IP address suddenly associated with a different MAC address.
+
+Example:
+
+```text
+08:01:14
+192.168.1.13 → MAC A
+
+09:14:15
+192.168.1.13 → MAC B
+```
+
+This could be normal.
+
+But if it happens unexpectedly or repeatedly, investigate:
+
+* DHCP
+* Device changes
+* Network topology
+* Switch tables
+* ARP traffic
+* Possible ARP spoofing
+
+---
+
+# 27. Pattern 4 — Unexpected Privilege Escalation
+
+Look for:
+
+```text
+sudo
+su
+USER=root
+uid=0
+```
+
+But remember:
+
+> **Root access is not automatically malicious.**
+
+Ask:
+
+* Who used it?
+* When?
+* What command did they run?
+* Is that user supposed to have administrative privileges?
+* Was the command expected?
+* What happened immediately afterward?
+
+For example:
+
+```text
+sudo → apt update
+```
+
+may be routine.
+
+Whereas:
+
+```text
+sudo → unexpected command
+```
+
+could require investigation.
+
+---
+
+# 28. Pattern 5 — Unusual HTTP Methods
+
+Normal websites may generate many:
+
+```text
+GET
+POST
+```
+
+requests.
+
+You might pay closer attention to unexpected use of:
+
+```text
+PUT
+DELETE
+TRACE
+CONNECT
+```
+
+This does not mean these methods are automatically malicious.
+
+The question is:
+
+> **Does the method make sense for this particular application and endpoint?**
+
+For example, a REST API may legitimately use:
+
+```text
+DELETE /users/123
+```
+
+while a normal public webpage might never need DELETE.
+
+---
+
+# 29. Pattern 6 — Large Numbers of 404 Responses
+
+One or two 404 errors are normal.
+
+A website might contain:
+
+```text
+GET /old-page → 404
+```
+
+because someone followed an outdated link.
+
+But consider:
+
+```text
+GET /admin → 404
+GET /backup → 404
+GET /config → 404
+GET /.env → 404
+GET /database → 404
+GET /phpmyadmin → 404
+GET /login → 404
+```
+
+If these occur rapidly from one source, the pattern may indicate automated reconnaissance.
+
+Again:
+
+> **The pattern is evidence for investigation, not automatic proof of an attack.**
+
+---
+
+# 30. Pattern 7 — Successful Request After Many Failures
+
+This is a particularly useful pattern.
+
+Imagine:
+
+```text
+14:21:01 → login failed
+14:21:02 → login failed
+14:21:03 → login failed
+14:21:04 → login failed
+14:21:05 → login failed
+14:21:06 → login succeeded
+```
+
+The successful login does not automatically mean compromise.
+
+But the sequence deserves investigation.
+
+The analyst could check:
+
+* Which username succeeded?
+* Was the source IP the same?
+* Was MFA used?
+* Was the login expected?
+* What happened after the login?
+* Were privileged commands executed?
+* Were unusual files accessed?
+
+---
+
+# 31. Advanced Practice: Can You Find the Suspicious Activity?
+
+The following logs contain mostly normal activity.
+
+**There are suspicious events hidden among them.**
+
+Your job is to identify them.
+
+## Practice Log Set 1
+
+```text
+1 - Nov 10 10:00:01 ubuntu systemd[1]:
+Started Daily Cleanup Service.
+
+2 - Nov 10 10:00:05 ubuntu jprice:
+executed command: 'df -h'
+
+3 - Nov 10 10:00:08 ubuntu jprice:
+executed command: 'systemctl status apache2'
+
+4 - Nov 10 10:00:12 ubuntu jprice:
+executed command: 'ss -tuln'
+
+5 - Nov 10 10:01:02 ubuntu sshd[1204]:
+Failed password for invalid user admin
+from 203.0.113.50 port 44210 ssh2
+
+6 - Nov 10 10:01:03 ubuntu sshd[1205]:
+Failed password for invalid user root
+from 203.0.113.50 port 44211 ssh2
+
+7 - Nov 10 10:01:04 ubuntu sshd[1206]:
+Failed password for invalid user test
+from 203.0.113.50 port 44212 ssh2
+
+8 - Nov 10 10:01:05 ubuntu systemd[1]:
+Started Daily Log Rotation.
+
+9 - Nov 10 10:02:10 ubuntu jprice:
+executed command: 'journalctl -xe'
+
+10 - Nov 10 10:03:00 ubuntu apt-get[1455]:
+Reading package lists... Done
+```
+
+### Student Task
+
+Identify:
+
+1. Which events appear normal?
+2. Which events deserve investigation?
+3. What pattern do you see?
+4. What additional logs would you want to examine?
+
+---
+
+# 32. Practice Log Set 2 — Web Server
+
+```text
+1 - 192.168.1.50 - jprice
+[10/Nov/2025:11:00:01]
+"GET / HTTP/1.1" 200 4200
+
+2 - 192.168.1.50 - jprice
+[10/Nov/2025:11:00:02]
+"GET /style.css HTTP/1.1" 200 1800
+
+3 - 192.168.1.50 - jprice
+[10/Nov/2025:11:00:03]
+"GET /images/logo.png HTTP/1.1" 200 2500
+
+4 - 192.168.1.50 - jprice
+[10/Nov/2025:11:00:05]
+"GET /about.html HTTP/1.1" 200 3200
+
+5 - 203.0.113.60 - -
+[10/Nov/2025:11:01:01]
+"GET /admin HTTP/1.1" 404 512
+
+6 - 203.0.113.60 - -
+[10/Nov/2025:11:01:02]
+"GET /backup HTTP/1.1" 404 512
+
+7 - 203.0.113.60 - -
+[10/Nov/2025:11:01:03]
+"GET /config HTTP/1.1" 404 512
+
+8 - 203.0.113.60 - -
+[10/Nov/2025:11:01:04]
+"GET /images/banner.jpg HTTP/1.1" 200 3087
+
+9 - 192.168.1.50 - jprice
+[10/Nov/2025:11:02:00]
+"GET /contact.html HTTP/1.1" 200 2951
+```
+
+### Student Task
+
+Determine:
+
+* Which requests look like normal browsing?
+* Which requests form an unusual pattern?
+* What does the `404` tell you?
+* Why is line 8 important?
+* What would you investigate next?
+
+---
+
+# 33. Practice Log Set 3 — Mixed System Logs
+
+This time, everything is mixed together.
+
+```text
+1 - Nov 10 14:00:01 ubuntu systemd[1]:
+Started Daily apt download activities.
+
+2 - Nov 10 14:00:04 ubuntu jprice:
+executed command: 'df -h'
+
+3 - Nov 10 14:00:10 ubuntu sshd[2201]:
+Accepted password for jprice from
+192.168.1.50 port 22 ssh2
+
+4 - Nov 10 14:00:11 ubuntu sudo:
+jprice : USER=root ;
+COMMAND=/usr/bin/apt update
+
+5 - Nov 10 14:00:12 ubuntu sudo:
+pam_unix(sudo:session):
+session opened for user root by jprice(uid=1000)
+
+6 - Nov 10 14:00:15 ubuntu vsftpd[2311]:
+Failed login for invalid user admin
+from 203.0.113.25 port 21 ftp
+
+7 - Nov 10 14:00:16 ubuntu vsftpd[2312]:
+Failed login for invalid user root
+from 203.0.113.25 port 21 ftp
+
+8 - Nov 10 14:00:17 ubuntu vsftpd[2313]:
+Failed login for invalid user guest
+from 203.0.113.25 port 21 ftp
+
+9 - Nov 10 14:00:20 ubuntu apt-get[1450]:
+Reading package lists... Done
+
+10 - Nov 10 14:00:25 ubuntu sudo:
+pam_unix(sudo:session):
+session closed for user root
+
+11 - Nov 10 14:00:30 ubuntu systemd[1]:
+Finished Daily apt download activities.
+```
+
+### Student Task
+
+Find:
+
+* Normal administrative activity
+* Normal automated activity
+* Authentication activity
+* The suspicious pattern
+* The source associated with the suspicious pattern
+* What you would investigate next
+
+---
+
+# 34. Advanced Practice — Hidden Activity
+
+Now we are going to make the exercise harder.
+
+Most of the following activity is normal.
+
+One or more events require investigation.
+
+```text
+1 - Nov 10 15:00:01 ubuntu systemd[1]:
+Started Daily Cleanup Service.
+
+2 - Nov 10 15:00:05 ubuntu jprice:
+executed command: 'systemctl status apache2'
+
+3 - Nov 10 15:00:08 ubuntu jprice:
+executed command: 'df -h'
+
+4 - Nov 10 15:00:12 ubuntu jprice:
+executed command: 'ss -tuln'
+
+5 - Nov 10 15:00:20 ubuntu apt-get[1500]:
+Reading package lists... Done
+
+6 - Nov 10 15:01:01 ubuntu sshd[2501]:
+Failed password for invalid user admin
+from 198.51.100.42 port 41001 ssh2
+
+7 - Nov 10 15:01:02 ubuntu sshd[2502]:
+Failed password for invalid user root
+from 198.51.100.42 port 41002 ssh2
+
+8 - Nov 10 15:01:03 ubuntu sshd[2503]:
+Failed password for invalid user test
+from 198.51.100.42 port 41003 ssh2
+
+9 - Nov 10 15:01:04 ubuntu sshd[2504]:
+Failed password for invalid user guest
+from 198.51.100.42 port 41004 ssh2
+
+10 - Nov 10 15:02:00 ubuntu jprice:
+executed command: 'journalctl -xe'
+
+11 - Nov 10 15:02:20 ubuntu systemd[1]:
+Finished Daily Cleanup Service.
+
+12 - Nov 10 15:03:01 ubuntu sshd[2520]:
+Accepted password for jprice from
+192.168.1.50 port 22 ssh2
+
+13 - Nov 10 15:03:05 ubuntu sudo:
+jprice : USER=root ;
+COMMAND=/usr/bin/systemctl status apache2
+
+14 - Nov 10 15:03:10 ubuntu apache2:
+GET / HTTP/1.1 200
+
+15 - Nov 10 15:03:12 ubuntu apache2:
+GET /assets/style.css HTTP/1.1 200
+
+16 - Nov 10 15:03:15 ubuntu apache2:
+GET /download?file=../../etc/passwd HTTP/1.1 403
+
+17 - Nov 10 15:03:16 ubuntu apache2:
+GET /about HTTP/1.1 200
+
+18 - Nov 10 15:03:20 ubuntu systemd[1]:
+Started Daily Log Rotation.
+```
+
+---
+
+# 35. How to Approach the Advanced Practice
+
+Do not immediately search for words like:
+
+```text
+attack
+malware
+hack
+```
+
+Instead, analyze the evidence systematically.
+
+### Step 1 — Establish the normal baseline
+
+Look for things such as:
+
+```text
+systemd
+apt
+routine commands
+normal web requests
+expected logins
+```
+
+### Step 2 — Look for repeated patterns
+
+Ask:
+
+> Is something happening repeatedly?
+
+For example:
+
+```text
+Failed login
+Failed login
+Failed login
+Failed login
+```
+
+is more interesting than one failed login.
+
+### Step 3 — Look for unusual inputs
+
+Search for patterns such as:
+
+```text
+../
+<script>
+unexpected commands
+unexpected paths
+```
+
+### Step 4 — Look at the response
+
+Did the server return:
+
+```text
+200?
+403?
+404?
+500?
+```
+
+The response helps determine what happened.
+
+### Step 5 — Build a timeline
+
+Put the events in order.
+
+For example:
+
+```text
+15:01:01 Failed login
+15:01:02 Failed login
+15:01:03 Failed login
+15:01:04 Failed login
+```
+
+This is more meaningful than seeing four isolated events.
+
+### Step 6 — Ask what you still don't know
+
+Good cybersecurity analysts recognize the difference between:
+
+> "The logs show this."
+
+and:
+
+> "This is what must have happened."
+
+The first is evidence.
+
+The second may require additional investigation.
+
+---
+
+# 36. Advanced Log Analysis Checklist
+
+When you are given a large collection of logs, use this checklist.
+
+### Identity
+
+* What IP addresses appear?
+* What usernames appear?
+* Are multiple users associated with the same source?
+* Are there unknown users?
+
+### Time
+
+* When did events happen?
+* Are events happening repeatedly?
+* Are there unusual bursts of activity?
+
+### Authentication
+
+* Failed logins?
+* Successful logins?
+* Invalid users?
+* Multiple usernames?
+* Authentication followed by unusual activity?
+
+### Network
+
+* Unexpected IP addresses?
+* Unexpected ports?
+* ARP changes?
+* Unexpected services?
+* Unusual connections?
+
+### HTTP
+
+* What methods are being used?
+* What paths are being requested?
+* Are there suspicious query parameters?
+* Are there many 404s?
+* Are there unusual status codes?
+
+### Input
+
+Look for patterns such as:
+
+```text
+../
+../../
+%2e%2e
+<script>
+unexpected parameters
+unexpected commands
+```
+
+### Privileges
+
+Look for:
+
+```text
+sudo
+root
+uid=0
+su
+```
+
+Then determine what commands were executed.
+
+### Patterns
+
+Most importantly:
+
+> **Do several events tell the same story?**
+
+One strange event may be meaningless.
+
+Ten related strange events occurring within thirty seconds may deserve much more attention.
+
+---
+
+# 37. The Big Idea
+
+Advanced log analysis is about moving from:
+
+> **"What does this line mean?"**
+
+to:
+
+> **"What story do these logs tell?"**
+
+A cybersecurity analyst combines:
+
+```text
+IP addresses
+     +
+Users
+     +
+Timestamps
+     +
+Commands
+     +
+HTTP requests
+     +
+Status codes
+     +
+Network activity
+     +
+Authentication events
+     +
+System events
+```
+
+to create a timeline.
+
+The goal is not to automatically label every unusual event as an attack.
+
+

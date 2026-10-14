@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.5 — Cybersecurity Defense Terms | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a class="active" href="index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">1.5 • Cybersecurity Defense Terms</p>
+      <h1>Cybersecurity Defense Terms</h1>
+      <p class="unit-intro">Cybersecurity has its own language. The terms used in security plans and discussions help describe the goals of defense, the rules for access, and the layers that protect information, systems, and people.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Defense terms</span></div>
+        <div class="progress-meter"><span style="width: 90%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="1-1-social-engineering.html">1.1</a>
+      <a href="1-2-password-attacks.html">1.2</a>
+      <a href="1-3-security-practices.html">1.3</a>
+      <a href="1-4-CyberAttackers.html">1.4</a>
+      <a class="active" href="1-5-cybersecurity-defense-terms.html">1.5</a>
+      <a href="1-6-security-foundations-review.html">1.6</a>
+      <a href="1-7-osi-network-layers.html">1.7</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Security terms explain what we are trying to protect.</h2>
+          <p>Cybersecurity is not just a collection of tools. It is a system of principles, standards, and controls used to protect resources. Terms such as the CIA triad and AAA model help security professionals decide what matters most and how to defend it.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Goal</span>
+            <h3>CIA triad</h3>
+            <p>Defines the three essential goals of information security: confidentiality, integrity, and availability.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Access control</span>
+            <h3>AAA model</h3>
+            <p>Authentication proves who a user is, authorization decides what they can do, and accountability keeps actions traceable.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Best practice</span>
+            <h3>Layered defense</h3>
+            <p>Strong security depends on multiple controls working together, not just one policy or software tool.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">Core defense terms</h2>
+        <div class="accordion" aria-label="Cybersecurity defense terms">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">CIA triad <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>The CIA triad</strong> is one of the most important models in cybersecurity. It reminds us that information security is not only about preventing intrusions. It is also about maintaining the quality, trustworthiness, and usability of systems and data.</p>
+              <p><strong>Confidentiality</strong> means protecting information so only authorized people can view it. This is often accomplished through encryption, access control, secure storage, and proper permission settings. For example, student grades, passwords, medical information, and financial records should not be visible to people who do not need access.</p>
+              <p><strong>Integrity</strong> means protecting information from being changed, altered, or destroyed in unauthorized ways. Data integrity ensures that information is accurate, trustworthy, and reliable. This is why checksums, version control, backups, digital signatures, and audit logs matter. If an attacker changes a file or database record, the system may make poor decisions based on false information.</p>
+              <p><strong>Availability</strong> means ensuring systems, data, and services are available when authorized users need them. If a server is unavailable because of a denial-of-service attack, ransomware, hardware failure, or misconfiguration, users cannot do their work. Availability includes redundancy, backups, monitoring, incident response planning, and resilient system design.</p>
+              <p>In a real organization, the CIA triad guides many security decisions. A system with confidentiality but no integrity may leak data but still appear safe. A system with integrity but poor availability may keep data accurate but unusable. Security professionals try to balance all three so the system remains protected, reliable, and functional.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Confidentiality <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Confidentiality</strong> focuses on keeping sensitive information private. The goal is to limit access to people or systems with legitimate authorization.</p>
+              <p>Examples include encrypting data in transit and at rest, using strong passwords, limiting file permissions, restricting access to certain users, and preventing unauthorized viewing of private information. When confidentiality fails, secrets can be exposed, personal information can be stolen, and accounts can be compromised.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Integrity <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Integrity</strong> ensures data and systems are not altered without permission. It protects against tampering, corruption, accidental mistakes, and malicious changes.</p>
+              <p>Integrity is important because data is only useful if it is accurate. A school record that has been altered without approval could affect grades, attendance, or student services. A system that accepts false data is vulnerable even if it appears functional.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Availability <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Availability</strong> means an authorized user can access systems, networks, and information when needed. This includes protecting against outages, crashes, attacks, and configuration problems.</p>
+              <p>Availability is supported by backups, redundancy, software updates, monitoring, failover options, and disaster recovery planning. If a service is unavailable, the result may be lost productivity, missed deadlines, public disruption, or financial harm.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">AAA standards <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>AAA</strong> stands for <strong>Authentication, Authorization, and Accountability</strong>. These principles are central to access control and help keep systems secure, organized, and auditable.</p>
+              <p><strong>Authentication</strong> is the process of proving that a person or system is who they claim to be. This often involves a username and password, a smart card, a security key, a biometric scan, or a multi-factor challenge. Authentication answers the question: “Who are you?”</p>
+              <p><strong>Authorization</strong> is the process of deciding what a verified user is allowed to do. Once a system knows who the user is, it checks whether that person has the correct permissions. Authorization answers the question: “What are you allowed to do?” For example, a teacher may be allowed to view and edit grade records, while a student may only view their own grades.</p>
+              <p><strong>Accountability</strong> is the idea that actions can be traced back to a specific person, account, or system. This is important because it supports responsibility, auditing, and incident investigation. Accountability is often implemented through logs, monitoring, user IDs, timestamps, and policies requiring users to act according to approved security rules. If a file was changed or a malicious action occurred, accountability helps security teams determine who did it and why.</p>
+              <p>Together, AAA strengthens security by verifying identity, limiting access, and creating a trail of actions. Without authentication, there would be no reliable way to know who is accessing resources. Without authorization, users might access too much. Without accountability, an organization cannot investigate misconduct or respond to incidents effectively.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Authentication <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Authentication</strong> verifies identity. It answers the question: “Are you really the person or system you claim to be?”</p>
+              <p>Common methods include something you know (password or PIN), something you have (phone, token, smart card), and something you are (fingerprint, facial recognition). Multi-factor authentication combines two or more of these factors, making account compromise much harder. Even if an attacker learns a password, MFA can stop them if they do not also have the second factor.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Authorization <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Authorization</strong> determines what a verified user is allowed to access or do after identity has been confirmed. Authorization is about permissions and policy.</p>
+              <p>A person can be authenticated but still not authorized to perform an action. For example, a user might log in to a school account but not have permission to change other students’ records. Authorization protects privacy, reduces exposure, and limits damage if an account is compromised.</p>
+              <p>In many systems, authorization is based on roles such as student, teacher, administrator, or help desk technician. The idea of <strong>least privilege</strong> is directly connected to authorization: users should have only the access needed to complete their responsibilities.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Accountability <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Accountability</strong> ensures there is a way to identify who performed an action and hold that person responsible for it.</p>
+              <p>Organizations use logs, review reports, password policies, user monitoring, and incident records to maintain accountability. This helps in investigating an incident, identifying policy violations, and proving whether security controls were followed. Accountability is often a major part of compliance work because many laws and standards require traceability.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Firewall <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>firewall</strong> is a security tool that filters incoming and outgoing network traffic based on rules and policies.</p>
+              <p>It can block malicious traffic, limit access to trusted services, and help keep unauthorized users out of a network. Firewalls are commonly used between a private network and the public internet, and many devices also include a firewall as part of their operating system.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Encryption <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Encryption</strong> converts readable data into a coded form so that only authorized parties can read it.</p>
+              <p>Encryption protects information while it is stored on devices or being transmitted across networks. It is important for protecting passwords, files, messages, and system communications. If an attacker captures encrypted information but does not have the correct key, the data remains unreadable.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Multi-factor authentication (MFA) <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Multi-factor authentication (MFA)</strong> requires more than one form of verification before granting access.</p>
+              <p>This usually means combining a password with a code from a phone, hardware token, or app. MFA reduces the risk of stolen passwords alone leading to account compromise. Even if a password is exposed, the attacker still needs the second factor to access the account.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Least privilege <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Least privilege</strong> means giving users, programs, and devices only the minimum level of access needed to perform their assigned tasks.</p>
+              <p>This reduces risk because an attacker who gains access to one account may not be able to do as much damage if the account has limited permissions. It also makes it easier to identify unusual access patterns and reduces accidental mistakes due to excessive permissions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <h3>Example</h3>
+          <p>A school system stores student records and employee payroll data. To protect confidentiality, the system encrypts the records and restricts access to authorized staff. To protect integrity, the system logs changes and uses checks to ensure files are not modified without approval. To protect availability, backups and recovery procedures allow the school to restore access quickly if a server fails or an attack affects the network. Authentication verifies the person logging in, authorization decides what that user can view or change, and accountability logs every action so the IT team can investigate misuse.</p>
+        </div>
+
+        <div class="quiz-card" data-correct="cia">
+          <p>Which option best describes the purpose of the CIA triad?</p>
+          <div class="choice-row">
+            <button class="option-button" type="button" data-answer="cia">It guides the major goals of information security.</button>
+            <button class="option-button" type="button" data-answer="firewall">It only covers network hardware protection.</button>
+            <button class="option-button" type="button" data-answer="accountability">It is only about tracing users after an incident.</button>
+          </div>
+          <div class="answer-box" hidden>
+            <strong>Correct:</strong> The <strong>CIA triad</strong> describes the major goals of information security: confidentiality, integrity, and availability. It is a foundational model for designing and evaluating security controls.
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="Cybersecurity defense terms notes" placeholder="Summarize the CIA triad, explain AAA, and write your own example of how access control works in a school, workplace, or home environment..."></textarea>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain confidentiality, integrity, and availability.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know the difference between authentication, authorization, and accountability.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can describe why least privilege and MFA improve security.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I understand how layered defenses support the overall security goal.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Confidentiality protects secrets.</li>
+            <li>Integrity protects trust and accuracy.</li>
+            <li>Availability keeps systems usable.</li>
+            <li>AAA ensures the right people access the right things.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 1 • 1.5</span></div></footer>
+</body>
+</html>

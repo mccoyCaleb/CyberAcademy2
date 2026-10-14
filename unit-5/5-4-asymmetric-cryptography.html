@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5.4 — Asymmetric Cryptography | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+        <a class="active" href="index.html">Unit 5</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">5.4 • Asymmetric Cryptography</p>
+      <h1>Public and Private Keys</h1>
+      <p class="unit-intro">Symmetric encryption requires both parties to possess the same secret key. Asymmetric cryptography addresses this challenge by using a mathematically related pair of keys: a public key and a private key.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Key exchange</span></div>
+        <div class="progress-meter"><span style="width: 87%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="5-1-application-and-data-vulnerabilities.html">5.1</a>
+      <a href="5-2-protecting-applications-and-data.html">5.2</a>
+      <a href="5-3-protecting-stored-data-with-cryptography.html">5.3</a>
+      <a class="active" href="5-4-asymmetric-cryptography.html">5.4</a>
+      <a href="5-5-protecting-applications.html">5.5</a>
+      <a href="5-6-detecting-attacks-on-data-and-applications.html">5.6</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>The public key can be shared; the private key must stay secret.</h2>
+          <p>Asymmetric cryptography uses a pair of mathematically related keys. The public key can be shared with others. The private key must be kept secret. If an attacker obtains someone's private key, the security of systems relying on that key can be compromised.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card"><span class="tag">Public key</span><h3>Shared</h3><p>Used to encrypt data for the owner or verify a digital signature.</p></article>
+          <article class="info-card"><span class="tag">Private key</span><h3>Secret</h3><p>Used to decrypt data or create a digital signature.</p></article>
+          <article class="info-card"><span class="tag">Signature</span><h3>Authentication</h3><p>Proves the message came from the expected key holder and has not been changed.</p></article>
+        </div>
+
+        <div class="accordion" aria-label="Unit 5.4 content">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">5.4.1 The problem with symmetric encryption <span>−</span></button>
+            <div class="accordion-panel">
+              <p>Symmetric encryption requires both parties to possess the same secret key. That creates a problem: how can two people securely exchange the secret key if they do not already have a secure communication channel?</p>
+              <p>Asymmetric cryptography helps address this problem.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.4.2 Public and private keys <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Asymmetric cryptography uses a pair of mathematically related keys:</p>
+              <ul class="compare-list">
+                <li><strong>Public key</strong> — can be distributed.</li>
+                <li><strong>Private key</strong> — must be protected and never exposed.</li>
+              </ul>
+              <p>The keys are related, but they have different roles.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.4.3 Asymmetric encryption <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Suppose Alice wants to send Bob a secret message. Bob has a public key and a private key. Alice obtains Bob's public key and encrypts the message using Bob's public key.</p>
+              <p>Bob then decrypts it using his private key.</p>
+              <div class="reflect-box">Public key encrypts; corresponding private key decrypts.</div>
+              <p>This allows someone to send encrypted information without first sharing a secret symmetric key.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.4.4 Digital signatures <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Asymmetric cryptography can also be used in the opposite direction to help provide authentication and integrity.</p>
+              <p>A sender can use their private key to create a digital signature. Others can use the sender's public key to verify it.</p>
+              <div class="reflect-box">Message → Hash → Signature created using private key</div>
+              <p>A recipient can use the public key to verify that the message came from the expected key holder and that it was not changed.</p>
+              <p><strong>Important distinction:</strong> encryption primarily addresses confidentiality, while digital signatures primarily help with authentication and integrity.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.4.6 Key length <span>+</span></button>
+            <div class="accordion-panel">
+              <p>The AP framework emphasizes that key length affects the security of encrypted data. Longer keys generally create a larger keyspace, making brute-force key searching more difficult, although security also depends on the algorithm and implementation.</p>
+              <p>For example, <strong>2^8</strong> possible keys is much smaller than <strong>2^256</strong> possible keys.</p>
+              <p>But longer is not automatically better because longer keys can require more computation, processing time, and resources.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.4.7 Common asymmetric algorithms <span>+</span></button>
+            <div class="accordion-panel">
+              <p>The AP framework identifies RSA and ECC as examples of asymmetric algorithms.</p>
+              <p><strong>RSA</strong> is a widely known public-key cryptographic system based on mathematical properties involving very large numbers.</p>
+              <p><strong>ECC</strong> (Elliptic Curve Cryptography) provides public-key cryptography using elliptic-curve mathematics. One advantage is that ECC can provide strong security with comparatively smaller key sizes than some traditional public-key systems.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.4.8 Symmetric vs. asymmetric cryptography <span>+</span></button>
+            <div class="accordion-panel">
+              <table style="width:100%; border-collapse:collapse; color:var(--ink); font-size:.95rem;">
+                <thead>
+                  <tr style="background:#f8f2f0;">
+                    <th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">Property</th>
+                    <th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">Symmetric</th>
+                    <th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">Asymmetric</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td style="padding:10px; border:1px solid #e8ddd9;">Number of keys</td><td style="padding:10px; border:1px solid #e8ddd9;">One shared secret key</td><td style="padding:10px; border:1px solid #e8ddd9;">Public/private key pair</td></tr>
+                  <tr><td style="padding:10px; border:1px solid #e8ddd9;">Encryption</td><td style="padding:10px; border:1px solid #e8ddd9;">Secret key</td><td style="padding:10px; border:1px solid #e8ddd9;">Public key</td></tr>
+                  <tr><td style="padding:10px; border:1px solid #e8ddd9;">Decryption</td><td style="padding:10px; border:1px solid #e8ddd9;">Same secret key</td><td style="padding:10px; border:1px solid #e8ddd9;">Corresponding private key</td></tr>
+                  <tr><td style="padding:10px; border:1px solid #e8ddd9;">Speed</td><td style="padding:10px; border:1px solid #e8ddd9;">Generally faster</td><td style="padding:10px; border:1px solid #e8ddd9;">Generally slower</td></tr>
+                  <tr><td style="padding:10px; border:1px solid #e8ddd9;">Key distribution</td><td style="padding:10px; border:1px solid #e8ddd9;">Difficult</td><td style="padding:10px; border:1px solid #e8ddd9;">Easier</td></tr>
+                </tbody>
+              </table>
+              <p>Modern systems often combine both approaches. Asymmetric cryptography can help establish or exchange a secret, and symmetric cryptography can then efficiently protect large amounts of data.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Key idea</h3>
+          <ul class="compact-list">
+            <li><strong>Public key</strong> = share it</li>
+            <li><strong>Private key</strong> = protect it</li>
+            <li><strong>Digital signature</strong> = proves origin and integrity</li>
+            <li><strong>RSA / ECC</strong> = common asymmetric algorithms</li>
+          </ul>
+        </div>
+        <div class="status-card">
+          <h3>Why it matters</h3>
+          <p>Asymmetric cryptography solves the key-exchange problem. It is often used to establish trust and exchange secrets, while symmetric encryption then handles the bulk of data protection efficiently.</p>
+        </div>
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="Unit 5.4 notes" placeholder="Explain the difference between a public key and a private key. Then describe how a digital signature helps with authentication and integrity..."></textarea>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>Asymmetric cryptography uses a public/private key pair rather than one shared secret.</li>
+          <li>The public key can be shared; the private key must stay protected.</li>
+          <li>Public-key encryption protects confidentiality without first exchanging a shared secret.</li>
+          <li>Digital signatures help provide authentication and integrity.</li>
+          <li>Modern systems often use both symmetric and asymmetric cryptography together.</li>
+        </ul>
+      </div>
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Build security into the app.</h2>
+        <p>Once the data and keys are understood, the next part of the unit focuses on designing applications so they are secure by default rather than patched late.</p>
+        <a href="5-5-protecting-applications.html">Open 5.5 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 5 • 5.4</span></div></footer>
+</body>
+</html>

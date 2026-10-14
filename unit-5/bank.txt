@@ -1,0 +1,72 @@
+UNIT 5 REVIEW QUESTION BANK
+Securing Applications and Data
+
+For every case, identify the asset and data state/classification, the warning sign and vulnerability, the likely attack or control failure, the expected impact, and a solution. Explain why the proposed defense addresses the specific risk.
+
+1. Search field changes a database query
+Question: A web form accepts a search value that includes database commands. The application builds a query by joining the user's text directly into the SQL statement. What vulnerability is present, what could an attacker do, and what is the primary fix?
+Answer key: SQL injection caused by unsafe construction of a database query from untrusted input. An attacker may read, modify, or delete data, or affect application behavior depending on permissions. Use parameterized queries/prepared statements, validate input appropriately, and grant the application only the database privileges it needs. Do not rely on a filter that merely blocks a few suspicious characters.
+
+2. A comment runs as a script
+Question: A user posts a comment containing script-like content. Other users who view the page receive a fake sign-in prompt. Identify the vulnerability, affected users, and layered mitigations.
+Answer key: Cross-site scripting (XSS), where untrusted content is executed in other users' browsers. Sessions or credentials may be stolen and page content manipulated. Encode output for its context, validate/sanitize input where appropriate, use secure cookie and content security controls, and test untrusted-content paths. Do not display user-provided markup as trusted HTML.
+
+3. A path escapes the intended folder
+Question: A download endpoint accepts a filename. By adding path-navigation characters, a requester can retrieve a configuration file outside the public download directory. Name the problem and fix it at the design level.
+Answer key: Directory traversal/path traversal. It may expose configuration, secrets, or other files. Avoid using raw user-supplied paths; map an authorized file identifier to a server-controlled path, normalize and validate paths against an allowed root, enforce least privilege, and test encoded/path variants. Do not depend only on blocking one spelling of traversal characters.
+
+4. Oversized input crashes a service
+Question: An application crashes when a specially large input is submitted. A review finds an unsafe fixed-size buffer. Identify the vulnerability, possible impact, and safer engineering controls.
+Answer key: Buffer overflow/overread risk from unsafe memory handling. It can cause crashes, data exposure, or in some cases code execution. Use memory-safe languages or safe library APIs, enforce bounds and input limits, patch dependencies, and perform security testing. Validate recovery and monitor for exploit attempts.
+
+5. Private records sent without protection
+Question: A service sends confidential student information over an unencrypted connection on public Wi-Fi. Identify the data state, likely threat, CIA impact, and protections.
+Answer key: Data in transit is exposed to eavesdropping or on-path modification, threatening confidentiality and integrity. Use properly configured TLS/HTTPS, validate certificates, protect endpoints, and avoid transmitting data over untrusted channels without approved safeguards. Encryption does not replace authorization or secure endpoint handling.
+
+6. Who should see this record?
+Question: A school application labels a file “internal,” but every logged-in user can view highly sensitive health information. What went wrong, and how should data governance and access be improved?
+Answer key: Classification and authorization are mismatched; authentication alone does not justify access. Identify the data owner and classify it according to sensitivity (for example, confidential/highly sensitive, including PHI where applicable), then apply role-based or other approved access controls and least privilege, log access, and periodically review permissions. Applicable rules such as HIPAA or PCI DSS depend on the data and organization; do not assume a label alone provides protection.
+
+7. Too much permission inherited by an app
+Question: A scheduling application has the same database permissions as a system administrator. A flaw in the application could therefore read payroll and change grades. Identify the design weakness and a safer permission model.
+Answer key: Excessive privilege and poor separation of duties. Give the application only the minimum database tables/actions needed, isolate sensitive datasets, use separate service identities, and audit access. This limits the impact of exploitation and supports least privilege.
+
+8. Hash, encrypt, or sign?
+Question: A developer wants to store user passwords so the original can be recovered if a user forgets one. Another developer needs to detect whether a downloaded file changed. Choose the appropriate cryptographic approach for each and explain the distinction.
+Answer key: Passwords should not be recoverable: store salted values using a purpose-built slow password-hashing function, then reset rather than retrieve forgotten passwords. For file integrity, use a cryptographic hash and compare against a trusted expected value; a digital signature can authenticate who produced the value. Encryption is reversible with a key and protects confidentiality, not a substitute for password hashing.
+
+9. One shared encryption key
+Question: A small service encrypts every record with one symmetric key stored in the same public application directory as the encrypted files. The encryption algorithm is strong. What is the main weakness and how should it be addressed?
+Answer key: Key management and storage undermine the cryptography: an attacker who gets the directory may obtain both ciphertext and key. Protect keys separately with restricted access, managed key storage/rotation, and an incident plan; limit which service identity can decrypt. Strong AES or another sound cipher cannot compensate for exposed keys or poor access control.
+
+10. Encrypting to the wrong key
+Question: A user encrypts a confidential report using a public key found in an unsolicited email. The sender later asks the user to send the matching private key “so the report can be opened.” Identify the public/private key risk and safe practice.
+Answer key: The public key may belong to an attacker or be unverified; a private key must never be shared. Verify public-key ownership through a trusted channel/certificate process, use the intended recipient's verified public key for confidentiality, and keep the private key protected. If a private key was disclosed, treat it as compromised, revoke/replace it, and assess data exposure.
+
+11. Confidentiality versus authenticity
+Question: A vendor encrypts a message using the recipient's public key, and separately signs it with the vendor's private key. Which action supports confidentiality, which supports authenticity/integrity, and what must the recipient verify?
+Answer key: Encrypting with the recipient's public key is intended to let only the matching private-key holder decrypt, supporting confidentiality. Signing with the sender's private key supports authenticity and integrity when verified with the sender's trusted public key. Verify key identity/trust and signature validity; signatures do not hide the message contents.
+
+12. Secure by default or secure only after setup?
+Question: A newly installed application exposes its administrative console to the internet, uses a default password, and enables optional features that the school does not need. Identify the development/deployment principles violated and list concrete corrections.
+Answer key: This is not secure by default and violates secure-by-design principles. Disable unnecessary services/features, require unique strong credentials and MFA, restrict administrative access, patch, use least privilege and secure configuration, and test before deployment. Maintain a lifecycle of planning, testing, monitoring, and updating rather than treating security as a one-time setup.
+
+13. The honeytoken alert
+Question: A file containing a unique fake account number is placed in a restricted directory. A monitoring alert fires when the value is accessed from an unfamiliar service account. What is this detection technique, what does the alert suggest, and what should the team verify?
+Answer key: A honeytoken is a decoy value whose use can signal unauthorized access. The access is suspicious because normal systems should not need the fake value, but investigate the identity, source process, timestamps, and deployment/testing records before concluding compromise. Preserve logs, restrict access if risk warrants, and trace related data access.
+
+14. Unexpected mass file changes
+Question: File-integrity monitoring detects hundreds of sensitive records changing at 02:00, outside the normal update window. A legitimate software release was scheduled at 01:00. What is the warning, and how can the team distinguish compromise from expected maintenance?
+Answer key: Unusual volume and timing of data changes may indicate unauthorized modification or ransomware, but the scheduled release is a plausible benign explanation. Compare signed change records, deployment identity, file hashes, database/audit logs, access locations, and expected change scope. Contain if credible, preserve evidence, check backups and integrity, and restore only from verified known-good sources.
+
+15. Unusual access to sensitive data
+Question: An employee account downloads thousands of confidential records at midnight from a new location, although the employee usually views only a few during business hours. Identify the indicators, possible threats, and response.
+Answer key: Unusual time, location, volume, and deviation from the user's baseline are indicators of possible account compromise or misuse. Validate with the employee and approved activity records, review authentication/MFA and application logs, identify exactly which records were accessed, preserve evidence, and restrict/revoke access when warranted. Alert the responsible security/privacy team and follow notification procedures.
+
+16. A honeypot is touched
+Question: An internal decoy server that has no legitimate users receives repeated connection attempts from a workstation. What does this tell the analyst, and what does it not prove? Outline next steps.
+Answer key: A honeypot interaction is a strong signal that the source may be scanning or misdirected, but it does not alone prove which person is responsible or whether sensitive systems were accessed. Record timestamps and network details, correlate endpoint, authentication, and firewall logs, verify whether a test was authorized, and isolate/investigate the workstation if evidence supports compromise.
+
+17. The database backup is available but unreadable
+Question: A system outage occurs and the latest backup cannot be decrypted because the encryption key was lost. Which security goal is affected, and what does this show about the backup plan?
+Answer key: Availability is affected; potentially integrity/recovery assurance as well. A backup is not useful unless it can be restored. Maintain protected, separate key backups and documented key ownership/recovery, test restoration regularly, protect backups from compromise, and verify restored data before returning service. Balance key confidentiality with operational recovery.

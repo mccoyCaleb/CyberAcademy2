@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.1 — Network Vulnerabilities and Attacks | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a class="active" href="index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">3.1 • Network Vulnerabilities and Attacks</p>
+      <h1>Network Vulnerabilities and Attacks</h1>
+      <p class="unit-intro">Networks allow devices to communicate, but they also create opportunities for interception, redirection, impersonation, and disruption. This section introduces the main attacks that target network communication and the security impact they can have.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Attack concepts</span></div>
+        <div class="progress-meter"><span style="width: 20%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a class="active" href="3-1-network-vulnerabilities.html">3.1</a>
+      <a href="3-2-mac-addresses-and-arp.html">3.2</a>
+      <a href="3-3-protecting-networks.html">3.3</a>
+      <a href="3-4-network-segmentation.html">3.4</a>
+      <a href="3-5-firewalls.html">3.5</a>
+      <a href="3-6-acl-tables.html">3.6</a>
+      <a href="3-7-detecting-network-attacks.html">3.7</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Networks create both connectivity and risk.</h2>
+          <p>Every network transaction involves data moving between devices. That movement creates the opportunity for attackers to intercept, alter, impersonate, redirect, or flood traffic. Strong network defense must understand both how communication works and how attackers abuse it.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Addresses</span>
+            <h3>IP and MAC</h3>
+            <p>Computers use IP addresses to identify destinations and MAC addresses to identify interfaces on a local network.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Protocols</span>
+            <h3>Rules of communication</h3>
+            <p>Protocols such as ARP, DNS, HTTP/HTTPS, and ICMP control how devices exchange information and how attackers can manipulate those rules.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Security impact</span>
+            <h3>Confidentiality, integrity, availability</h3>
+            <p>Network attacks often threaten confidentiality by exposing data, integrity by modifying data, and availability by disrupting communication.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">Core network attacks</h2>
+        <div class="accordion" aria-label="Core network attacks">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">ARP poisoning <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>ARP</strong> matches an IP address to a MAC address on a local network. Attackers can send false ARP information so the victim sends traffic to the attacker instead of the intended device.</p>
+              <p><strong>Result:</strong> The attacker is placed in the middle of communication, creating an <strong>on-path attack</strong> that can expose or modify traffic.</p>
+              <p><strong>Security impact:</strong> Confidentiality, integrity, and sometimes availability.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">On-path attacks <span>+</span></button>
+            <div class="accordion-panel">
+              <p>An <strong>on-path attack</strong> happens when an attacker sits between two communicating parties. The communication continues, but the attacker may observe or alter it.</p>
+              <p>The attack may be hidden because traffic appears to move normally. The key idea is that the attacker is not necessarily trying to stop the connection; they may want to capture or manipulate it.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">MAC spoofing <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>MAC spoofing</strong> is when a device changes the MAC address it presents to the network to impersonate another device.</p>
+              <p>Attackers may try to bypass MAC-based restrictions, evade identification, or gain unauthorized access. However, MAC addresses are not strong authentication because they can be altered.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">MAC flooding <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A switch keeps a <strong>MAC address table</strong> that maps devices to switch ports. A <strong>MAC flooding</strong> attack sends many fake MAC addresses to overwhelm that table.</p>
+              <p>If the table fills up, the switch may start forwarding traffic more broadly, which gives the attacker a chance to observe traffic they should not receive.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Eavesdropping <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Eavesdropping</strong> is simply observing or capturing network traffic. The attacker may gather login information, messages, files, or other sensitive data.</p>
+              <p><strong>Encryption</strong> is an important defense because even if data is captured, it is much harder to understand if it is encrypted.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">DNS, credential theft, and denial of service</h2>
+        <div class="accordion" aria-label="DNS and DoS attacks">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">DNS poisoning <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>DNS</strong> translates human-readable names such as example.com into IP addresses. In a <strong>DNS poisoning</strong> attack, the attacker causes the victim to receive incorrect DNS results.</p>
+              <p>Instead of going to the legitimate website, the victim may be sent to a malicious site. That can lead to credential harvesting or other social-engineering traps.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Credential harvesting <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Credential harvesting</strong> is the collection of usernames, passwords, or other authentication details. A fake login page is a common method.</p>
+              <p>Attackers often combine DNS poisoning and fake pages to trick a user into entering their account information.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">DoS and DDoS <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>Denial-of-Service (DoS)</strong> attack aims to make a resource unavailable to legitimate users. A <strong>Distributed Denial-of-Service (DDoS)</strong> uses multiple devices to overwhelm the target.</p>
+              <p>These attacks mainly target <strong>availability</strong>.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Smurf attack <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>Smurf attack</strong> is a DoS attack that uses <strong>ICMP</strong> requests to a broadcast address while spoofing the victim’s source address.</p>
+              <p>Many devices respond, sending large amounts of traffic toward the victim. Remember the pattern: <strong>Smurf + ICMP + broadcast</strong>.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">Wireless network attacks</h2>
+        <div class="scenario-card">
+          <h3>Wireless communication creates new attack paths</h3>
+          <p>Wireless networks are easier for an attacker to reach without a cable. This makes certain attacks more practical, including eavesdropping, evil twins, rogue access points, and jamming.</p>
+          <ul class="compare-list">
+            <li><strong>Evil twin:</strong> a malicious access point that looks like a legitimate wireless network.</li>
+            <li><strong>Rogue access point:</strong> an unauthorized wireless access point attached to a network.</li>
+            <li><strong>Jamming:</strong> interference designed to disrupt wireless communication and damage availability.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-card" data-correct="dns">
+          <p>A user types a valid website name but is redirected to a fake website that is designed to gather credentials. Which attack is most likely happening?</p>
+          <div class="choice-row">
+            <button class="option-button" type="button" data-answer="dns">DNS poisoning</button>
+            <button class="option-button" type="button" data-answer="arp">ARP poisoning</button>
+            <button class="option-button" type="button" data-answer="jamming">Jamming</button>
+          </div>
+          <div class="answer-box" hidden>
+            <strong>Correct:</strong> This is a <strong>DNS poisoning</strong> event. The attacker redirects the victim to a malicious site that may collect credentials.
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain what ARP poisoning does.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know the difference between IP and MAC addresses.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can describe how DNS poisoning can lead to credential harvesting.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know the purpose of a DoS or DDoS attack.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Attackers often chain multiple techniques together.</li>
+            <li>On-path attacks may be invisible to the user.</li>
+            <li>Encryption reduces the usefulness of captured traffic.</li>
+            <li>Wireless environments make interception easier.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Next concept</h2>
+        <div class="unit-card-list">
+          <a class="unit-link-card" href="3-2-mac-addresses-and-arp.html">
+            <span>3.2</span>
+            <strong>MAC Addresses and ARP Review</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Defend the network.</h2>
+        <p>Once you understand the attacks, the next step is learning which controls reduce the risk and how network security is layered.</p>
+        <a href="3-2-mac-addresses-and-arp.html">Open 3.2 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 3 • 3.1</span></div></footer>
+</body>
+</html>

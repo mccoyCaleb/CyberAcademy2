@@ -1,0 +1,1089 @@
+What is an ACL?
+
+An Access Control List (ACL) is a set of rules that determines whether network traffic should be allowed or denied.
+
+You can think of an ACL like a security guard at the entrance to a building.
+
+The guard might ask:
+
+Where are you coming from?
+Where are you going?
+What are you trying to access?
+What type of traffic are you using?
+What port are you trying to use?
+
+The ACL uses this information to decide:
+
+ALLOW or DENY
+
+ACLs are commonly used on:
+
+Firewalls
+Routers
+Switches
+Servers
+Network security devices
+1. The Basic Structure of an ACL
+
+An ACL might look like this:
+
+Rule	Action	Direction	Protocol	Port	Source
+1	Allow	Inbound	TCP	80	ALL
+2	Deny	Inbound	TCP	22	192.168.1.0–192.168.1.255
+3	Allow	Inbound	ICMP	ALL	ALL
+4	Deny	Inbound	ALL	ALL	ALL
+
+Each column gives you information about what kind of traffic the rule applies to.
+
+The most important skill is learning how to read every column together.
+
+2. The Five Things You Need to Check
+
+When looking at an ACL, ask these questions in order:
+
+1. What direction is the traffic going?
+
+Inbound or outbound?
+
+2. What protocol is being used?
+
+TCP, UDP, ICMP, or something else?
+
+3. What port is being accessed?
+
+For example:
+
+22 → SSH
+53 → DNS
+80 → HTTP
+443 → HTTPS
+25 → SMTP
+3389 → RDP
+4. Where is the traffic coming from?
+
+This is the source IP address.
+
+5. Does the rule allow or deny it?
+
+If all of the other conditions match, the ACL applies the rule.
+
+3. The Most Important Rule: ACLs Are Usually Read Top-to-Bottom
+
+This is probably the most important concept for ACL questions.
+
+An ACL is generally processed from Rule 1 → Rule 2 → Rule 3 → Rule 4...
+
+The firewall looks for the first rule that matches the packet.
+
+Once it finds a matching rule:
+
+STOP. Apply that rule.
+
+It does not continue looking at the later rules.
+
+Example
+
+Consider:
+
+Rule	Action	Protocol	Port	Source
+1	Deny	TCP	443	ALL
+2	Allow	TCP	443	ALL
+
+A computer tries to connect using TCP port 443.
+
+Rule 1 says:
+
+TCP + port 443 + any source → DENY
+
+The firewall stops there.
+
+It never gets to Rule 2.
+
+Result:
+
+DENIED
+
+Even though Rule 2 says to allow it.
+
+4. Why Rule Order Matters
+
+Now switch the rules:
+
+Rule	Action	Protocol	Port	Source
+1	Allow	TCP	443	ALL
+2	Deny	TCP	443	ALL
+
+The same computer tries TCP port 443.
+
+The firewall checks Rule 1:
+
+TCP + 443 + ALL → ALLOW
+
+It stops.
+
+Result:
+
+ALLOWED
+
+Rule 2 never gets used.
+
+Remember:
+
+Earlier matching rules take priority over later matching rules.
+
+This is why changing the order of ACL rules can completely change what a firewall allows.
+
+5. Direction: Inbound vs. Outbound
+
+Another important column is Direction.
+
+There are two basic directions:
+
+Inbound
+
+Traffic is coming into the device/server/network.
+
+Computer ───────► Firewall ───────► Server
+                    INBOUND
+
+The traffic is entering the protected system.
+
+Outbound
+
+Traffic is leaving the device/server/network.
+
+Server ───────► Firewall ───────► Internet
+                   OUTBOUND
+
+The traffic is leaving the protected system.
+
+Why Does Direction Matter?
+
+Suppose an ACL says:
+
+Action	Direction	Protocol	Port
+Deny	Inbound	TCP	443
+
+This does not necessarily mean:
+
+"Block all HTTPS traffic everywhere."
+
+It means:
+
+"Block matching TCP port 443 traffic entering this device/interface."
+
+Direction tells you which traffic the rule is examining.
+
+6. Protocol
+
+The protocol tells the firewall what type of network traffic is being used.
+
+Common protocols you'll see include:
+
+TCP
+
+TCP is commonly used when reliable communication is important.
+
+Examples:
+
+HTTP → port 80
+HTTPS → port 443
+SSH → port 22
+FTP → ports 20/21
+RDP → port 3389
+UDP
+
+UDP does not establish a connection in the same way TCP does and is often used when speed is important.
+
+Examples include:
+
+DNS → port 53
+DHCP → ports 67/68
+Many streaming and real-time applications
+ICMP
+
+ICMP is used for network control and diagnostic messages.
+
+A common example is:
+
+ping
+
+Ping uses ICMP.
+
+Importantly:
+
+ICMP does not use TCP or UDP ports in the normal way.
+
+So an ACL might say:
+
+Action	Protocol	Port
+Allow	ICMP	ALL
+
+The port column isn't meaningful in the same way it is for TCP/UDP.
+
+7. Ports
+
+A port helps identify the network service being accessed.
+
+Think of an IP address as the street address of a building and the port as the specific door.
+
+For example:
+
+192.168.1.20:443
+
+means:
+
+IP address = 192.168.1.20
+Port = 443
+
+Port 443 generally represents HTTPS.
+
+Important Ports to Know
+Port	Protocol/Service	Common Purpose
+22	TCP	SSH
+25	TCP	SMTP/email
+53	TCP/UDP	DNS
+67	UDP	DHCP server
+68	UDP	DHCP client
+80	TCP	HTTP
+443	TCP	HTTPS
+3306	TCP	MySQL
+3389	TCP	RDP
+587	TCP	SMTP submission
+
+For an ACL question, don't just look at the port.
+
+You need to look at:
+
+Protocol + Port + Source + Direction
+
+8. Source IP Address
+
+The source tells you where the traffic originated.
+
+For example:
+
+192.168.45.37
+
+If a computer with this IP address sends traffic, then:
+
+Source = 192.168.45.37
+
+An ACL could say:
+
+Action	Protocol	Port	Source
+Deny	TCP	443	192.168.45.37
+
+That means:
+
+Deny TCP port 443 traffic coming from 192.168.45.37.
+
+9. Destination vs. Source
+
+This can be confusing.
+
+Imagine:
+
+Computer                    Server
+192.168.45.37              10.0.0.50
+      │                         │
+      └────── TCP 443 ─────────►
+
+The:
+
+Source is:
+
+192.168.45.37
+
+The:
+
+Destination is:
+
+10.0.0.50
+
+If the ACL is installed on the server's firewall, the server may be the destination of the connection.
+
+10. What Does "ALL" Mean?
+
+If an ACL says:
+
+Protocol	Port	Source
+ALL	ALL	ALL
+
+the rule is extremely broad.
+
+It means the rule can match:
+
+Any protocol
+Any port
+Any source
+
+For example:
+
+Action	Protocol	Port	Source
+Deny	ALL	ALL	ALL
+
+This effectively means:
+
+Deny everything that reaches this rule.
+
+This type of rule is often placed near the bottom as a final catch-all rule.
+
+11. The "Default Deny" Concept
+
+A very important firewall concept is:
+
+Anything that isn't explicitly allowed may be denied.
+
+Many ACLs have a final rule similar to:
+
+DENY ALL
+
+For example:
+
+Rule	Action	Protocol	Port	Source
+1	Allow	TCP	80	ALL
+2	Allow	TCP	443	ALL
+3	Allow	ICMP	ALL	ALL
+4	Deny	ALL	ALL	ALL
+
+The firewall allows:
+
+HTTP
+HTTPS
+ICMP
+
+Then the final rule blocks everything else.
+
+12. IP Addresses and Networks
+
+Now we need to understand IP ranges.
+
+An individual IP address looks like:
+
+192.168.45.37
+
+But an ACL can specify an entire network.
+
+For example:
+
+192.168.45.0 - 192.168.45.255
+
+This represents 256 possible addresses:
+
+192.168.45.0
+192.168.45.1
+192.168.45.2
+...
+192.168.45.255
+
+An ACL can therefore apply a rule to an entire group of computers instead of just one computer.
+
+13. Subnet Masks
+
+A subnet mask tells us which part of an IP address represents the network and which part represents individual devices.
+
+For example:
+
+IP address:    192.168.45.37
+Subnet mask:   255.255.255.0
+
+The mask:
+
+255.255.255.0
+
+means the first three sections identify the network:
+
+192.168.45
+
+while the last section identifies the host/device:
+
+37
+
+Therefore, the network is:
+
+192.168.45.0/24
+
+and the range is:
+
+192.168.45.0 – 192.168.45.255
+14. CIDR Notation
+
+You will often see networks written like this:
+
+192.168.45.0/24
+
+The /24 is another way of representing:
+
+255.255.255.0
+
+So:
+
+192.168.45.0/24
+
+means the same network as:
+
+192.168.45.0
+255.255.255.0
+
+or:
+
+192.168.45.0 – 192.168.45.255
+15. Understanding /24
+
+IPv4 addresses contain 32 bits.
+
+A /24 means:
+
+The first 24 bits identify the network.
+
+That leaves:
+
+32 - 24 = 8
+
+bits for hosts.
+
+Therefore:
+
+2⁸ = 256
+
+possible addresses.
+
+So a /24 contains:
+
+256 total addresses.
+
+For many introductory ACL questions, you mainly need to recognize that:
+
+192.168.45.0/24
+
+covers:
+
+192.168.45.0
+through
+192.168.45.255
+16. Does an IP Belong to a Network?
+
+Suppose an ACL says:
+
+192.168.45.0/24
+
+And the computer has:
+
+192.168.45.37
+
+Does it belong?
+
+Yes.
+
+Because:
+
+192.168.45.0
+        ↓
+192.168.45.37
+        ↓
+192.168.45.255
+
+The address is inside the range.
+
+Now suppose the computer is:
+
+192.168.46.37
+
+Does it belong to 192.168.45.0/24?
+
+No.
+
+The third octet is different:
+
+192.168.45.x
+         ↑
+
+versus:
+
+192.168.46.x
+         ↑
+
+Therefore, it is outside the network.
+
+17. Reading an ACL Rule
+
+Let's examine this rule:
+
+Rule	Action	Direction	Protocol	Port	Source
+3	Deny	Inbound	TCP	443	192.168.45.0/24
+
+Break it apart.
+
+Action
+DENY
+
+The traffic will be blocked if it matches.
+
+Direction
+INBOUND
+
+The traffic must be coming into the protected device/interface.
+
+Protocol
+TCP
+
+The traffic must use TCP.
+
+Port
+443
+
+The traffic must be attempting to use port 443.
+
+Source
+192.168.45.0/24
+
+The traffic must originate from an IP in:
+
+192.168.45.0–192.168.45.255
+18. Does a Packet Match the Rule?
+
+Suppose we have:
+
+Source:      192.168.45.37
+Protocol:    TCP
+Port:        443
+Direction:   Inbound
+
+Compare it with:
+
+DENY
+INBOUND
+TCP
+443
+192.168.45.0/24
+
+Check each condition:
+
+Condition	Packet	Rule	Match?
+Direction	Inbound	Inbound	✅
+Protocol	TCP	TCP	✅
+Port	443	443	✅
+Source	192.168.45.37	192.168.45.0/24	✅
+
+Everything matches.
+
+Therefore:
+
+The rule applies → DENY
+
+19. What If Only One Thing Doesn't Match?
+
+Suppose the source is:
+
+192.168.46.37
+
+Everything else stays the same.
+
+The rule requires:
+
+192.168.45.0/24
+
+But:
+
+192.168.46.37
+
+is not part of that network.
+
+Therefore:
+
+The rule does not match.
+
+The firewall moves to the next rule.
+
+This is extremely important.
+
+A rule doesn't partially apply.
+
+For a normal ACL evaluation, the packet needs to satisfy the conditions specified by the rule.
+
+20. The ACL Decision Process
+
+When you see an ACL question, use this process:
+
+Step 1 — Identify the packet
+
+Write down:
+
+Source IP:
+Destination:
+Direction:
+Protocol:
+Port:
+Step 2 — Start at Rule 1
+
+Don't jump around.
+
+Step 3 — Compare every relevant column
+
+Ask:
+
+Does the direction match?
+Does the protocol match?
+Does the port match?
+Does the source match?
+Step 4 — If it doesn't match
+
+Move to the next rule.
+
+Step 5 — If it matches
+
+STOP.
+
+Apply:
+
+ALLOW or DENY
+
+Step 6 — Ignore later rules
+
+Once a rule matches, later rules don't change that decision.
+
+21. Worked Example
+
+Consider this ACL:
+
+Rule	Action	Direction	Protocol	Port	Source
+1	Allow	Inbound	TCP	80	ALL
+2	Deny	Inbound	TCP	22	192.168.1.0/24
+3	Allow	Inbound	TCP	443	ALL
+4	Deny	Inbound	ALL	ALL	ALL
+
+A computer:
+
+IP: 192.168.1.25
+
+attempts:
+
+TCP port 22
+Rule 1
+
+Rule 1 requires:
+
+TCP port 80
+
+But the packet is:
+
+TCP port 22
+
+❌ Doesn't match.
+
+Move on.
+
+Rule 2
+
+Rule 2 requires:
+
+TCP
+Port 22
+Source 192.168.1.0/24
+
+The packet has:
+
+TCP
+Port 22
+Source 192.168.1.25
+
+And 192.168.1.25 is inside:
+
+192.168.1.0/24
+
+Everything matches.
+
+Therefore:
+
+DENY
+
+Stop.
+
+22. Another Example
+
+Now the same ACL receives:
+
+Source: 10.0.0.50
+Protocol: TCP
+Port: 22
+Rule 1
+
+TCP port 80?
+
+No.
+
+❌
+
+Rule 2
+
+TCP port 22?
+
+Yes.
+
+Source must be:
+
+192.168.1.0/24
+
+But the source is:
+
+10.0.0.50
+
+❌
+
+So Rule 2 doesn't match.
+
+Rule 3
+
+TCP port 443?
+
+No.
+
+❌
+
+Rule 4
+DENY
+ALL
+ALL
+ALL
+
+Everything matches.
+
+Therefore:
+
+DENY
+
+23. Applying This to Your Original Question
+
+Now let's look at the important portion of your original ACL:
+
+Rule	Action	Direction	Protocol	Port	Source
+1	Allow	Inbound	TCP	22	ALL
+2	Allow	Inbound	TCP	80	ALL
+3	Deny	Inbound	TCP	443	192.168.0.0/16
+4	Allow	Inbound	ICMP	ALL	ALL
+5	Allow	Inbound	TCP	3306	ALL
+6	Deny	Inbound	TCP	3389	ALL
+7	Allow	Inbound	TCP	443	ALL
+8	Allow	Inbound	TCP	587	ALL
+9	Deny	Inbound	TCP	8140	192.168.45.0/24
+10	Deny	Inbound	ALL	ALL	ALL
+
+The technician's IP is:
+
+192.168.45.37
+
+They are trying:
+
+TCP
+Port 443
+First, check Rule 1
+
+Rule 1:
+
+TCP port 22
+
+The technician is using:
+
+TCP port 443
+
+❌ No match.
+
+Rule 2
+
+Rule 2:
+
+TCP port 80
+
+Technician:
+
+TCP port 443
+
+❌ No match.
+
+Rule 3
+
+Rule 3 says:
+
+DENY
+TCP
+443
+192.168.0.0/16
+
+The source is:
+
+192.168.45.37
+
+Does that belong to 192.168.0.0/16?
+
+Yes.
+
+A /16 means the first two octets identify the network:
+
+192.168.x.x
+
+Therefore:
+
+192.168.45.37
+
+is inside that network.
+
+So Rule 3 matches.
+
+And Rule 3 says:
+
+DENY
+
+The firewall stops here.
+
+24. But Rule 7 Says Allow 443!
+
+Exactly.
+
+Rule 7 says:
+
+ALLOW
+TCP
+443
+ALL
+
+But the firewall never reaches Rule 7.
+
+Why?
+
+Because Rule 3 already matched.
+
+This is the central concept behind the question:
+
+Rule 1 → no match
+Rule 2 → no match
+Rule 3 → MATCH → DENY
+                     ↓
+                  STOP
+
+So simply having an Allow TCP 443 rule later in the ACL does not help.
+
+25. Why Swapping Rules 3 and 7 Works
+
+If you swap Rules 3 and 7, the beginning becomes:
+
+Rule	Action	Protocol	Port	Source
+1	Allow	TCP	22	ALL
+2	Allow	TCP	80	ALL
+3	Allow	TCP	443	ALL
+4	Allow	ICMP	ALL	ALL
+...	...	...	...	...
+7	Deny	TCP	443	192.168.0.0/16
+
+Now the technician sends:
+
+192.168.45.37 → Server
+TCP port 443
+
+Rule 1?
+
+❌
+
+Rule 2?
+
+❌
+
+Rule 3?
+
+TCP ✓
+443 ✓
+ALL ✓
+
+MATCH.
+
+Therefore:
+
+ALLOW
+
+The firewall stops before it ever reaches the later deny rule.
+
+26. The Big Idea: Specific vs. General Rules
+
+This is an important ACL design concept.
+
+You may have:
+
+ALLOW TCP 443 from ALL
+
+and:
+
+DENY TCP 443 from 192.168.0.0/16
+
+These rules overlap.
+
+The question becomes:
+
+Which rule should get evaluated first?
+
+Because ACLs are processed from top to bottom, order determines which rule wins.
+
+27. A Good Mental Model
+
+Imagine an ACL as a series of doors.
+
+             Packet
+                ↓
+        ┌──────────────┐
+        │   Rule 1     │
+        └──────┬───────┘
+               │
+          Match? ──YES──► ALLOW/DENY → STOP
+               │
+              NO
+               ↓
+        ┌──────────────┐
+        │   Rule 2     │
+        └──────┬───────┘
+               │
+          Match? ──YES──► ALLOW/DENY → STOP
+               │
+              NO
+               ↓
+        ┌──────────────┐
+        │   Rule 3     │
+        └──────┬───────┘
+               │
+              ...
+               ↓
+        ┌──────────────┐
+        │ Default Rule │
+        └──────────────┘
+
+The packet keeps moving down until it finds a rule that matches.
+
+28. Common Mistakes
+Mistake 1: Looking for an "Allow" without checking earlier rules
+
+Seeing:
+
+ALLOW TCP 443
+
+doesn't automatically mean port 443 works.
+
+There could be an earlier:
+
+DENY TCP 443
+Mistake 2: Ignoring the source
+
+These two rules are different:
+
+DENY TCP 443 ALL
+
+versus:
+
+DENY TCP 443 192.168.1.0/24
+
+The first applies to everyone.
+
+The second applies only to that network.
+
+Mistake 3: Forgetting direction
+
+An inbound rule and outbound rule aren't necessarily evaluating the same traffic.
+
+Always identify:
+
+INBOUND
+
+or
+
+OUTBOUND
+Mistake 4: Thinking every rule gets evaluated
+
+Normally, once a matching rule is found:
+
+Stop.
+
+You don't continue to the next rule.
+
+Mistake 5: Confusing IP addresses with ports
+
+For example:
+
+192.168.45.37
+
+is an IP address.
+
+443
+
+is a port.
+
+Don't confuse:
+
+192.168.45.37:443
+
+with one number. It represents:
+
+IP address + port
+
+29. Your ACL Checklist
+
+When solving an ACL problem, use this checklist:
+
+1. Identify the source
+Who is sending the traffic?
+
+Example:
+
+192.168.45.37
+2. Identify the direction
+Inbound or outbound?
+3. Identify the protocol
+TCP?
+UDP?
+ICMP?
+4. Identify the port
+22?
+53?
+80?
+443?
+3389?
+5. Start at Rule 1
+
+Never skip ahead.
+
+6. Check every condition
+
+Ask:
+
+Does the direction match?
+Does the protocol match?
+Does the port match?
+Does the source match?
+7. If it doesn't match → move down
+8. If it matches → STOP
+
+Apply:
+
+ALLOW
+
+or
+
+DENY
+9. Remember the order
+
+The first matching rule determines the result.
+
+30. Quick Reference Sheet
+Concept	Meaning
+ACL	List of rules controlling network traffic
+Allow	Permit matching traffic
+Deny	Block matching traffic
+Inbound	Traffic entering a device/network
+Outbound	Traffic leaving a device/network
+Source	Where the traffic came from
+Destination	Where the traffic is going
+TCP	Connection-oriented transport protocol
+UDP	Connectionless transport protocol
+ICMP	Network control/diagnostic protocol
+Port	Identifies a network service/application endpoint
+ALL	Matches any value in that field
+/24	Equivalent to 255.255.255.0
+/16	Equivalent to 255.255.0.0
+First match	The first matching rule determines the action
+Default deny	Traffic not otherwise permitted is blocked

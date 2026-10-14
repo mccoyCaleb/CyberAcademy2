@@ -1,0 +1,56 @@
+UNIT 2 REVIEW QUESTION BANK
+Securing Spaces
+
+For every scenario, answer: What asset is exposed? What is the warning or vulnerability? Name the most specific problem, estimate the likely impact, and state a practical solution. Answer keys are included for review.
+
+1. The borrowed badge
+Question: A visitor says they forgot their badge and asks an employee to hold open a controlled door. The employee knowingly lets them in because they seem friendly. Distinguish this from tailgating and state the correct response.
+Answer key: This is piggybacking: the authorized person knowingly allows the unauthorized person to enter. Tailgating is when the person follows without the authorized person's awareness. The facility and equipment are at risk. Do not admit unverified visitors; direct them to reception/security and follow visitor sign-in and badge procedures.
+
+2. The person reading over a shoulder
+Question: While a staff member enters a password at a busy front desk, a person behind them watches and later tries the same password on another service. Identify the physical information-gathering technique and the follow-on account risk. Give two controls.
+Answer key: Identifier: shoulder surfing. The observed password may enable account takeover, especially if reused. Use a privacy screen and shield the keyboard; avoid entering secrets where others can see; use unique passwords and MFA; report suspected exposure and change the password through the official service.
+
+3. Discarded records
+Question: A student finds a box of printed schedules, staff phone numbers, and account reset instructions in an unlocked recycling area. Someone could use these to impersonate staff. Identify the physical weakness and explain a safer disposal process.
+Answer key: Identifier: dumpster diving risk, enabled by improper disposal and poor access control. The documents provide information for social engineering or account attacks. Store sensitive papers securely until destruction; use approved shredding/secure disposal; limit access to records and remove reset secrets from public documents.
+
+4. A cloned access card
+Question: A staff member's badge still works after it was briefly out of sight at a crowded event. Security logs show that badge opening doors at two distant locations close together. What may be happening and what should security do?
+Answer key: A cloned or stolen card may be in use; unusual simultaneous use is a warning, not proof by itself. Revoke the badge, verify the employee's activity, inspect access logs/video and related evidence, issue a replacement securely, and check whether other credentials or areas were exposed.
+
+5. The unlocked server closet
+Question: A maintenance door to a network closet is propped open. A switch has an unfamiliar cable connected to an unused port. Identify the vulnerability and possible risks; propose immediate and longer-term actions.
+Answer key: Physical access control failure and an exposed network port. Risks include device tampering, rogue-device attachment, data interception, or service disruption. Secure the door, disconnect or quarantine the unknown device through authorized IT procedures, preserve relevant access/network logs, inspect equipment, and implement controlled access, port security, and routine checks.
+
+6. The risk assessment
+Question: A school stores student records on a single laptop kept in a room that floods several times each year. For that laptop and its records, identify an asset, threat, vulnerability, likelihood, impact, and an appropriate treatment.
+Answer key: Asset: laptop and student records. Threat: flooding/water damage. Vulnerability: storage in a known flood-prone room with no resilient backup or protection. Likelihood is elevated by repeated floods; impact may include data loss and unavailable records. Mitigate by relocating/protecting equipment and keeping tested, separate backups; transfer/acceptance may be considered for remaining risk, but acceptance should be informed and approved.
+
+7. Choose a risk treatment
+Question: The school stops storing paper copies of a sensitive record in a building with repeated water damage and moves the record to an approved secure service. Is that avoidance, transference, mitigation, or acceptance? Contrast it with buying insurance for remaining damage risk.
+Answer key: Removing the risky storage activity is risk avoidance. Insurance shifts some financial consequences and is risk transference; it does not prevent the incident. Mitigation reduces likelihood or impact; acceptance consciously retains residual risk with appropriate approval. A strong plan can combine treatments.
+
+8. Layering controls at a restricted room
+Question: A room uses a badge reader, a camera, visitor rules, and a recovery plan for damaged equipment. Classify examples as physical/technical/managerial and preventive/detective/corrective. Explain why layers matter.
+Answer key: Badge readers and cameras are technical controls; locks/doors are physical; visitor rules and training are managerial. A badge reader or lock is primarily preventive; a camera/log review is detective; equipment restoration/recovery is corrective. Multiple independent controls reduce reliance on a single barrier and lower the chance or impact of unauthorized access.
+
+9. The power outage
+Question: A brief outage shuts down a network switch and interrupts access to attendance records. A surge damages a second device when power returns. What availability and equipment threats are present, and which controls fit each?
+Answer key: Power loss threatens availability; a surge can damage equipment and data. A UPS can provide short-term power and orderly shutdown; surge protection can reduce electrical-spike damage. Maintain tested backups, recovery procedures, and redundant services where justified. Confirm that equipment is correctly sized and maintained.
+
+10. Rogue DHCP settings
+Question: Laptops on a classroom network begin receiving an unfamiliar default gateway and DNS server. A student who controls a small device says they were “helping” by offering addresses. Identify the network service and risk; name a defensive control.
+Answer key: DHCP distributes network configuration, including gateway and DNS details. A rogue DHCP server can redirect traffic or cause loss of connectivity. Disable/remove the unauthorized device through IT, inspect leases and network evidence, and use DHCP snooping/port controls so only trusted ports can serve DHCP. Do not assume the unfamiliar setting is malicious before verifying the approved configuration.
+
+11. DNS sends users to a fake page
+Question: Several students type the correct school website name but arrive at a look-alike login page. The address bar shows a different destination and the DNS response differs from a trusted resolver. What should be suspected and what should users do?
+Answer key: DNS spoofing or cache poisoning is a possible explanation, though misconfiguration must also be ruled out. The fake page could harvest credentials. Stop entering data; use an independently verified official address and contact IT; investigate DNS records, resolver/cache state, and logs; reset credentials if already submitted and report the incident.
+
+12. Reading the log evidence
+Question: A web log shows a student's IP address received repeated 404 responses, followed by a 403 for an administrative page. Can this prove that the student intentionally attacked the site? Explain what the codes show and what additional evidence is needed.
+Answer key: No. 404 indicates the requested resource was not found; 403 indicates the server refused access. Logs show requests and server responses, not a person's intent or identity by themselves. Correlate authentication, network, device, time, and other server logs; consider shared networks, automated links, and normal mistakes. Preserve evidence and escalate for investigation rather than accusing someone from one IP or code.
+
+13. A login timeline
+Question: Logs show a successful login after several failures, then a request to download many records. What questions should an investigator ask before deciding whether the account was compromised?
+Answer key: Check whether the login location/device/time is expected; whether MFA was completed; whether the account holder recognizes the session; which records were accessed and whether downloads succeeded; what other authentication, application, and network logs show; and whether similar activity exists elsewhere. Contain a credible threat, preserve logs, notify the proper team, and avoid treating one event as conclusive without context.

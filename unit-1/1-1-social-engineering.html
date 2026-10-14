@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.1 — Social Engineering | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a class="active" href="index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">1.1 • Social Engineering</p>
+      <h1>Social Engineering</h1>
+      <p class="unit-intro">Social engineering is the use of psychological manipulation to trick people into revealing information, taking an action, or giving an attacker access to something.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Core ideas</span></div>
+        <div class="progress-meter"><span style="width: 30%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a class="active" href="1-1-social-engineering.html">1.1</a>
+      <a href="1-2-password-attacks.html">1.2</a>
+      <a href="1-3-security-practices.html">1.3</a>
+      <a href="1-4-CyberAttackers.html">1.4</a>
+      <a href="1-5-cybersecurity-defense-terms.html">1.5</a>
+      <a href="1-6-security-foundations-review.html">1.6</a>
+      <a href="1-7-osi-network-layers.html">1.7</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Security is not only about protecting computers.</h2>
+          <p>Instead of attacking a computer directly, an attacker may attack the person using the computer. This is important because even a highly secure system can be compromised if someone is tricked into giving away credentials or access.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Why it works</span>
+            <h3>Normal human behavior</h3>
+            <p>Attackers often exploit emotions such as urgency, fear, trust, curiosity, greed, and helpfulness.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Common tricks</span>
+            <h3>Pressure and deception</h3>
+            <p>Attackers may say: “You must act right now,” or pretend to be a school administrator, friend, or trusted contact.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">What to do</span>
+            <h3>Pause and verify</h3>
+            <p>Ask: Who sent it? Was I expecting it? What are they asking me to do? Can I verify the request another way?</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">Types of social engineering</h2>
+        <div class="accordion" aria-label="Social engineering attack definitions">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Phishing <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Phishing</strong> is a fake message used to trick someone into providing information or performing an action. It can happen through email, text messages, social media, messaging apps, or fake websites.</p>
+              <p>Example: a message claims that a school account has a problem and asks the user to click a link and sign in.</p>
+              <p>Look for unexpected messages, urgent threats, suspicious links, strange sender addresses, requests for passwords, unusual grammar, unexpected attachments, and offers that seem too good to be true.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Spear phishing <span>+</span></button>
+            <div class="accordion-panel" hidden>
+              <p><strong>Spear phishing</strong> is phishing specifically targeted at a person or organization. The attacker researches the target and creates a more believable message.</p>
+              <p>Example: an attacker learns that a student is part of the school robotics club and then sends a fake email pretending to be the club advisor.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Whaling <span>+</span></button>
+            <div class="accordion-panel" hidden>
+              <p><strong>Whaling</strong> is a type of targeted phishing aimed at an important or high-value individual, such as executives, school administrators, business leaders, or financial officers.</p>
+              <p>Remember: phishing is broad, spear phishing is specific, and whaling focuses on high-value targets.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Smishing <span>+</span></button>
+            <div class="accordion-panel" hidden>
+              <p><strong>Smishing</strong> is phishing through SMS or text messages. Example: “Your package could not be delivered. Confirm your information here.”</p>
+              <p>Smishing = SMS + phishing.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Vishing <span>+</span></button>
+            <div class="accordion-panel" hidden>
+              <p><strong>Vishing</strong> is phishing through voice communication, such as a phone call. An attacker may pretend to be a bank employee, technical-support employee, government employee, or school administrator.</p>
+              <p>Vishing = voice + phishing.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Pretexting <span>+</span></button>
+            <div class="accordion-panel" hidden>
+              <p><strong>Pretexting</strong> occurs when an attacker creates a false story or identity to convince someone to provide information. The attacker establishes a believable pretext or reason for contacting the victim.</p>
+              <p>Example: someone calls the school technology department pretending to be a new employee who needs access to an account.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Baiting <span>+</span></button>
+            <div class="accordion-panel" hidden>
+              <p><strong>Baiting</strong> uses something appealing to trick someone into taking an unsafe action. The bait could be a free item, a fake prize, an interesting file, a tempting download, or a message promising something valuable.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Tailgating <span>+</span></button>
+            <div class="accordion-panel" hidden>
+              <p><strong>Tailgating</strong> is a physical form of social engineering. An unauthorized person follows an authorized person into a restricted area.</p>
+              <p>Example: an employee opens a secure door, and someone follows behind them without using their own access card.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">AP skills: analyze risk and mitigate risk</h2>
+        <div class="scenario-card">
+          <h3>Risk example</h3>
+          <p>Asset → Student's school account</p>
+          <p>Threat → Phishing attacker</p>
+          <p>Vulnerability → Student trusts a fake login message</p>
+          <p>Impact → Attacker gains access to the account</p>
+        </div>
+
+        <div class="scenario-card">
+          <h3>What would you do?</h3>
+          <p>You receive a message that looks like it came from your school administrator and asks you to log in to a link “immediately.”</p>
+          <div class="reflect-box">
+            <p><strong>Think about it:</strong> What is the best response?</p>
+            <ul>
+              <li>Verify the request through a trusted contact method.</li>
+              <li>Avoid clicking suspicious links.</li>
+              <li>Report the message if it looks fake.</li>
+              <li>Use strong authentication and MFA when available.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <h3>Quick check</h3>
+          <div class="quiz-card" data-correct="spear">
+            <p>A student gets an email that uses details from their robotics club and pretends to be the club advisor. What is this?</p>
+            <div class="choice-row">
+              <button class="option-button" type="button" data-answer="spear">Spear phishing</button>
+              <button class="option-button" type="button" data-answer="smishing">Smishing</button>
+              <button class="option-button" type="button" data-answer="tailgating">Tailgating</button>
+            </div>
+            <div class="answer-box" hidden>
+              <strong>Why?</strong> It is spear phishing because the attacker uses personal information to make the message look more believable and targeted.
+            </div>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="Student notes for social engineering" placeholder="Write your own summary: what makes a social engineering message suspicious?"></textarea>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain social engineering.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know the difference between phishing, spear phishing, and whaling.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can describe suspicious message signs and how to verify requests.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Review</h3>
+          <ul class="compact-list">
+            <li>Security is not only about computers.</li>
+            <li>Attackers exploit urgency, fear, trust, curiosity, and help.</li>
+            <li>Phishing = broad; spear phishing = targeted; whaling = high-value target.</li>
+            <li>Verify before acting; report suspicious messages.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 1 • 1.1</span></div></footer>
+</body>
+</html>

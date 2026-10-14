@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.4 — Network and Routing | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a class="active" href="index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">2.4 • Network and Routing</p>
+      <h1>Network and Routing</h1>
+      <p class="unit-intro">Before learning about specific network protocols, it is important to understand how devices identify one another and communicate across a network. This section explains how IP addresses, routing, and common protocols work together to move traffic safely and efficiently.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Addressing and routing</span></div>
+        <div class="progress-meter"><span style="width: 90%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="2-1-cyber-foundations.html">2.1</a>
+      <a href="2-2-physical-vulnerabilities.html">2.2</a>
+      <a href="2-3-protecting-physical-spaces.html">2.3</a>
+      <a class="active" href="2-4-network-and-routing.html">2.4</a>
+      <a href="2-5-logs-basics.html">2.5</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Devices need addresses, routes, and protocol rules.</h2>
+          <p>When a computer wants to communicate with another device, it needs to know where that device is on the network. That is where an <strong>IP address</strong> becomes important. An IP address helps identify the <strong>source</strong> and <strong>destination</strong> of network traffic, and routers then help deliver packets across the network.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Addressing</span>
+            <h3>IP addresses</h3>
+            <p>Every packet includes sender and recipient location information so network devices know where the traffic came from and where it needs to go.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Routing</span>
+            <h3>Packet delivery</h3>
+            <p>Routers inspect the destination and move the data toward the correct network while using TTL and routing information to avoid loops.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Protocols</span>
+            <h3>Core services</h3>
+            <p>Protocols such as DHCP, DNS, ICMP, RIP, NTP, SSH, SCP, and TLS provide automatic configuration, addressing, timing, diagnostics, and secure communication.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">IP addresses</h2>
+        <p><strong>IP</strong> stands for <strong>Internet Protocol</strong>. The Internet Protocol is responsible for <strong>addressing and routing packets between networks</strong>. When information is sent across a network, it is broken into smaller pieces called <strong>packets</strong>. Each packet contains information that helps networking devices determine where it came from and where it should go.</p>
+        <p>An IP address helps provide two key pieces of information:</p>
+        <ul class="compact-list">
+          <li><strong>Source IP address</strong> = the address of the device that sent the packet.</li>
+          <li><strong>Destination IP address</strong> = the address of the device that should receive the packet.</li>
+        </ul>
+        <p>Example:</p>
+        <p><strong>Source:</strong> 192.168.1.25<br><strong>Destination:</strong> 142.250.72.14</p>
+        <p>Think of an IP address like a mailing address. Your device is like a house, the IP address is the house's address, the network is the neighborhood, the router is the system that helps move the mail between neighborhoods, and a data packet is the piece of mail. An IP address does not necessarily identify a specific person or physical device forever, because addresses can change, especially when they are assigned dynamically.</p>
+
+        <div class="accordion" aria-label="Network and routing discussion">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">IPv4 <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>IPv4</strong> is the older and still extremely common version of the Internet Protocol. It uses <strong>32-bit addresses</strong>. Because computers represent information in binary, an IPv4 address can be thought of as a group of <strong>32 binary digits</strong>.</p>
+              <p>These 32 bits are divided into <strong>four groups of 8 bits</strong>, called <strong>octets</strong>. Example:</p>
+              <p><strong>192.168.1.25</strong></p>
+              <div class="reflect-box">
+                <p><strong>192</strong> . <strong>168</strong> . <strong>1</strong> . <strong>25</strong><br>8 bits + 8 bits + 8 bits + 8 bits = <strong>32 bits</strong></p>
+              </div>
+              <p>Each octet can have a value from <strong>0–255</strong>. That is why an IPv4 address can look like:</p>
+              <ul class="compare-list">
+                <li>10.0.0.15</li>
+                <li>192.168.1.25</li>
+                <li>172.16.4.100</li>
+                <li>8.8.8.8</li>
+              </ul>
+              <p>Example in binary:</p>
+              <p><strong>192.168.1.25</strong> = <strong>11000000.10101000.00000001.00011001</strong></p>
+              <p>IPv4 has <strong>2³²</strong> possible addresses, which is approximately <strong>4.3 billion addresses</strong>. That sounds like a huge number, but the Internet has billions of devices, and many devices need multiple addresses over time, which helped lead to the creation of <strong>IPv6</strong>.</p>
+              <div class="diagram-card" style="margin-top: 16px; padding: 16px;">
+                <h4 style="margin-bottom: 12px;">IPv4 packet header</h4>
+                <img src="../images/ipv4-packet-header.png" alt="IPv4 packet header diagram" style="width:100%; border-radius: 12px; border:1px solid #e8ddd9; background:#fff;">
+                <p style="margin-top: 10px;">This diagram shows the IPv4 header structure, including version, source address, destination address, and TTL.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">IPv4 packet header <span>+</span></button>
+            <div class="accordion-panel">
+              <p>IPv4 packets contain a <strong>header</strong> that provides information needed to deliver and process the packet. Some important fields include:</p>
+              <ul class="compare-list">
+                <li><strong>Version</strong> — identifies which version of IP is being used. For IPv4, the value is <strong>0100</strong>, which is binary for <strong>4</strong>.</li>
+                <li><strong>Internet Header Length (IHL)</strong> — tells the receiving device how long the IPv4 header is. The field is <strong>4 bits long</strong>.</li>
+                <li><strong>Source Address</strong> — contains the IPv4 address of the device that sent the packet.</li>
+                <li><strong>Destination Address</strong> — contains the IPv4 address of the intended recipient.</li>
+                <li><strong>Time to Live (TTL)</strong> — prevents packets from traveling forever. Each router decreases the value. If TTL becomes zero, the packet is discarded.</li>
+              </ul>
+              <p>This helps protect networks from <strong>routing loops</strong>.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">IPv6 <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>IPv6</strong>, or <strong>Internet Protocol version 6</strong>, was developed to address major limitations of IPv4, especially the limited number of available IPv4 addresses. IPv6 uses <strong>128-bit addresses</strong> instead of IPv4's <strong>32-bit addresses</strong>.</p>
+              <p>That creates an enormous number of possible addresses:</p>
+              <p><strong>2¹²⁸</strong> possible addresses, which is about <strong>340 undecillion addresses</strong>.</p>
+              <p>Unlike IPv4, IPv6 does not use four decimal numbers separated by periods. Instead, it uses <strong>eight groups of hexadecimal numbers</strong> separated by colons. Example:</p>
+              <p><strong>2001:0db8:85a3:0000:0000:8a2e:0370:7334</strong></p>
+              <p>Each group contains <strong>4 hexadecimal digits</strong>, and each hexadecimal digit represents <strong>4 bits</strong>.</p>
+              <p><strong>8 groups × 16 bits = 128 bits</strong></p>
+              <p>IPv6 addresses can be shortened. For example:</p>
+              <p><strong>2001:0db8:85a3:0000:0000:8a2e:0370:7334</strong> can be written as <strong>2001:db8:85a3::8a2e:370:7334</strong>.</p>
+              <p>Leading zeros can be removed, and consecutive groups containing only zeros can be represented using <strong>::</strong>. Important: <strong>::</strong> can only be used once in an IPv6 address.</p>
+              <div class="diagram-card" style="margin-top: 16px; padding: 16px;">
+                <h4 style="margin-bottom: 12px;">IPv6 header</h4>
+                <img src="../images/IPV6-Header-480x301.webp" alt="IPv6 header diagram" style="width:100%; border-radius: 12px; border:1px solid #e8ddd9; background:#fff;">
+                <p style="margin-top: 10px;">This diagram shows the IPv6 header structure and the way the larger 128-bit address space is organized.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">IPv4 vs. IPv6 <span>+</span></button>
+            <div class="accordion-panel">
+              <table style="width:100%; border-collapse:collapse; margin-top:10px; color: var(--ink); font-size:0.95rem;">
+                <thead>
+                  <tr style="background:#f8f2f0;">
+                    <th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">Feature</th>
+                    <th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">IPv4</th>
+                    <th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">IPv6</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Address size</td>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">32 bits</td>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">128 bits</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Example</td>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">192.168.1.25</td>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">2001:db8::1</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Number system</td>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Decimal</td>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Hexadecimal</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Separator</td>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Period .</td>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Colon :</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Number of addresses</td>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">About 4.3 billion</td>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Very large: 2¹²⁸</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Address exhaustion</td>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Limited</td>
+                    <td style="padding:10px; border:1px solid #e8ddd9;">Much larger space</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p><strong>Remember:</strong> IPv4 = 32 bits, IPv6 = 128 bits.</p>
+              <p>Simple memory trick: <strong>IPv6 has a much larger address space than IPv4.</strong></p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">DHCP and DHCP security <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>DHCP</strong> stands for <strong>Dynamic Host Configuration Protocol</strong>. It automatically provides devices with network configuration information when they join a network. Instead of manually configuring every computer with an IP address, a DHCP server can assign that information automatically.</p>
+              <p>A DHCP server can provide information such as:</p>
+              <ul class="compare-list">
+                <li>IP address</li>
+                <li>Subnet mask</li>
+                <li>Default gateway</li>
+                <li>DNS server information</li>
+                <li>Lease time, which tells how long the address can be used</li>
+              </ul>
+              <p>DHCP uses <strong>UDP port 67</strong> for the server and <strong>UDP port 68</strong> for the client. When a device connects to Wi-Fi, it requests configuration, the DHCP server responds, and the device receives its IP address and other settings.</p>
+              <p><strong>Security issue:</strong> a <strong>rogue DHCP server</strong> is an unauthorized server that gives incorrect network settings. An attacker could try to provide a victim with a malicious default gateway, malicious DNS server, or incorrect IP configuration. This could redirect traffic or interfere with communication.</p>
+              <p><strong>DHCP snooping</strong> is a security feature used to help defend against rogue DHCP servers. A switch can distinguish between <strong>trusted ports</strong> and <strong>untrusted ports</strong>. Trusted ports are where legitimate DHCP servers are expected; untrusted ports are where clients are connected. The switch blocks DHCP responses coming from unauthorized ports.</p>
+              <p><strong>Important distinction:</strong> <strong>Rogue DHCP server = attack/threat</strong> and <strong>DHCP snooping = defense against rogue DHCP activity</strong>.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">ARP <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>ARP</strong> stands for <strong>Address Resolution Protocol</strong>. It helps a device match an <strong>IP address</strong> to a <strong>MAC address</strong> on the same local network.</p>
+              <p>When your computer wants to send data to another device on the same LAN, it usually knows the destination IP address but not the destination MAC address. ARP helps solve that problem by asking, “Who has this IP address?” and the device with that IP responds with its MAC address.</p>
+              <p>Think of it like this: the IP address is the street address, but the MAC address is the actual hardware identifier for the device on the local network. ARP connects those two layers so the packet can be delivered correctly.</p>
+              <p>ARP is especially important on local networks because it helps devices communicate before traffic leaves the network segment.</p>
+              <p><strong>Quick memory trick:</strong> ARP = <strong>IP to MAC</strong> on the LAN.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">DNS <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>DNS</strong> stands for <strong>Domain Name System</strong>. DNS translates human-readable domain names into IP addresses. People generally prefer to type <strong>example.com</strong> rather than remember an IP address like <strong>93.184.216.34</strong>.</p>
+              <p>Think of DNS like the Internet’s phone book:</p>
+              <p><strong>Domain name → IP address</strong><br>example.com → 93.184.216.34</p>
+              <p>DNS normally uses <strong>port 53</strong>. It commonly uses <strong>UDP port 53</strong> for regular queries, while <strong>TCP port 53</strong> is used for specific DNS operations. When you enter a website address into your browser, your device usually performs a DNS lookup to find the correct IP address before connecting.</p>
+              <p>Because DNS directs users to websites and other services, attackers may manipulate DNS information. This can be used in <strong>DNS spoofing</strong> or <strong>DNS cache poisoning</strong>, where the user is sent to a malicious or fraudulent website instead of the legitimate destination.</p>
+              <p><strong>Remember:</strong> DNS = Domain Name System; main job = translate domain names into IP addresses; port = 53.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">ICMP, RIP, and NTP <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>ICMP</strong> stands for <strong>Internet Control Message Protocol</strong>. ICMP is used by network devices to send <strong>control, diagnostic, and error messages</strong>. Unlike TCP and UDP, ICMP does <strong>not use a port number</strong>. Instead, it is identified by <strong>IP protocol number 1</strong>.</p>
+              <p>One familiar use of ICMP is <strong>ping</strong>. When you ping another device, your computer sends an ICMP Echo Request to determine whether the destination can be reached and whether it responds. Ping can help determine whether a device is reachable, how long the response takes, and whether packets are being lost.</p>
+              <p><strong>RIP</strong> stands for <strong>Routing Information Protocol</strong>. RIP is a routing protocol that helps routers determine paths through a network. It uses the number of <strong>hops</strong> as a metric. A hop is a router that a packet passes through. RIP has a maximum hop count of <strong>15</strong>, and a route with a metric of <strong>16</strong> is considered unreachable. This limits routing loops. RIP uses <strong>UDP port 520</strong>.</p>
+              <p><strong>NTP</strong> stands for <strong>Network Time Protocol</strong>. NTP is used to synchronize the clocks of computers and network devices. It uses <strong>UDP port 123</strong>. Accurate time is essential for logs, authentication, certificates, and troubleshooting, because if system clocks are out of sync it can be hard to determine the order of events in an attack.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">SSH and SCP <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>SSH</strong> stands for <strong>Secure Shell</strong>. SSH provides a secure way to remotely connect to another computer or network device. SSH encrypts the communication between the two systems. This makes it useful for remotely administering servers, routers, switches, Linux computers, and other network-connected systems. SSH normally uses <strong>TCP port 22</strong>.</p>
+              <p><strong>SCP</strong> stands for <strong>Secure Copy Protocol</strong>. SCP is used to securely transfer files between systems. SCP operates using SSH, which provides the secure connection. This means the file transfer is protected while it travels across the network. Like SSH, SCP commonly uses <strong>TCP port 22</strong>.</p>
+              <p>A simple memory rule:</p>
+              <ul class="compare-list">
+                <li><strong>SSH → remotely connect to a computer</strong></li>
+                <li><strong>SCP → securely copy files between computers</strong></li>
+              </ul>
+              <p>Both commonly use <strong>TCP port 22</strong>.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">TLS and HTTPS <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>TLS</strong> stands for <strong>Transport Layer Security</strong>. TLS is a cryptographic protocol designed to protect data while it travels across a network. It can provide <strong>encryption</strong>, <strong>authentication</strong>, and <strong>integrity</strong>. Encryption helps prevent others from reading the data, authentication helps verify the identity of the server, and integrity helps detect whether data changed during transmission.</p>
+              <p>TLS is commonly used to protect web traffic. When you visit a website using <strong>HTTPS</strong>, TLS is generally used to protect the connection. HTTPS commonly uses <strong>TCP port 443</strong>, but it is more accurate to remember that <strong>TCP 443 = HTTPS, which commonly uses TLS</strong>.</p>
+              <p><strong>Important:</strong> TLS itself does <strong>not have a single dedicated port</strong>. It is a protocol used by different services, including HTTPS, and can be used by other protocols and applications as well.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="status-card">
+          <h3>Important ports and protocols to remember</h3>
+          <ul class="compact-list">
+            <li><strong>DHCP</strong> = Dynamic Host Configuration Protocol; UDP 67 server / 68 client</li>
+            <li><strong>DNS</strong> = Domain Name System; UDP/TCP 53</li>
+            <li><strong>ICMP</strong> = Internet Control Message Protocol; IP protocol 1</li>
+            <li><strong>RIP</strong> = Routing Information Protocol; UDP 520</li>
+            <li><strong>NTP</strong> = Network Time Protocol; UDP 123</li>
+            <li><strong>SSH</strong> = Secure Shell; TCP 22</li>
+            <li><strong>SCP</strong> = Secure Copy Protocol; TCP 22</li>
+            <li><strong>HTTPS</strong> = Hypertext Transfer Protocol Secure; TCP 443</li>
+            <li><strong>TLS</strong> = Transport Layer Security; no single dedicated port</li>
+          </ul>
+        </div>
+
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="Network and routing notes" placeholder="Write one difference between IPv4 and IPv6, explain why DNS matters, list the port for SSH and SCP, and explain why TLS is not a port number..."></textarea>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Quick memory guide</h3>
+          <ul class="compact-list">
+            <li><strong>IP</strong> → identifies where network traffic is going</li>
+            <li><strong>DHCP</strong> → gives devices network configuration</li>
+            <li><strong>DNS</strong> → domain name → IP address</li>
+            <li><strong>ICMP</strong> → errors, control, and tools like ping</li>
+            <li><strong>RIP</strong> → helps routers determine routes</li>
+            <li><strong>NTP</strong> → keeps clocks synchronized</li>
+            <li><strong>SSH</strong> → securely access another computer</li>
+            <li><strong>SCP</strong> → securely copy files using SSH</li>
+            <li><strong>TLS</strong> → protects data while it travels</li>
+          </ul>
+        </div>
+
+        <div class="status-card">
+          <h3>Key things to remember</h3>
+          <ul class="compact-list">
+            <li>IPv4 uses 32-bit addresses.</li>
+            <li>IPv6 uses 128-bit addresses.</li>
+            <li>DHCP automatically assigns network configuration information.</li>
+            <li>DNS translates domain names into IP addresses.</li>
+            <li>ICMP does not use TCP/UDP ports; it uses protocol number 1.</li>
+            <li>RIP uses UDP 520 and has a maximum usable hop count of 15.</li>
+            <li>NTP uses UDP 123 to synchronize time.</li>
+            <li>SSH uses TCP 22 for secure remote access.</li>
+            <li>SCP uses SSH and normally uses TCP 22 for secure file transfer.</li>
+            <li>HTTPS commonly uses TCP 443 and can use TLS to secure the connection.</li>
+            <li>TLS is a security protocol, not a single port number.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>IPv4 uses decimal numbers and periods; IPv6 uses hexadecimal and colons.</li>
+          <li>DHCP helps devices automatically join a network without manual setup.</li>
+          <li>DNS turns names like example.com into IP addresses that devices can use.</li>
+          <li>ICMP, RIP, and NTP each support different network management functions.</li>
+          <li>SSH, SCP, and TLS are essential for secure administration, file transfer, and encrypted communication.</li>
+        </ul>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Review and apply.</h2>
+        <p>Use your notes to explain how addressing, routing, and secure protocols work together to keep network communication organized, accurate, and protected.</p>
+        <a href="2-5-logs-basics.html">Open 2.5 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 2 • 2.4</span></div></footer>
+</body>
+</html>

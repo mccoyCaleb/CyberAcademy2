@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5.2 — Protecting Applications and Data | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+        <a class="active" href="index.html">Unit 5</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">5.2 • Protecting Applications and Data</p>
+      <h1>Managerial Controls and Access Controls</h1>
+      <p class="unit-intro">Protecting data is not just a technical problem. Organizations also need policies, procedures, classifications, and access-control systems. Security depends on data state, who can access what, and how access is limited.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Policy and access</span></div>
+        <div class="progress-meter"><span style="width: 86%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="5-1-application-and-data-vulnerabilities.html">5.1</a>
+      <a class="active" href="5-2-protecting-applications-and-data.html">5.2</a>
+      <a href="5-3-protecting-stored-data-with-cryptography.html">5.3</a>
+      <a href="5-4-asymmetric-cryptography.html">5.4</a>
+      <a href="5-5-protecting-applications.html">5.5</a>
+      <a href="5-6-detecting-attacks-on-data-and-applications.html">5.6</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Different data states require different controls.</h2>
+          <p>One of the most important concepts in cybersecurity is understanding that data exists in different states. Data at rest is stored data. Data in transit is moving between systems. Data in use is currently being processed or accessed.</p>
+          <p>Think: <strong>At rest = stored</strong>, <strong>In transit = moving</strong>, <strong>In use = being processed</strong>.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card"><span class="tag">At rest</span><h3>Stored</h3><p>Files, databases, backups, USB drives, and other stored data.</p></article>
+          <article class="info-card"><span class="tag">In transit</span><h3>Moving</h3><p>Data sent over a network or between systems.</p></article>
+          <article class="info-card"><span class="tag">In use</span><h3>Processing</h3><p>Data currently being accessed, displayed, or modified.</p></article>
+        </div>
+
+        <div class="accordion" aria-label="Unit 5.2 content">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">5.2.1 Data states <span>−</span></button>
+            <div class="accordion-panel">
+              <p>Data exists in different states. The most important are:</p>
+              <ul class="compare-list">
+                <li><strong>Data at rest</strong> — stored data that is not currently being transmitted.</li>
+                <li><strong>Data in transit</strong> — data moving between systems.</li>
+                <li><strong>Data in use</strong> — data currently being processed or accessed by a system.</li>
+              </ul>
+              <p>The controls needed for each state differ. A database on a server needs different controls than information being sent over a network.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.2.3 Data classification <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Organizations often classify data according to how sensitive it is.</p>
+              <p>Classification helps determine who should have access, how data should be stored, how transmitted, how monitored, and what security controls should be applied.</p>
+              <ul class="compare-list">
+                <li><strong>Public</strong> — freely shared.</li>
+                <li><strong>Internal</strong> — intended primarily for members of an organization.</li>
+                <li><strong>Confidential</strong> — only for authorized individuals.</li>
+                <li><strong>Highly sensitive</strong> — unauthorized disclosure could cause serious harm.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.2.4 Personally identifiable information (PII) <span>+</span></button>
+            <div class="accordion-panel">
+              <p>PII is information that can identify or help identify an individual.</p>
+              <p>Examples include a name, address, email address, phone number, Social Security number, biometrics, or other identifying information.</p>
+              <p>If PII is exposed, attackers may be able to use it for identity theft, fraud, social engineering, account takeover, or tracking.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.2.5 Protected Health Information (PHI) <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Protected Health Information refers to protected health-related information associated with an individual.</p>
+              <p>The AP framework identifies HIPAA as the regulation related to protected health information.</p>
+              <p>Examples include medical records, diagnoses, treatment information, and certain information connected to healthcare services.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.2.6 Payment card information <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Payment information can require special protection.</p>
+              <p>Examples include credit card numbers, debit card information, cardholder information, and other payment-related data.</p>
+              <p>The AP framework identifies PCI DSS as a standard governing protection of payment card information.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.2.7 Cryptography policies <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Organizations should establish policies describing how cryptography is used.</p>
+              <p>A cryptography policy may specify approved encryption algorithms, minimum key lengths, requirements for encryption, key-generation requirements, key-storage requirements, and when encryption is required.</p>
+              <p>This is important because simply saying “use encryption” is not enough. The organization must determine how encryption is implemented.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.2.8 Access control <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Access control determines what users or systems are allowed to do with resources.</p>
+              <p>The basic idea is: <strong>Who can do what to which resource?</strong></p>
+              <p>Access control can determine whether a user can read data, write data, modify data, delete data, execute programs, or access specific resources.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.2.9 Role-Based Access Control (RBAC) <span>+</span></button>
+            <div class="accordion-panel">
+              <p>RBAC assigns permissions based on a user's role.</p>
+              <div class="reflect-box">Student → Read assignments<br>Teacher → Read/write assignments<br>Administrator → Manage users and settings</div>
+              <p>Instead of assigning every permission individually, administrators assign users to roles. A user assigned to a role automatically receives those permissions.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.2.10 Rule-Based Access Control (RuBAC) <span>+</span></button>
+            <div class="accordion-panel">
+              <p>RuBAC determines whether access is allowed based on rules.</p>
+              <p>A rule might consider the user, location, time, device, network, or other conditions.</p>
+              <div class="reflect-box">Allow access IF user = teacher AND time = school hours</div>
+              <p>If the conditions are not satisfied, access may be denied.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.2.11 Discretionary Access Control (DAC) <span>+</span></button>
+            <div class="accordion-panel">
+              <p>DAC allows the owner of a resource to determine who can access it.</p>
+              <p>For example, a user creates a file and decides which other users can read or modify it.</p>
+              <p>The owner has discretion over access.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.2.12 Mandatory Access Control (MAC) <span>+</span></button>
+            <div class="accordion-panel">
+              <p>MAC uses centrally defined security rules and classifications.</p>
+              <p>Users cannot simply change permissions because they own a file. Access can depend on security clearance, data classification, and centrally established security policies.</p>
+              <p>MAC is commonly associated with environments requiring strict centralized control.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.2.13 Least privilege <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Least privilege means giving a user or program only the permissions necessary to perform its required tasks.</p>
+              <p>A student who only needs to read a file should not automatically receive permission to read, write, delete, or change permissions. Instead, they might receive: <strong>Read</strong>.</p>
+              <p>Least privilege limits the damage caused if an account or application is compromised.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Control types</h3>
+          <ul class="compact-list">
+            <li><strong>RBAC</strong> → permissions by role</li>
+            <li><strong>RuBAC</strong> → permissions by rules and conditions</li>
+            <li><strong>DAC</strong> → resource owner decides access</li>
+            <li><strong>MAC</strong> → centralized policy decides access</li>
+            <li><strong>Least privilege</strong> → minimal permissions only</li>
+          </ul>
+        </div>
+        <div class="status-card">
+          <h3>Why it matters</h3>
+          <p>Organizations need to decide what information they collect, why they collect it, who can access it, and how it is protected. The same data may require different controls depending on whether it is stored, moving, or being processed.</p>
+        </div>
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="Unit 5.2 notes" placeholder="List the three data states and explain why data classification matters before access is granted..."></textarea>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>Data exists at rest, in transit, and in use.</li>
+          <li>Data classification determines how sensitive information is handled.</li>
+          <li>PII, PHI, and payment data all require special protection.</li>
+          <li>Access control models include RBAC, RuBAC, DAC, and MAC.</li>
+          <li>Least privilege reduces the damage from compromised accounts and applications.</li>
+        </ul>
+      </div>
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Secure stored information.</h2>
+        <p>Once an organization decides what data matters and who can access it, the next step is to protect that information using cryptography.</p>
+        <a href="5-3-protecting-stored-data-with-cryptography.html">Open 5.3 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 5 • 5.2</span></div></footer>
+</body>
+</html>

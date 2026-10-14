@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.3 — Protecting Devices | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a class="active" href="index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">4.3 • Protecting devices</p>
+      <h1>Protecting Devices</h1>
+      <p class="unit-intro">Device security is layered. Organizations use policies, anti-malware, security patches, host-based firewalls, and user controls so that a single weakness does not expose the whole system.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Defense in depth</span></div>
+        <div class="progress-meter"><span style="width: 100%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="4-1-password-attacks-and-hashing.html">4.1</a>
+      <a href="4-2-authentication.html">4.2</a>
+      <a class="active" href="4-3-protecting-devices.html">4.3</a>
+      <a href="4-4-detecting-attacks-and-logs.html">4.4</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Security is strongest when multiple controls work together.</h2>
+          <p>Policies define expected behavior, anti-malware detects malicious software, patches reduce vulnerabilities, and host-based firewalls restrict network access. Each control addresses a different risk.</p>
+          <div class="card-grid">
+            <img src="https://images.openai.com/static-rsc-4/Kw8Km52lJ8cO6T2eqCV1XdaRh9Ss-idBj3_wUtvIoL0aKkmucjQoM7tfWaFMMnF336vvX-KNZwbTx6raqdBOn_Qq1boYms0xJ2IhmDaXZ74AP2CF0TWHhtEB10VByOZN38PMd77xP2uQB_cAjiiy3JVvKSrmbmC7jFr70cfofA0?purpose=inline" alt="Acceptable-use policy illustration" style="width:100%; border-radius:12px; border:1px solid var(--line);" />
+            <img src="https://images.openai.com/static-rsc-4/VetW31u8lE3_RlklyYzf8N-OaQnjrAU9Rr4sNAVAIKriFf5MxirY12lMIYdmCCCeF8U4V_OJXLbfDUHbCY5050Q23e38Ns0FgwqDY40ZLRnTMDBecDHAn7g6omwrbt5o4JSFHZCxBFoIDe-0RHvU2c5H-73ERaufvIFjZC6-41Y?purpose=inline" alt="Anti-malware software illustration" style="width:100%; border-radius:12px; border:1px solid var(--line);" />
+            <img src="https://images.openai.com/static-rsc-4/3cAMX8jrsbb88ZcHJPg3usccm4hWxOg8q_2Az2OggJYhI2KfpN3QEbt0otSmKM4rref5p-rWL1BzG65JL2fOEo73vHSRhPb4iqabCj9bxV1_xmyoLRn3nVjSCkgcD3Ad4dPSj7bBmtF0KmMnXUfvrhSv49spgalT0pFZsE_Yikc?purpose=inline" alt="Host-based firewall illustration" style="width:100%; border-radius:12px; border:1px solid var(--line);" />
+          </div>
+        </div>
+
+        <h2 class="section-head">Core device protection controls</h2>
+        <div class="accordion" aria-label="Device protection controls">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Acceptable-use policies <span>−</span></button>
+            <div class="accordion-panel">
+              <p>An <strong>acceptable-use policy (AUP)</strong> describes how users may use school or company devices, networks, software, and internet access.</p>
+              <p>Common rules include prohibiting unauthorized software, restricting the use of personal USB drives, requiring updates, and establishing procedures for reporting suspicious activity.</p>
+              <p>An AUP is a <strong>management control</strong>. It defines expected behavior, but technical controls are still needed to enforce it.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Software-installation policies <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>software-installation policy</strong> determines what software users may install. Organizations may require approval before installing applications or allow only approved software.</p>
+              <p>Limiting installation privileges reduces the risk of users accidentally adding unapproved software, malicious tools, or vulnerable applications.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Anti-malware software <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Anti-malware</strong> software detects, blocks, quarantines, or removes malicious files and programs.</p>
+              <p>Detection can be:</p>
+              <ul class="compare-list">
+                <li><strong>Signature-based:</strong> looks for known malware patterns.</li>
+                <li><strong>Behavior-based:</strong> looks for suspicious actions such as modifying many files or injecting into system processes.</li>
+              </ul>
+              <p>Anti-malware is most effective when it is updated regularly and used alongside other protections.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Security patches and updates <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Software may contain vulnerabilities that attackers exploit. Developers release <strong>security patches</strong> to repair known weaknesses.</p>
+              <p>The process is straightforward:</p>
+              <div class="reflect-box"><strong>Vulnerability discovered → patch released → patch installed → exposure reduced</strong></div>
+              <p>Patching is critical, but it does not guarantee that a system is free from malware or other weaknesses. Updates reduce exposure to known software flaws.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Host-based firewalls <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>host-based firewall</strong> filters incoming and outgoing traffic on an individual device. It can allow or deny traffic based on rules involving direction, protocol, source or destination address, and port numbers.</p>
+              <p>For example, a laptop may block SSH access from the Internet while allowing HTTPS traffic to a trusted website.</p>
+              <p>This is different from a network firewall, which operates at an external boundary. A host-based firewall protects the device itself.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="diagram-card">
+          <span class="tag">Example</span>
+          <h3>Layered defense on a school laptop</h3>
+          <ul class="compare-list">
+            <li><strong>AUP:</strong> defines acceptable use and behavior.</li>
+            <li><strong>Limited privileges:</strong> reduces uncontrolled system changes.</li>
+            <li><strong>Anti-malware:</strong> finds malicious software.</li>
+            <li><strong>Updates:</strong> reduce risk from known vulnerabilities.</li>
+            <li><strong>Host firewall:</strong> blocks suspicious network traffic.</li>
+            <li><strong>MFA:</strong> reduces the risk of stolen credentials.</li>
+          </ul>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain what an acceptable-use policy does.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know the difference between anti-malware and a firewall.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I understand why patches reduce risk.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know that layered controls are stronger than any single control.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Policies define expected behavior.</li>
+            <li>Updates fix known vulnerabilities.</li>
+            <li>Anti-malware handles malicious software.</li>
+            <li>Firewalls filter network traffic.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Next topic</h2>
+        <div class="unit-card-list">
+          <a class="unit-link-card" href="4-4-detecting-attacks-and-logs.html">
+            <span>4.4</span>
+            <strong>Detecting Attacks and Logs</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Learn to recognize suspicious activity.</h2>
+        <p>Even a secure device can be targeted. Logs and indicators of compromise help investigators spot patterns that may signal an attack.</p>
+        <a href="4-4-detecting-attacks-and-logs.html">Open 4.4 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 4 • 4.3</span></div></footer>
+</body>
+</html>

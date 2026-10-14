@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5.3 — Protecting Stored Data with Cryptography | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+        <a class="active" href="index.html">Unit 5</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">5.3 • Protecting Stored Data with Cryptography</p>
+      <h1>Cryptography and Encryption</h1>
+      <p class="unit-intro">Cryptography is the use of mathematical techniques to protect information. It provides confidentiality, integrity, authentication, and nonrepudiation. In this topic, the AP framework focuses on how algorithms and keys transform information.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Keys and protection</span></div>
+        <div class="progress-meter"><span style="width: 84%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="5-1-application-and-data-vulnerabilities.html">5.1</a>
+      <a href="5-2-protecting-applications-and-data.html">5.2</a>
+      <a class="active" href="5-3-protecting-stored-data-with-cryptography.html">5.3</a>
+      <a href="5-4-asymmetric-cryptography.html">5.4</a>
+      <a href="5-5-protecting-applications.html">5.5</a>
+      <a href="5-6-detecting-attacks-on-data-and-applications.html">5.6</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Encryption protects data; hashing verifies data without recovering the original input.</h2>
+          <p>Encryption transforms readable information into an unintelligible form using an encryption algorithm and a key. Hashing is designed to be one-way. The hash is not intended to be decrypted back into the original input.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card"><span class="tag">Encryption</span><h3>Reversible</h3><p>Plaintext is transformed to ciphertext using a key, then recovered using the correct key.</p></article>
+          <article class="info-card"><span class="tag">Hashing</span><h3>One-way</h3><p>Input produces a fixed-size digest. It is used to verify integrity, not recover the original text.</p></article>
+          <article class="info-card"><span class="tag">Symmetric</span><h3>Shared key</h3><p>Same key used to encrypt and decrypt, often for large data sets.</p></article>
+        </div>
+
+        <div class="accordion" aria-label="Unit 5.3 content">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">5.3.1 Encryption <span>−</span></button>
+            <div class="accordion-panel">
+              <p>Encryption transforms readable information into an unintelligible form using an encryption algorithm and a key.</p>
+              <p>The original readable information is called <strong>plaintext</strong>. The encrypted information is called <strong>ciphertext</strong>.</p>
+              <div class="reflect-box">Plaintext → Encryption algorithm + key → Ciphertext<br>Ciphertext → Decryption algorithm + key → Plaintext</div>
+              <p>Suppose the plaintext is <strong>MEET AT 5</strong>, and after encryption it becomes something like <strong>X7Q9K2L...</strong>.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.3.2 Encryption vs. hashing <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Encryption</strong> is designed to be reversible. The goal is to protect information while still allowing an authorized party to recover the original information.</p>
+              <p><strong>Hashing</strong> is designed to be one-way. A hash is not intended to be decrypted back into the original input.</p>
+              <div class="reflect-box">Encryption protects data by making it unreadable and allowing authorized recovery.<br>Hashing creates a digest that can be used to verify data or passwords without storing the original input.</div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.3.3 Hashing <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A cryptographic hash function takes input and produces a fixed-size output called a hash, hash value, or digest.</p>
+              <p>For example, <strong>"Hello"</strong> might become <strong>2cf24dba...</strong>.</p>
+              <p>Changing the input even slightly should produce a substantially different hash. For example, <strong>"Hello"</strong> and <strong>"hello"</strong> should produce different outputs.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.3.4 Why use hashing? <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Hashing can help detect whether data has changed.</p>
+              <p>Suppose a file originally produces <strong>HASH A</strong>. Later, someone calculates the hash again. If the result is <strong>HASH B</strong> and <strong>HASH A ≠ HASH B</strong>, then the data has changed.</p>
+              <p>This can help detect accidental or malicious modification.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.3.5 Hashing passwords <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Passwords should not normally be stored as plaintext.</p>
+              <div class="reflect-box">User password → Password hashing function → Stored password hash</div>
+              <p>When the user logs in, the system processes the submitted password and checks it against the stored password-verification data.</p>
+              <p>For password storage, specialized password-hashing algorithms are used rather than relying on a fast general-purpose hash alone.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.3.6 Salt <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A salt is a random value added to a password before hashing.</p>
+              <div class="reflect-box">Password + Salt → Hash function → Password hash</div>
+              <p>Suppose two users both choose <strong>password123</strong>. Without salts, they could potentially produce the same hash. With unique salts, the resulting hashes are different.</p>
+              <p>Salting makes precomputed password-hash tables much less useful.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.3.8 Symmetric encryption <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Symmetric encryption uses the same key for encryption and decryption.</p>
+              <div class="reflect-box">Plaintext → Encryption → Ciphertext<br>Sender and receiver both know the secret key.</div>
+              <p>Advantages: symmetric encryption is generally fast, efficient, and suitable for encrypting large amounts of data.</p>
+              <p>Disadvantage: the major challenge is key distribution. If an attacker obtains the key, they may be able to decrypt the protected data.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.3.9 AES <span>+</span></button>
+            <div class="accordion-panel">
+              <p>One major symmetric encryption algorithm is AES — Advanced Encryption Standard.</p>
+              <p>AES uses block-based encryption. Common AES key sizes include 128-bit, 192-bit, and 256-bit keys.</p>
+              <p>The key size affects the number of possible keys and the computational difficulty of guessing the key through brute force.</p>
+              <p>A 128-bit key has <strong>2^128</strong> possible combinations, and a 256-bit key has <strong>2^256</strong> possible combinations.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.3.10 Block encryption <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A block cipher processes data in fixed-size blocks.</p>
+              <div class="reflect-box">Large message → [Block 1][Block 2][Block 3][Block 4] → Encryption → [Cipher][Cipher][Cipher][Cipher]</div>
+              <p>AES is a block cipher. The AP framework contrasts this with stream encryption, which processes information as a continuous stream of data.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Memory guide</h3>
+          <ul class="compact-list">
+            <li><strong>Encryption</strong> = reversible</li>
+            <li><strong>Hashing</strong> = one-way</li>
+            <li><strong>Salt</strong> = random value added before hashing</li>
+            <li><strong>Symmetric</strong> = same key for encrypt and decrypt</li>
+            <li><strong>AES</strong> = common symmetric algorithm</li>
+          </ul>
+        </div>
+        <div class="status-card">
+          <h3>Why it matters</h3>
+          <p>Modern systems often use encryption to protect stored data and hashing to protect passwords and verify integrity. The difference between these two operations is critical in cybersecurity.</p>
+        </div>
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="Unit 5.3 notes" placeholder="Write the difference between encryption and hashing using your own example, then explain why salts help password storage..."></textarea>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>Encryption protects confidentiality and allows authorized recovery.</li>
+          <li>Hashing verifies integrity and protects passwords without storing plaintext.</li>
+          <li>Salts prevent identical passwords from producing the same stored hash.</li>
+          <li>Symmetric encryption uses the same key for both encryption and decryption.</li>
+          <li>AES is a major symmetric encryption standard.</li>
+        </ul>
+      </div>
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Use key pairs instead of shared secrets.</h2>
+        <p>Asymmetric cryptography addresses the difficulty of securely exchanging secret symmetric keys.</p>
+        <a href="5-4-asymmetric-cryptography.html">Open 5.4 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 5 • 5.3</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.2 — MAC Addresses and ARP Review | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a class="active" href="index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">3.2 • MAC Addresses and ARP Review</p>
+      <h1>MAC Addresses and ARP</h1>
+      <p class="unit-intro">Before studying network defenses, review how devices identify one another on a local network. IP addresses help locate devices across networks, while MAC addresses and ARP help deliver traffic across the local network segment.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Local network identity</span></div>
+        <div class="progress-meter"><span style="width: 35%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="3-1-network-vulnerabilities.html">3.1</a>
+      <a class="active" href="3-2-mac-addresses-and-arp.html">3.2</a>
+      <a href="3-3-protecting-networks.html">3.3</a>
+      <a href="3-4-network-segmentation.html">3.4</a>
+      <a href="3-5-firewalls.html">3.5</a>
+      <a href="3-6-acl-tables.html">3.6</a>
+      <a href="3-7-detecting-network-attacks.html">3.7</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>IP addresses locate; MAC addresses deliver locally.</h2>
+          <p>An <strong>IP address</strong> identifies a device or network interface on an IP network and helps route traffic toward a destination. A <strong>MAC address</strong> is associated with a network interface and is used for communication on a local network. ARP helps connect these two pieces of information.</p>
+          <div class="reflect-box"><strong>IP address → local ARP lookup → MAC address → Ethernet frame</strong></div>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card"><span class="tag">IP</span><h3>Network location</h3><p>IP addresses help identify source and destination locations and allow routers to move packets between networks.</p></article>
+          <article class="info-card"><span class="tag">MAC</span><h3>Local interface</h3><p>MAC addresses identify network interfaces for local delivery across Ethernet or Wi-Fi.</p></article>
+          <article class="info-card"><span class="tag">ARP</span><h3>Address mapping</h3><p>ARP asks which MAC address belongs to a known IPv4 address so local traffic can be delivered.</p></article>
+        </div>
+
+        <h2 class="section-head">Reviewing MAC addresses and ARP</h2>
+        <div class="accordion" aria-label="MAC address and ARP review">
+          <div class="accordion-item open"><button class="accordion-toggle" type="button" aria-expanded="true">What is a MAC address? <span>−</span></button><div class="accordion-panel"><p>A <strong>MAC address</strong> is an address associated with a network interface. A computer, phone, printer, or access point may have a MAC address for each network interface it uses.</p><p>MAC addresses are used for communication on a local network. A switch can use MAC-address information to determine which port leads toward a device and forward Ethernet frames to the correct location.</p><p>MAC addresses are not a perfect form of authentication. An attacker may be able to change the MAC address their device presents to the network. This is called <strong>MAC spoofing</strong>.</p><div class="reflect-box"><strong>MAC address = local network interface identity, not guaranteed proof of a person or device.</strong></div></div></div>
+
+          <div class="accordion-item"><button class="accordion-toggle" type="button" aria-expanded="false">IP address versus MAC address <span>+</span></button><div class="accordion-panel"><p>An IP address helps with communication at the network layer. It identifies a logical network location and can change when a device joins a different network or receives a different assignment.</p><p>A MAC address is used for local network delivery and is associated with a network interface. It is used inside the local network segment, while IP addressing helps traffic travel between networks.</p><table style="width:100%; border-collapse:collapse; margin-top:10px; color:var(--ink); font-size:0.95rem;"><thead><tr style="background:#f8f2f0;"><th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">Feature</th><th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">IP address</th><th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">MAC address</th></tr></thead><tbody><tr><td style="padding:10px; border:1px solid #e8ddd9;">Main role</td><td style="padding:10px; border:1px solid #e8ddd9;">Logical addressing and routing</td><td style="padding:10px; border:1px solid #e8ddd9;">Local network delivery</td></tr><tr><td style="padding:10px; border:1px solid #e8ddd9;">Used by</td><td style="padding:10px; border:1px solid #e8ddd9;">Routers and Layer 3 devices</td><td style="padding:10px; border:1px solid #e8ddd9;">Switches and local interfaces</td></tr><tr><td style="padding:10px; border:1px solid #e8ddd9;">Can change?</td><td style="padding:10px; border:1px solid #e8ddd9;">Often, especially with dynamic assignment</td><td style="padding:10px; border:1px solid #e8ddd9;">Can be changed or spoofed by software</td></tr></tbody></table><p>These addresses work together. A packet can use IP addresses for its network-layer source and destination, while the frame carrying it uses MAC addresses for the current local link.</p></div></div>
+
+          <div class="accordion-item"><button class="accordion-toggle" type="button" aria-expanded="false">What is ARP? <span>+</span></button><div class="accordion-panel"><p><strong>ARP stands for Address Resolution Protocol.</strong> Computers on a local network often need to know both the destination IP address and the destination MAC address.</p><p>Suppose Computer A knows that Computer B has IP address <code>192.168.1.20</code>, but Computer A needs the MAC address associated with that IP address to communicate locally. ARP helps answer:</p><div class="reflect-box"><strong>“Which MAC address belongs to 192.168.1.20?”</strong></div><p>The computer can store this information in an <strong>ARP table</strong> or <strong>ARP cache</strong>. When the mapping is known, the device can place the destination MAC address into the local Ethernet frame.</p><p>ARP is used on the local network. If the destination is outside the local network, the device generally resolves the MAC address of its default gateway and sends the frame to that gateway. The router then forwards the packet toward the remote network.</p></div></div>
+
+          <div class="accordion-item"><button class="accordion-toggle" type="button" aria-expanded="false">How an ARP exchange works <span>+</span></button><div class="accordion-panel"><p>A simplified ARP process looks like this:</p><ol class="compare-list"><li>Computer A wants to send local traffic to IP address <code>192.168.1.20</code>.</li><li>Computer A checks its ARP cache for a matching IP-to-MAC entry.</li><li>If there is no entry, Computer A sends an ARP request asking which device has that IP address.</li><li>The device using <code>192.168.1.20</code> sends an ARP reply containing its MAC address.</li><li>Computer A stores the mapping temporarily and sends the local frame to that MAC address.</li></ol><div class="reflect-box"><strong>Known IP → ARP request → ARP reply → MAC mapping → local frame</strong></div><p>ARP requests may be broadcast across the local network because the sender does not yet know which MAC address owns the IP. The reply identifies the interface that should receive the traffic.</p></div></div>
+
+          <div class="accordion-item"><button class="accordion-toggle" type="button" aria-expanded="false">ARP tables and local delivery <span>+</span></button><div class="accordion-panel"><p>An ARP table stores relationships between IPv4 addresses and MAC addresses. A simplified table might look like this:</p><table style="width:100%; border-collapse:collapse; margin-top:10px; color:var(--ink);"><thead><tr style="background:#f8f2f0;"><th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">IP address</th><th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">MAC address</th><th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">Meaning</th></tr></thead><tbody><tr><td style="padding:10px; border:1px solid #e8ddd9;"><code>192.168.1.1</code></td><td style="padding:10px; border:1px solid #e8ddd9;"><code>AA:AA:AA:AA:AA:01</code></td><td style="padding:10px; border:1px solid #e8ddd9;">Default gateway</td></tr><tr><td style="padding:10px; border:1px solid #e8ddd9;"><code>192.168.1.20</code></td><td style="padding:10px; border:1px solid #e8ddd9;"><code>BB:BB:BB:BB:BB:20</code></td><td style="padding:10px; border:1px solid #e8ddd9;">Local computer</td></tr><tr><td style="padding:10px; border:1px solid #e8ddd9;"><code>192.168.1.50</code></td><td style="padding:10px; border:1px solid #e8ddd9;"><code>CC:CC:CC:CC:CC:50</code></td><td style="padding:10px; border:1px solid #e8ddd9;">Printer</td></tr></tbody></table><p>If Computer A needs to send traffic to <code>192.168.1.50</code>, it can look up the matching MAC address and send the frame toward that interface through the switch.</p><p>For a remote destination, the computer does not need the remote server's MAC address. It needs the MAC address of the local default gateway, because that gateway is the next local hop.</p></div></div>
+
+          <div class="accordion-item"><button class="accordion-toggle" type="button" aria-expanded="false">ARP poisoning <span>+</span></button><div class="accordion-panel"><p>ARP was not designed with strong authentication. An attacker can send false ARP information to devices on the network. The attacker may attempt to convince a victim that:</p><div class="reflect-box"><strong>Victim's IP address → Attacker's MAC address</strong></div><p>The victim may then send traffic to the attacker instead of directly to the intended destination. The attacker can potentially forward the traffic afterward, creating an <strong>on-path attack</strong>.</p><p>Normally, communication looks like <strong>Victim → Intended destination</strong>. With ARP poisoning, it may become <strong>Victim → Attacker → Intended destination</strong>.</p><p><strong>Security impact:</strong> confidentiality may be affected if the attacker sees transmitted information; integrity may be affected if the attacker modifies information; and availability may be affected if the attacker disrupts or drops communication.</p><p><strong>Remember:</strong> ARP poisoning is false ARP information used to redirect traffic.</p></div></div>
+
+          <div class="accordion-item"><button class="accordion-toggle" type="button" aria-expanded="false">ARP spoofing and on-path attacks <span>+</span></button><div class="accordion-panel"><p>ARP spoofing is the technique of sending forged ARP messages. ARP poisoning describes the harmful effect of incorrect ARP information being stored or used. In practice, the terms are often discussed together.</p><p>An on-path attacker positions themselves between communicating parties and may observe, capture, modify, or forward communication. Encryption can reduce the usefulness of intercepted information because properly encrypted data is much harder to understand.</p><div class="reflect-box"><strong>Network interception + encryption = an important defense against data exposure.</strong></div><p>An on-path attacker is not necessarily trying to make the connection stop. They may want the communication to continue while secretly intercepting it.</p></div></div>
+
+          <div class="accordion-item"><button class="accordion-toggle" type="button" aria-expanded="false">MAC spoofing and MAC flooding <span>+</span></button><div class="accordion-panel"><p><strong>MAC spoofing</strong> occurs when a device changes the MAC address it presents to the network. An attacker may try to impersonate another device, bypass MAC-based restrictions, avoid identification, gain access, or circumvent access controls.</p><p>MAC filtering is not a perfect security mechanism because MAC addresses can potentially be spoofed.</p><p><strong>MAC flooding</strong> attacks a switch's ability to keep track of MAC addresses. A switch maintains a MAC address table that maps devices to switch ports. An attacker sends a very large number of frames containing different MAC addresses to overwhelm that table. If the switch can no longer properly keep track of addresses, it may forward traffic more broadly, allowing the attacker to observe traffic they normally would not receive.</p><div class="reflect-box"><strong>MAC spoofing = pretend to be another interface.<br>MAC flooding = overwhelm the switch's MAC table.</strong></div></div></div>
+
+          <div class="accordion-item"><button class="accordion-toggle" type="button" aria-expanded="false">Defenses and detection <span>+</span></button><div class="accordion-panel"><p>Organizations can reduce local-network risk with layered controls:</p><ul class="compare-list"><li>Use encryption such as HTTPS and secure wireless encryption so intercepted traffic is harder to understand.</li><li>Use switch protections such as port security, VLANs, authentication, and limits on connected devices.</li><li>Use DHCP snooping and dynamic ARP inspection where supported to help identify or block suspicious local mappings.</li><li>Monitor ARP tables for unexpected changes, duplicate IP-to-MAC relationships, or a gateway MAC address changing unexpectedly.</li><li>Use network segmentation to limit how far an attacker can move after compromising a device.</li><li>Use logs, alerts, and intrusion detection to investigate unusual ARP, MAC, or local traffic behavior.</li></ul><p>No single control is perfect. MAC filtering alone is weak, and encryption does not stop an attacker from attempting local redirection, but layered controls can reduce exposure and limit impact.</p></div></div>
+
+          <div class="accordion-item"><button class="accordion-toggle" type="button" aria-expanded="false">Connect the concepts <span>+</span></button><div class="accordion-panel"><p>These attacks can work together. An attacker may spoof a MAC address to imitate an approved device, poison ARP information to redirect traffic, conduct an on-path attack to observe communication, and attempt to capture sensitive information. Defenders use encryption, segmentation, switch security, monitoring, and access controls to reduce the risk.</p><div class="reflect-box"><strong>ARP poisoning → traffic redirected → on-path position → possible interception or modification</strong></div><p>The goal of this review is not only to memorize terms. It is to explain how IP addressing, MAC addresses, ARP, switches, routers, and security controls interact.</p></div></div>
+        </div>
+
+        <div class="scenario-card"><h3>Follow one local request</h3><p>Computer A wants to send data to Computer B at <code>192.168.1.20</code>. Computer A checks its ARP cache. If no mapping exists, it broadcasts an ARP request. Computer B replies with its MAC address. Computer A builds a local frame using that MAC address, and the switch forwards the frame toward Computer B. If the destination is outside the local network, Computer A resolves the gateway's MAC address and sends the frame to the router.</p></div>
+
+        <div class="notes-box"><h3>My notes</h3><textarea aria-label="MAC addresses and ARP notes" placeholder="Explain the difference between an IP address and a MAC address, then describe how ARP delivers a local frame..."></textarea></div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card"><h3>Quick memory guide</h3><ul class="compact-list"><li><strong>IP</strong> → logical network location</li><li><strong>MAC</strong> → local network interface address</li><li><strong>ARP</strong> → maps IPv4 addresses to MAC addresses</li><li><strong>Switch</strong> → forwards local frames</li><li><strong>Router</strong> → connects different networks</li><li><strong>ARP poisoning</strong> → false mapping redirects traffic</li><li><strong>MAC spoofing</strong> → fake interface identity</li><li><strong>MAC flooding</strong> → overwhelms a switch's MAC table</li></ul></div>
+        <div class="status-card"><h3>Checklist</h3><label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain what a MAC address identifies.</label><label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain how ARP maps an IP address to a MAC address.</label><label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can tell when a device uses the gateway's MAC address.</label><label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain ARP poisoning and its security impact.</label><label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can distinguish MAC spoofing from MAC flooding.</label></div>
+        <div class="status-card"><h3>Remember</h3><p>IP addresses help packets travel between networks. MAC addresses help frames travel across the current local link. ARP connects the two for IPv4 local delivery.</p></div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout"><div><h2>Key takeaways</h2><ul><li>IP addresses support logical addressing and routing.</li><li>MAC addresses identify local network interfaces and help switches deliver frames.</li><li>ARP maps an IPv4 address to a MAC address on the local network.</li><li>Remote traffic is sent to the local gateway's MAC address, not directly to the remote server's MAC address.</li><li>ARP poisoning can redirect traffic and create an on-path position.</li><li>MAC spoofing and MAC flooding exploit weaknesses in local identity and switching.</li></ul></div><aside class="next-panel"><p>Next step</p><h2>Protect the network.</h2><p>Use this understanding of local delivery to study policies, authentication, wireless controls, and layered network defenses.</p><a href="3-3-protecting-networks.html">Open 3.3 →</a></aside></div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 3 • 3.2</span></div></footer>
+</body>
+</html>

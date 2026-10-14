@@ -1,0 +1,773 @@
+# Network and Routing
+
+Before learning about specific network protocols, it is important to understand how devices identify one another and communicate across a network.
+
+When your computer wants to communicate with another device, it needs to know **where that device is on the network**. This is where an **IP address** becomes important.
+
+An IP address is a numerical address assigned to a device or network interface. It allows devices to identify the **source** and **destination** of network traffic.
+
+Think of an IP address like a mailing address:
+
+* Your device = a house
+* IP address = the house's address
+* Network = the neighborhood
+* Router = the system that helps move the mail between neighborhoods
+* Data packet = the piece of mail
+
+An IP address does not necessarily identify a specific person or physical device forever. Addresses can change, especially when they are assigned dynamically.
+
+---
+
+# IP Addresses
+
+**IP** stands for **Internet Protocol**.
+
+The Internet Protocol is responsible for addressing and routing packets between networks.
+
+When information is sent across a network, it is broken into smaller pieces called **packets**. These packets contain information that helps networking devices determine where the packet came from and where it needs to go.
+
+An IP address primarily provides two important pieces of information:
+
+### Source IP Address
+
+The IP address of the device that sent the packet.
+
+### Destination IP Address
+
+The IP address of the device that should receive the packet.
+
+For example:
+
+```text
+Source:      192.168.1.25
+Destination: 142.250.72.14
+```
+
+The network uses these addresses to help deliver the packet to the correct destination.
+
+There are two major versions of IP used today:
+
+* **IPv4 — Internet Protocol version 4**
+* **IPv6 — Internet Protocol version 6**
+
+---
+
+# IPv4
+
+**IPv4** is the older and still extremely common version of the Internet Protocol.
+
+IPv4 addresses contain **32 bits**.
+
+Because computers represent information using binary, an IPv4 address can be thought of as a group of 32 binary digits.
+
+These 32 bits are divided into **four groups of 8 bits**, called **octets**.
+
+For example:
+
+```text
+192.168.1.25
+```
+
+Each number represents one octet.
+
+```text
+192      .168      .1        .25
+ ↓         ↓        ↓         ↓
+8 bits   8 bits   8 bits    8 bits
+```
+
+Since there are 8 bits in each octet, an IPv4 address contains:
+
+```text
+8 + 8 + 8 + 8 = 32 bits
+```
+
+Each octet can have a value from:
+
+```text
+0–255
+```
+
+Therefore, an IPv4 address can look like:
+
+```text
+10.0.0.15
+192.168.1.25
+172.16.4.100
+8.8.8.8
+```
+
+### Example: IPv4 in Binary
+
+The address:
+
+```text
+192.168.1.25
+```
+
+can be represented in binary as:
+
+```text
+11000000.10101000.00000001.00011001
+```
+
+Each group is 8 bits.
+
+### Why IPv4 Is Limited
+
+IPv4 has:
+
+```text
+2³²
+```
+
+possible addresses, which is approximately:
+
+**4.3 billion addresses.**
+
+That sounds like a huge number, but the Internet has billions of devices, and many devices need multiple addresses over time.
+
+This contributed to the development and adoption of **IPv6**.
+
+---
+
+# IPv4 Packet Header
+
+IPv4 packets contain a **header** that provides information needed to deliver and process the packet.
+
+Some important fields include:
+
+### Version
+
+The **Version** field identifies which version of IP is being used.
+
+For IPv4, the value is:
+
+```text
+0100
+```
+
+This is binary for **4**.
+
+This tells the receiving device:
+
+> "This packet is using IPv4."
+
+### Internet Header Length (IHL)
+
+The **Internet Header Length**, or **IHL**, tells the receiving device how long the IPv4 header is.
+
+The field is **4 bits** long.
+
+The header length is important because IPv4 headers can contain optional information, meaning the header is not always exactly the same size.
+
+### Source Address
+
+Contains the IPv4 address of the device that sent the packet.
+
+Example:
+
+```text
+192.168.1.25
+```
+
+### Destination Address
+
+Contains the IPv4 address of the intended recipient.
+
+Example:
+
+```text
+142.250.72.14
+```
+
+### Time to Live (TTL)
+
+The **TTL** field helps prevent packets from traveling around a network forever.
+
+Each time a router forwards a packet, its TTL is reduced.
+
+If the TTL reaches zero, the packet is discarded.
+
+This helps protect networks from routing loops.
+
+---
+
+# IPv6
+
+**IPv6**, or **Internet Protocol version 6**, was developed to address major limitations of IPv4, especially the limited number of available IPv4 addresses.
+
+IPv6 uses **128-bit addresses** instead of IPv4's 32-bit addresses.
+
+That creates an enormous number of possible addresses:
+
+```text
+2¹²⁸
+```
+
+There are approximately:
+
+**340 undecillion possible IPv6 addresses.**
+
+This is vastly more than IPv4.
+
+---
+
+# What Does an IPv6 Address Look Like?
+
+Unlike IPv4, IPv6 does not use four decimal numbers separated by periods.
+
+Instead, IPv6 uses **eight groups of hexadecimal numbers** separated by colons.
+
+Example:
+
+```text
+2001:0db8:85a3:0000:0000:8a2e:0370:7334
+```
+
+Each group contains **4 hexadecimal digits**.
+
+An IPv6 address therefore has:
+
+```text
+8 groups × 16 bits = 128 bits
+```
+
+because each hexadecimal digit represents 4 bits.
+
+### IPv6 Example
+
+A full IPv6 address could look like:
+
+```text
+2001:0db8:85a3:0000:0000:8a2e:0370:7334
+```
+
+IPv6 addresses can be shortened.
+
+For example:
+
+```text
+2001:0db8:85a3:0000:0000:8a2e:0370:7334
+```
+
+can be written as:
+
+```text
+2001:db8:85a3::8a2e:370:7334
+```
+
+Leading zeros can be removed, and consecutive groups containing only zeros can be represented using `::`.
+
+**Important:** `::` can only be used once in an IPv6 address.
+
+---
+
+# IPv4 vs. IPv6
+
+| Feature             | IPv4                  | IPv6                                            |
+| ------------------- | --------------------- | ----------------------------------------------- |
+| Address size        | 32 bits               | 128 bits                                        |
+| Example             | `192.168.1.25`        | `2001:db8::1`                                   |
+| Number system       | Decimal               | Hexadecimal                                     |
+| Separator           | Period `.`            | Colon `:`                                       |
+| Number of addresses | About 4.3 billion     | Extremely large: 2¹²⁸                           |
+| Address exhaustion  | Limited address space | Designed to provide a much larger address space |
+| Header              | IPv4 header           | IPv6 header                                     |
+| Version field       | `0100`                | `0110`                                          |
+
+### Remember
+
+**IPv4 = 32 bits**
+
+**IPv6 = 128 bits**
+
+A simple way to remember this:
+
+> IPv6 has a much larger address space than IPv4.
+
+---
+
+# DHCP
+
+**DHCP** stands for **Dynamic Host Configuration Protocol**.
+
+DHCP automatically provides devices with network configuration information when they join a network.
+
+Instead of manually configuring every computer with an IP address, a DHCP server can assign the information automatically.
+
+A DHCP server can provide information such as:
+
+* IP address
+* Subnet mask
+* Default gateway
+* DNS server information
+* How long the address can be used, called the **lease time**
+
+### DHCP Ports
+
+DHCP uses **UDP**:
+
+* **UDP port 67** — DHCP server
+* **UDP port 68** — DHCP client
+
+### Example
+
+When you connect a laptop to Wi-Fi:
+
+1. The laptop joins the network.
+2. It requests network configuration.
+3. The DHCP server responds.
+4. The laptop receives an IP address and other configuration information.
+5. The laptop can now communicate on the network.
+
+Without DHCP, network administrators would have to manually configure many devices.
+
+---
+
+# DHCP Security
+
+DHCP can be targeted by attackers.
+
+One potential problem is a **rogue DHCP server**.
+
+A rogue DHCP server is an unauthorized DHCP server that provides network configuration information to devices.
+
+An attacker could potentially use a rogue DHCP server to provide incorrect network settings.
+
+For example, an attacker could attempt to provide a victim with:
+
+* A malicious default gateway
+* A malicious DNS server
+* An incorrect IP configuration
+
+This could allow the attacker to interfere with or redirect network traffic.
+
+### DHCP Snooping
+
+**DHCP snooping** is a network security feature designed to help defend against rogue DHCP servers.
+
+It allows a switch to distinguish between:
+
+* **Trusted ports** — where legitimate DHCP servers are expected
+* **Untrusted ports** — where normal client devices are connected
+
+The switch can then block DHCP responses coming from unauthorized ports.
+
+**Important distinction:**
+
+> DHCP snooping is a **security mechanism used to detect/prevent certain DHCP attacks**. It is not the name of the attack itself.
+
+### Remember
+
+**Rogue DHCP server = attack/threat**
+
+**DHCP snooping = defense against rogue DHCP activity**
+
+---
+
+# DNS
+
+**DNS** stands for **Domain Name System**.
+
+DNS translates human-readable domain names into IP addresses.
+
+People generally prefer to type:
+
+```text
+example.com
+```
+
+rather than remember an IP address such as:
+
+```text
+93.184.216.34
+```
+
+DNS connects the two.
+
+Think of DNS like the Internet's phone book:
+
+```text
+Domain name → IP address
+example.com → 93.184.216.34
+```
+
+### DNS Port
+
+DNS normally uses:
+
+**Port 53**
+
+DNS commonly uses **UDP port 53** for regular queries, while **TCP port 53** is also used for certain DNS operations.
+
+### Why DNS Is Important
+
+When you enter a website address into your browser, your computer usually needs to determine the IP address associated with that domain.
+
+A simplified process looks like:
+
+```text
+You type:
+www.example.com
+
+        ↓
+
+DNS lookup
+
+        ↓
+
+IP address found
+
+        ↓
+
+Your computer connects to that IP address
+```
+
+### DNS Attacks
+
+Because DNS helps direct users to websites and other services, attackers may attempt to manipulate DNS information.
+
+For example, if an attacker can modify DNS records or otherwise interfere with DNS resolution, a user could potentially be directed to a malicious or fraudulent website instead of the legitimate destination.
+
+This can be used in attacks such as **DNS spoofing** or **DNS cache poisoning**.
+
+### Remember
+
+**DNS = Domain Name System**
+
+**Main job = translate domain names into IP addresses**
+
+**Port = 53**
+
+---
+
+# ICMP
+
+**ICMP** stands for **Internet Control Message Protocol**.
+
+ICMP is used by network devices to send **control, diagnostic, and error messages**.
+
+Unlike TCP and UDP, ICMP does **not use a port number**.
+
+Instead, ICMP is identified by:
+
+**IP protocol number 1**
+
+### Example: Ping
+
+One of the most familiar uses of ICMP is **ping**.
+
+When you ping another device, your computer sends an ICMP message to determine whether the destination can be reached and whether it responds.
+
+For example:
+
+```text
+Computer
+   ↓
+ICMP Echo Request
+   ↓
+Server
+   ↓
+ICMP Echo Reply
+   ↓
+Computer
+```
+
+Ping can help determine:
+
+* Whether a device is reachable
+* How long a response takes
+* Whether packets are being lost
+
+### Remember
+
+**ICMP = network control and diagnostic messages**
+
+**Protocol number = 1**
+
+**No TCP/UDP port**
+
+---
+
+# RIP
+
+**RIP** stands for **Routing Information Protocol**.
+
+RIP is a routing protocol that helps routers determine paths through a network.
+
+RIP uses the number of **hops** as its routing metric.
+
+A **hop** represents a router that a packet passes through.
+
+For example:
+
+```text
+Computer
+   ↓
+Router 1
+   ↓
+Router 2
+   ↓
+Router 3
+   ↓
+Server
+```
+
+The packet has passed through multiple hops.
+
+### RIP Hop Limit
+
+RIP has a maximum hop count of **15**.
+
+A route with a metric of **16** is considered unreachable.
+
+This limit helps prevent routing loops from continuing indefinitely.
+
+### RIP Port
+
+RIP uses:
+
+**UDP port 520**
+
+### Remember
+
+**RIP = Routing Information Protocol**
+
+**Port = UDP 520**
+
+**Maximum usable hop count = 15**
+
+---
+
+# NTP
+
+**NTP** stands for **Network Time Protocol**.
+
+NTP is used to synchronize the clocks of computers and network devices.
+
+NTP uses:
+
+**UDP port 123**
+
+Accurate time is important for cybersecurity and networking because systems use timestamps for things such as:
+
+* Logging events
+* Comparing security events
+* Authentication
+* Certificates
+* Troubleshooting
+* Coordinating network operations
+
+For example, if two security systems record an attack but their clocks are several minutes apart, it can be difficult to determine the exact sequence of events.
+
+### Remember
+
+**NTP = Network Time Protocol**
+
+**Purpose = synchronize clocks**
+
+**Port = UDP 123**
+
+---
+
+# SSH
+
+**SSH** stands for **Secure Shell**.
+
+SSH provides a secure way to remotely connect to another computer or network device.
+
+SSH encrypts the communication between the two systems.
+
+This makes it useful for remotely administering:
+
+* Servers
+* Routers
+* Switches
+* Linux computers
+* Other network-connected systems
+
+### SSH Port
+
+SSH normally uses:
+
+**TCP port 22**
+
+A simplified connection looks like:
+
+```text
+Your computer
+      ↓
+   SSH connection
+      ↓
+Remote computer
+```
+
+Because the connection is encrypted, information such as commands and authentication data can be protected while traveling across the network.
+
+### Remember
+
+**SSH = Secure Shell**
+
+**Purpose = secure remote access**
+
+**Port = TCP 22**
+
+---
+
+# SCP
+
+**SCP** stands for **Secure Copy Protocol**.
+
+SCP is used to securely transfer files between systems.
+
+SCP operates using **SSH**, which provides the secure connection.
+
+SCP can be used to transfer files such as:
+
+```text
+Computer A
+    ↓
+   SCP
+    ↓
+Computer B
+```
+
+### SCP Port
+
+Because SCP uses SSH, it normally uses:
+
+**TCP port 22**
+
+### SSH vs. SCP
+
+A simple way to remember the difference:
+
+**SSH → remotely connect to a computer**
+
+**SCP → securely copy files between computers**
+
+Both commonly use:
+
+**TCP port 22**
+
+---
+
+# TLS
+
+**TLS** stands for **Transport Layer Security**.
+
+TLS is a cryptographic protocol designed to protect data while it travels across a network.
+
+TLS can provide:
+
+* **Encryption** — helps prevent others from reading the data
+* **Authentication** — helps verify the identity of the server
+* **Integrity** — helps detect whether data was changed during transmission
+
+TLS is commonly used to protect web traffic.
+
+For example:
+
+```text
+Your browser
+     ↓
+Encrypted TLS connection
+     ↓
+Website
+```
+
+When you visit a website using **HTTPS**, TLS is generally used to protect the connection.
+
+### Important Port Correction
+
+TLS itself does **not have a single dedicated port**.
+
+For example:
+
+* **HTTPS** commonly uses **TCP port 443**
+* HTTPS uses TLS to secure the HTTP connection
+
+So it is more accurate to remember:
+
+> **TCP 443 = HTTPS, which commonly uses TLS**
+
+rather than:
+
+> TLS = TCP 443
+
+TLS can be used by other protocols and services as well.
+
+---
+
+# Important Ports and Protocols to Remember
+
+| Protocol | Full Name                           | Purpose                                      | Transport | Port / Number            |
+| -------- | ----------------------------------- | -------------------------------------------- | --------- | ------------------------ |
+| DHCP     | Dynamic Host Configuration Protocol | Assigns network configuration                | UDP       | 67 server / 68 client    |
+| DNS      | Domain Name System                  | Resolves domain names to IP addresses        | UDP/TCP   | 53                       |
+| ICMP     | Internet Control Message Protocol   | Error, control, and diagnostic messages      | IP        | Protocol 1               |
+| RIP      | Routing Information Protocol        | Exchanges routing information                | UDP       | 520                      |
+| NTP      | Network Time Protocol               | Synchronizes clocks                          | UDP       | 123                      |
+| SSH      | Secure Shell                        | Secure remote access                         | TCP       | 22                       |
+| SCP      | Secure Copy Protocol                | Secure file transfer                         | TCP       | 22                       |
+| HTTPS    | Hypertext Transfer Protocol Secure  | Secure web communication                     | TCP       | 443                      |
+| TLS      | Transport Layer Security            | Encrypts/authenticates network communication | Varies    | No single dedicated port |
+
+# Quick Memory Guide
+
+### Addressing
+
+**IP → identifies where network traffic is going**
+
+### Automatic configuration
+
+**DHCP → gives devices network configuration**
+
+### Name resolution
+
+**DNS → domain name → IP address**
+
+### Network diagnostics
+
+**ICMP → errors, control, and tools like ping**
+
+### Routing
+
+**RIP → helps routers determine routes**
+
+### Time
+
+**NTP → keeps clocks synchronized**
+
+### Remote access
+
+**SSH → securely access another computer**
+
+### File transfer
+
+**SCP → securely copy files using SSH**
+
+### Encryption
+
+**TLS → protects data while it travels**
+
+---
+
+# Key Things to Remember
+
+1. **IPv4 uses 32-bit addresses.**
+2. **IPv6 uses 128-bit addresses.**
+3. **IPv4 addresses are written in decimal and separated by periods.**
+4. **IPv6 addresses are written in hexadecimal and separated by colons.**
+5. **DHCP automatically assigns network configuration information.**
+6. **DHCP uses UDP ports 67 and 68.**
+7. **DNS translates domain names into IP addresses.**
+8. **DNS normally uses port 53.**
+9. **ICMP does not use TCP or UDP ports; it uses IP protocol number 1.**
+10. **RIP uses UDP port 520 and has a maximum usable hop count of 15.**
+11. **NTP uses UDP port 123 to synchronize time.**
+12. **SSH uses TCP port 22 for secure remote access.**
+13. **SCP uses SSH and normally uses TCP port 22 for secure file transfers.**
+14. **HTTPS commonly uses TCP port 443 and can use TLS to secure the connection.**
+15. **TLS is a security protocol, not a single port number.**

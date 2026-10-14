@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.4 — Network Segmentation | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a class="active" href="index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">3.4 • Network Segmentation</p>
+      <h1>Network Segmentation</h1>
+      <p class="unit-intro">Segmentation divides a large network into smaller sections so that a compromise in one area is less likely to spread to the entire environment. This is one of the most important design concepts in network defense.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Isolation and containment</span></div>
+        <div class="progress-meter"><span style="width: 60%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="3-1-network-vulnerabilities.html">3.1</a>
+      <a href="3-2-mac-addresses-and-arp.html">3.2</a>
+      <a href="3-3-protecting-networks.html">3.3</a>
+      <a class="active" href="3-4-network-segmentation.html">3.4</a>
+      <a href="3-5-firewalls.html">3.5</a>
+      <a href="3-6-acl-tables.html">3.6</a>
+      <a href="3-7-detecting-network-attacks.html">3.7</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Containment reduces blast radius.</h2>
+          <p>When one part of a network is compromised, segmentation helps stop the attacker from moving freely to other systems. Instead of a single large network, organizations create sections such as student, teacher, guest, admin, and server networks.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Core idea</span>
+            <h3>Limit spread</h3>
+            <p>If a student computer is compromised, segmentation reduces how far the attack can travel.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Subnets</span>
+            <h3>IP-based separation</h3>
+            <p>Subnetting divides a larger IP space into smaller ranges so different groups can be separated logically and operationally.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">VLANs</span>
+            <h3>Logical separation</h3>
+            <p>VLANs let devices share the same physical infrastructure while being placed in separate logical networks with different rules.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">Why segmentation matters</h2>
+        <div class="accordion" aria-label="Segmentation concepts">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Segmentation <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>Segmentation</strong> is the practice of dividing a larger network into smaller sections. It helps control how devices can communicate with each other.</p>
+              <p><strong>Without segmentation:</strong> a compromise can spread more easily. <strong>With segmentation:</strong> traffic and access can be restricted to specific groups or services.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Subnets <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>subnet</strong> is a smaller network created from a larger IP network. Subnetting allows administrators to define separate IP ranges and apply different controls to different network sections.</p>
+              <p>It is not necessary to master subnet math for AP-level understanding. The main idea is that network ranges can be divided into smaller sections.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">VLANs <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>VLAN</strong> creates logical separation even when devices are physically connected to the same infrastructure. Different VLANs can host students, teachers, servers, and guests with different rules.</p>
+              <p>VLANs help enforce policy and reduce unauthorized communication between groups.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">DMZ <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>DMZ</strong>, or demilitarized zone, is a network between an internal network and the internet. Public-facing servers such as web servers are often placed there.</p>
+              <p>The DMZ creates an additional buffer so a public service can be exposed without giving direct access to the internal network.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">How segmentation helps defend</h2>
+        <div class="scenario-card">
+          <h3>Sample environment</h3>
+          <ul class="compare-list">
+            <li><strong>Student network:</strong> limited access, guest-like restrictions.</li>
+            <li><strong>Teacher network:</strong> more trusted, but still isolated from admin systems.</li>
+            <li><strong>Server network:</strong> contains business-critical resources and is protected by tighter controls.</li>
+            <li><strong>Guest network:</strong> separated from sensitive internal systems.</li>
+            <li><strong>Administrative network:</strong> restricted to authorized staff and sensitive tools.</li>
+          </ul>
+          <p>In this design, a compromise in one segment does not automatically grant access to every other segment.</p>
+        </div>
+
+        <div class="quiz-card" data-correct="blast">
+          <p>Which concept best explains why a school separates staff, students, and servers into different networks?</p>
+          <div class="choice-row">
+            <button class="option-button" type="button" data-answer="blast">To limit the blast radius of an attack</button>
+            <button class="option-button" type="button" data-answer="wireless">To improve wireless signal strength</button>
+            <button class="option-button" type="button" data-answer="mac">To prevent MAC addresses from changing</button>
+          </div>
+          <div class="answer-box" hidden>
+            <strong>Correct:</strong> Segmentation reduces the <strong>blast radius</strong> by limiting how far an attacker can move after a breach.
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain the purpose of segmentation.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know the difference between a subnet and a VLAN.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can describe a DMZ and why it is used.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I understand how segmentation limits lateral movement.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Segmentation reduces how far an attack can spread.</li>
+            <li>VLANs separate logical groups without changing physical wiring.</li>
+            <li>DMZs protect public services from direct access to internal systems.</li>
+            <li>Containment is a key defense strategy in network design.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Next concept</h2>
+        <div class="unit-card-list">
+          <a class="unit-link-card" href="3-5-firewalls.html">
+            <span>3.5</span>
+            <strong>Firewalls</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Control traffic.</h2>
+        <p>Segmentation creates boundaries, but firewalls decide which traffic is allowed to cross those boundaries.</p>
+        <a href="3-5-firewalls.html">Open 3.5 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 3 • 3.4</span></div></footer>
+</body>
+</html>

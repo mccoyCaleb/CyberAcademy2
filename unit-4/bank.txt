@@ -1,0 +1,56 @@
+UNIT 4 REVIEW QUESTION BANK
+Securing Devices
+
+Answer each scenario by identifying the asset, warning signs, attack or control weakness, likely impact, and a practical mitigation. Distinguish evidence from assumptions; logs and alerts need context.
+
+1. Password guessing against one account
+Question: A login service records hundreds of different password guesses against one employee account in a short time. Identify the attack and recommend user and system controls.
+Answer key: Brute-force attack. Use a unique strong password/passphrase and MFA; the service should rate-limit attempts, monitor failures, apply carefully designed lockouts or throttling, and alert on abnormal patterns. Do not reuse a weak password after a reset.
+
+2. The same common guess across many staff
+Question: Logs show one common password tried once against hundreds of staff accounts. Why is this not ordinary brute force against one user? Name the pattern and defenses.
+Answer key: Password spraying distributes a small number of likely passwords across many accounts to evade per-account thresholds. Use unique non-common passwords and MFA; detect failures across accounts and sources, rate-limit intelligently, and investigate associated activity. Avoid lockout policies that attackers can abuse to deny service to users.
+
+3. Reused credentials after a breach
+Question: A password from a public gaming-site breach successfully signs in to a school account. Identify the attack technique and immediate response.
+Answer key: Credential stuffing: attackers replay known username/password pairs on other services. Change the compromised and any reused passwords through official channels, revoke active sessions, enable MFA, review account activity, and notify IT. Use a password manager to generate unique passwords.
+
+4. A stolen password file
+Question: A database contains password values that look scrambled, but attackers recover many short passwords quickly using precomputed tables. What storage weaknesses may explain this, and how should passwords be stored?
+Answer key: The service may have used a fast unsalted hash, allowing precomputed/rainbow-table matching. Use a unique salt and a purpose-built slow password-hashing function with suitable work factor; never store plaintext passwords. Notify users, force/reset exposed credentials as appropriate, and check for reused passwords and suspicious sign-ins.
+
+5. Two steps, one factor
+Question: A device asks for a password and then asks the user to answer another secret question. Is this MFA? Contrast it with password plus a hardware security key.
+Answer key: Password plus secret answer are both knowledge factors, so they are not two distinct factor categories. Password plus hardware key combines knowledge and possession and qualifies as MFA. Factors can include knowledge, possession, biometric, or location; use distinct factors and protect recovery mechanisms.
+
+6. A login code requested over the phone
+Question: A caller claiming to be IT knows an employee's name and asks them to read an authenticator code to “stop an attack.” Identify the danger and the correct action.
+Answer key: The caller may be conducting vishing/pretexting to use a real-time one-time code and complete authentication. Never disclose codes, passwords, or approve unexpected prompts. End the call; contact IT using a known number, report it, and review/revoke sessions if a code was shared.
+
+7. Signed in but blocked
+Question: A staff member signs in successfully but cannot open the student-records folder. They ask a coworker to share their login. Explain authentication versus authorization and the safer fix.
+Answer key: Authentication verifies identity; authorization determines what an authenticated user may do. The denial may be correct least-privilege enforcement, not an authentication failure. Never share credentials. Request approved access through the owner/administrator, confirm the role need, and log authorized changes.
+
+8. The school laptop with admin rights
+Question: Every student laptop user can install software and disable the host firewall. A downloaded “study tool” adds an unknown background service. Identify the weaknesses and layered response.
+Answer key: Excessive privilege, unapproved software installation, and disabled endpoint controls violate least privilege and secure policy. Isolate/report the affected device through IT, inspect for malware, restore approved configuration, patch, and review logs. Use standard user accounts, managed installation, anti-malware, host firewalls, and acceptable-use rules.
+
+9. Signature scan misses a new threat
+Question: Endpoint protection reports no known malware signature, but an unknown process begins contacting an unfamiliar external server and changing startup settings. Why can signature-only detection miss it? What else helps?
+Answer key: Signature detection depends on known patterns and may not recognize new or modified malware. Behavior-based monitoring can flag unusual persistence, network connections, or system changes. Investigate process origin, hashes, network and system logs; isolate if warranted, preserve evidence, update tools, patch, and verify recovery.
+
+10. Patch postponed repeatedly
+Question: An old laptop runs an internet-facing service with a known security update available. The owner delays patching because “it still works.” Identify the vulnerability and explain a safe remediation plan.
+Answer key: An unpatched known vulnerability increases the chance of exploitation; availability is not evidence of security. Assess exposure and business impact, back up/plan a maintenance window, test and apply the vendor patch, verify the service, and monitor. If patching must wait, restrict exposure and document a time-bound compensating control.
+
+11. Investigate the failed-login timeline
+Question: Device logs show repeated failed logins at 01:20, a successful login at 01:27, creation of a new administrator account at 01:31, and an outbound connection at 01:34. Which events are indicators of compromise and what should responders do?
+Answer key: The unusual login, privileged account creation, and outbound connection form a concerning sequence. They are indicators, not conclusive proof without context. Preserve logs, verify whether maintenance was scheduled and who authorized it, isolate the device if compromise is credible, disable/revoke suspect access through approved process, identify affected data/systems, and investigate related network/authentication logs.
+
+12. A log entry is not a person
+Question: An authentication log lists a successful login from an IP address assigned to a shared school network. Can this identify the individual who logged in? What additional evidence is useful?
+Answer key: Not by itself. Shared/NAT addresses may represent many devices or users, and an IP can be spoofed or reassigned. Correlate timestamps, account/MFA events, device identifiers, DHCP/VPN records, endpoint logs, application actions, and verified user reports. Preserve evidence and communicate uncertainty; do not accuse someone based on one field.
+
+13. Evidence of a new administrator
+Question: A staff laptop has a new admin account the owner does not recognize. The account has not yet accessed files. Does that mean there is no incident? Identify the risk and next steps.
+Answer key: No. An unexpected privileged account is a serious indicator; it may enable future access even without observed file access. Restrict the device/account under incident procedures, preserve logs, verify authorized changes, inspect processes, startup entries, network activity, and other accounts, and determine whether credentials or data were exposed. Restore a known-good state and patch before returning it to service.

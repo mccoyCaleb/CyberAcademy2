@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.5 — HTTP Requests, Status Codes, and Server Logs | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a class="active" href="index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">2.5 • Logs Basics</p>
+      <h1>HTTP Requests, Status Codes, and Server Logs</h1>
+      <p class="unit-intro">HTTP logs record requests, responses, and other events. This section teaches how to read HTTP methods, status codes, and server log entries, then connect individual events into timelines and patterns without jumping to unsupported conclusions.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Web log analysis</span></div>
+        <div class="progress-meter"><span style="width: 100%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="2-1-cyber-foundations.html">2.1</a>
+      <a href="2-2-physical-vulnerabilities.html">2.2</a>
+      <a href="2-3-protecting-physical-spaces.html">2.3</a>
+      <a href="2-4-network-and-routing.html">2.4</a>
+      <a class="active" href="2-5-logs-basics.html">2.5</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>One log line is an event. A sequence becomes evidence.</h2>
+          <p>HTTP (Hypertext Transfer Protocol) allows clients, such as web browsers, applications, and other devices, to communicate with web servers. When you visit a website, your browser sends an HTTP request to a server. The server processes that request and sends back an HTTP response.</p>
+          <div class="reflect-box"><strong>Client → HTTP Request → Server → HTTP Response → Client</strong></div>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Requests</span>
+            <h3>What the client asks for</h3>
+            <p>An HTTP request can contain a method, path, HTTP version, headers, and a body when data is being sent to the server.</p>
+          </article>
+          <article class="info-card">
+            <span class="tag">Responses</span>
+            <h3>How the server responds</h3>
+            <p>A status code describes how the server handled the request, from a successful response to a client error or server problem.</p>
+          </article>
+          <article class="info-card">
+            <span class="tag">Analysis</span>
+            <h3>How analysts investigate</h3>
+            <p>Analysts connect who, when, what, result, how, pattern, and context before deciding what an event means.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">1. Understanding HTTP requests</h2>
+        <p>An HTTP request can contain several important pieces of information:</p>
+        <ul class="compare-list">
+          <li><strong>Method:</strong> What the client wants to do.</li>
+          <li><strong>Path:</strong> Which resource the client wants to access.</li>
+          <li><strong>HTTP version:</strong> Which version of HTTP is being used.</li>
+          <li><strong>Headers:</strong> Additional information about the request.</li>
+          <li><strong>Body:</strong> Data being sent to the server, when applicable.</li>
+        </ul>
+
+        <div class="accordion" aria-label="HTTP methods, status codes, and server logs">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">GET — retrieve information <span>−</span></button>
+            <div class="accordion-panel">
+              <p><code>GET</code> requests are used to retrieve information from a server.</p>
+              <p><strong>Example:</strong> <code>GET /users HTTP/1.1</code></p>
+              <p>The client is asking the server to return the resource at <code>/users</code>. GET is one of the most common HTTP methods because browsers use it constantly when loading websites. When you visit <code>https://example.com/</code>, your browser will typically send a GET request for the page.</p>
+              <p>The browser may then make additional GET requests for images, CSS files, JavaScript, fonts, videos, and other resources.</p>
+              <p><strong>Characteristics:</strong> GET is intended to retrieve information rather than modify server data, so it is <strong>safe</strong>. Repeating the same GET request should have the same intended effect on the server, so it is <strong>idempotent</strong>. GET responses can generally be cached when the server's caching rules allow it.</p>
+              <p>GET requests can include information in the URL using a query string: <code>GET /search?q=cybersecurity HTTP/1.1</code>. Here, <code>/search</code> is the path and <code>?q=cybersecurity</code> is the query string. The server can use the <code>q</code> parameter to determine what the client is searching for.</p>
+              <p><strong>Cybersecurity consideration:</strong> Sensitive information should generally not be placed in a GET URL. Passwords in URLs are dangerous because URLs can potentially appear in browser history, server logs, proxy logs, monitoring systems, and analytics systems.</p>
+              <p><strong>Common responses:</strong> 200 OK, 304 Not Modified, 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, and 500 Internal Server Error.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">POST — submit or process data <span>+</span></button>
+            <div class="accordion-panel">
+              <p><code>POST</code> is commonly used to send data to a server for processing.</p>
+              <p><strong>Example:</strong> <code>POST /users HTTP/1.1</code></p>
+              <p>The request body could contain:</p>
+              <div class="reflect-box"><code>username=jprice<br>email=jprice@example.com</code></div>
+              <p>POST is commonly used for creating accounts, submitting forms, sending messages, uploading information, creating database records, and sending API requests.</p>
+              <p>POST is <strong>not safe</strong> because it can modify the server's state. It is <strong>not inherently idempotent</strong>: if a website uses POST to create an order, sending the request twice could potentially create two orders. POST is not cacheable by default.</p>
+              <p><strong>Common responses:</strong> 200 OK, 201 Created, 202 Accepted, 400 Bad Request, 401 Unauthorized, 403 Forbidden, 409 Conflict, and 500 Internal Server Error.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">PUT, PATCH, and DELETE — change resources <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>PUT</strong> is used to replace the current representation of a resource with the information supplied by the client.</p>
+              <p><code>PUT /users/123 HTTP/1.1</code></p>
+              <div class="reflect-box"><code>{<br>&nbsp;&nbsp;"name": "John Price",<br>&nbsp;&nbsp;"email": "john@example.com"<br>}</code></div>
+              <p>PUT is not safe, idempotent, and generally not cacheable. If the same PUT request is sent multiple times, the intended final state should remain the same.</p>
+              <p><strong>PATCH</strong> modifies only part of an existing resource.</p>
+              <p><code>PATCH /users/123 HTTP/1.1</code></p>
+              <div class="reflect-box"><code>{ "email": "newemail@example.com" }</code></div>
+              <p>Instead of replacing all of the user's information, the server only changes the email address. PATCH is not safe, not inherently idempotent, and generally not cacheable. Whether a particular PATCH operation is idempotent depends on what the operation actually does.</p>
+              <p><strong>DELETE</strong> requests the removal of a resource: <code>DELETE /users/123 HTTP/1.1</code>. DELETE is not safe, idempotent, and generally not cacheable. Repeating a DELETE request does not normally cause additional deletions after the resource is already gone.</p>
+              <p><strong>Cybersecurity consideration:</strong> DELETE requests can be important during security investigations because unauthorized users may attempt to delete accounts, files, database records, backups, logs, or configuration information.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">HEAD, OPTIONS, CONNECT, and TRACE <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>HEAD</strong> works similarly to GET, but the server does not return the response body. A client may receive information such as <code>Content-Type</code>, <code>Content-Length</code>, and <code>Last-Modified</code> without receiving the actual HTML page. HEAD is useful when a client wants to determine information about a resource without downloading the resource itself.</p>
+              <p><strong>OPTIONS</strong> asks the server which communication methods or options are supported. For example, <code>OPTIONS /api/users HTTP/1.1</code> might receive <code>Allow: GET, POST, PUT, DELETE</code>. OPTIONS is also important in CORS, where browsers can perform a preflight request before certain cross-origin requests.</p>
+              <p><strong>CONNECT</strong> asks a proxy to create a tunnel to another server: <code>CONNECT www.example.com:443 HTTP/1.1</code>. This is commonly associated with HTTPS connections through a proxy. A successful response might be <code>200 Connection Established</code>. CONNECT establishes a tunnel; HTTPS/TLS provides the encryption and authentication for HTTPS traffic.</p>
+              <p><strong>TRACE</strong> is primarily a diagnostic method. The server can return information about the request it received. TRACE can help diagnose how requests are being handled by network components. It is commonly disabled on production servers because of security concerns in certain configurations.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">HTTP status code categories <span>+</span></button>
+            <div class="accordion-panel">
+              <p>HTTP status codes are three-digit numbers returned by the server. They are divided into five categories:</p>
+              <div class="reflect-box"><strong>1xx</strong> → Informational<br><strong>2xx</strong> → Success<br><strong>3xx</strong> → Redirection<br><strong>4xx</strong> → Client/request error<br><strong>5xx</strong> → Server error</div>
+              <p><strong>1xx — Informational:</strong> The server has received the request and communication is continuing. <strong>100 Continue</strong> tells the client it can continue sending the request. <strong>101 Switching Protocols</strong> means the server agrees to switch to another protocol. <strong>103 Early Hints</strong> sends preliminary information before the final response.</p>
+              <p><strong>2xx — Success:</strong> <strong>200 OK</strong> means the request succeeded. <strong>201 Created</strong> means a new resource was successfully created, commonly after POST. <strong>202 Accepted</strong> means the request was accepted but processing may not be finished. <strong>204 No Content</strong> means the request succeeded but there is no response body.</p>
+              <p><strong>3xx — Redirection:</strong> <strong>301 Moved Permanently</strong> means the resource has permanently moved. <strong>302 Found</strong> means the resource is temporarily available somewhere else. <strong>304 Not Modified</strong> means the resource has not changed, so the client can use its cached copy. <strong>307 Temporary Redirect</strong> and <strong>308 Permanent Redirect</strong> preserve the request method while redirecting.</p>
+              <p><strong>4xx — Client/request errors:</strong> 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 405 Method Not Allowed, 408 Request Timeout, 409 Conflict, and 429 Too Many Requests. A 405 means the resource exists but the HTTP method is not allowed. A 429 is commonly associated with rate limiting.</p>
+              <p><strong>5xx — Server errors:</strong> 500 Internal Server Error means the server encountered an unexpected problem. 502 Bad Gateway means a gateway or proxy received an invalid response from another server. 503 Service Unavailable means the service is temporarily unable to handle the request. 504 Gateway Timeout means a gateway or proxy did not receive a response from another server in time.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Reading a server log entry <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Web servers create logs that record requests and other events. These logs are extremely useful in cybersecurity because they allow analysts to reconstruct what happened.</p>
+              <div class="reflect-box"><code>29 - 192.168.1.50 - jprice [10/Nov/2025:09:05:30 -0500] "GET / HTTP/1.1" 200 4231 "-" "Mozilla/5.0 (Ubuntu)"</code></div>
+              <p>Break it into pieces:</p>
+              <div class="reflect-box"><code>29<br>192.168.1.50<br>jprice<br>[10/Nov/2025:09:05:30 -0500]<br>GET<br>/<br>HTTP/1.1<br>200<br>4231<br>-<br>Mozilla/5.0 (Ubuntu)</code></div>
+              <p><strong>Request identifier:</strong> <code>29</code> is a field included in this particular log format. It may represent a request or record identifier. The exact meaning depends on how the server's logging system is configured.</p>
+              <p><strong>Source IP address:</strong> <code>192.168.1.50</code> is the IP address associated with the client making the request. We should not automatically say that a specific person made the request. Proxies, VPNs, NAT, and compromised devices can affect which IP address appears in a log. Treat the IP as evidence about the network source, not automatic proof of a person's identity.</p>
+              <p><strong>Identity:</strong> <code>jprice</code> represents an identity or username according to the logging configuration. It should not automatically be interpreted as the device name. If the server associates requests with authenticated users, it might represent the account that made the request. An analyst should learn how the server defines the field.</p>
+              <p><strong>Timestamp:</strong> <code>[10/Nov/2025:09:05:30 -0500]</code> gives the date, time, and offset. Timestamps are extremely important when investigating an incident because an analyst can search the logs around the reported time and build a sequence of events.</p>
+              <p><strong>Method and path:</strong> <code>GET /</code> means the client requested information at the root path. In many web applications, this corresponds to the homepage. <code>HTTP/1.1</code> identifies the HTTP version.</p>
+              <p><strong>Status and response size:</strong> <code>200</code> means the server successfully processed the request. <code>4231</code> commonly represents the response size, approximately 4,231 bytes in this example, although the exact interpretation depends on the logging configuration.</p>
+              <p><strong>Referrer:</strong> <code>-</code> indicates that no referrer information was recorded. A referrer can sometimes tell the server which page led to the current request.</p>
+              <p><strong>User-Agent:</strong> <code>Mozilla/5.0 (Ubuntu)</code> provides information about the software making the request, such as a browser, operating system, or client software. It is not definitive proof because a program can intentionally send a User-Agent that pretends to be a browser.</p>
+              <p><strong>Overall interpretation:</strong> At 9:05:30 AM on November 10, 2025, the server recorded a GET request for the website's root path from source IP <code>192.168.1.50</code>, associated with identity <code>jprice</code>. The server returned a 200 OK response. This is consistent with a normal request for a website's homepage, but one line alone does not prove that it was legitimate.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Example 1 — normal web resources <span>+</span></button>
+            <div class="accordion-panel">
+              <div class="reflect-box"><code>29 - 192.168.1.50 - jprice [10/Nov/2025:09:05:30 -0500] "GET / HTTP/1.1" 200 4231 "-" "Mozilla/5.0 (Ubuntu)"<br>30 - 192.168.1.50 - jprice [10/Nov/2025:09:05:31 -0500] "GET /images/banner.jpg HTTP/1.1" 200 3087 "-" "Mozilla/5.0 (Ubuntu)"</code></div>
+              <p>The second request comes one second after the first. It uses the same source IP and identity, requests <code>/images/banner.jpg</code>, receives a 200 response, and returns approximately 3,087 bytes.</p>
+              <p>Why might this happen immediately after <code>GET /</code>? A webpage is made up of many resources. The browser requests the HTML, reads it, finds an image, then requests the image. It may then request CSS and JavaScript.</p>
+              <div class="reflect-box"><strong>GET / → HTML page → browser reads HTML → GET /images/banner.jpg → GET /style.css → GET /script.js</strong></div>
+              <p>Several GET requests within a few seconds can be completely normal. An analyst should understand what the application normally does before treating a high number of requests as malicious.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Example 2 — a series of 404 requests <span>+</span></button>
+            <div class="accordion-panel">
+              <div class="reflect-box"><code>10.20.30.40 - - [10/Nov/2025:09:15:01 -0500] "GET /admin HTTP/1.1" 404 512 "-" "python-requests"<br>10.20.30.40 - - [10/Nov/2025:09:15:02 -0500] "GET /backup HTTP/1.1" 404 512 "-" "python-requests"<br>10.20.30.40 - - [10/Nov/2025:09:15:03 -0500] "GET /config HTTP/1.1" 404 512 "-" "python-requests"<br>10.20.30.40 - - [10/Nov/2025:09:15:04 -0500] "GET /.env HTTP/1.1" 404 512 "-" "python-requests"</code></div>
+              <p>Every request comes from <code>10.20.30.40</code>, and there is exactly one second between requests. That regular timing may be consistent with automated activity, but timing alone does not prove malicious activity.</p>
+              <p>The paths <code>/admin</code>, <code>/backup</code>, <code>/config</code>, and <code>/.env</code> could potentially contain administrative or configuration information on some systems. Requesting them does not prove that they exist or that anyone successfully accessed them.</p>
+              <p>Every response is <code>404 Not Found</code>, so the server did not report that these resources were found. We should say that the client requested these paths and the server returned 404 responses. We should not say that an attacker accessed configuration files.</p>
+              <p>The User-Agent <code>python-requests</code> is a clue that the traffic may have been generated programmatically, but User-Agent values can be changed. The overall pattern could be consistent with automated reconnaissance or directory/file scanning. An authorized vulnerability scanner could create the same traffic.</p>
+              <p>Next, investigate whether the IP is expected, whether the same source made successful 200 or 302 requests, whether authentication events occurred, whether files were actually accessed, and whether the scan was authorized.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Example 3 — 401 versus 403 <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Repeated requests such as these return <code>401 Unauthorized</code>:</p>
+              <div class="reflect-box"><code>192.168.1.80 - - [10/Nov/2025:10:00:01] "GET /admin HTTP/1.1" 401<br>192.168.1.80 - - [10/Nov/2025:10:00:03] "GET /admin HTTP/1.1" 401<br>192.168.1.80 - - [10/Nov/2025:10:00:05] "GET /admin HTTP/1.1" 401</code></div>
+              <p>This generally indicates that authentication is required or that supplied authentication credentials were not accepted. An analyst might investigate repeated authentication attempts.</p>
+              <p>Now consider: <code>192.168.1.80 - jprice [10:05:01] "GET /admin HTTP/1.1" 403</code>. A <code>403 Forbidden</code> response means the server understood the request but refused access. This generally points more toward an authorization or access-control issue.</p>
+              <div class="reflect-box"><strong>401 → Authentication → “Who are you?”<br>403 → Authorization → “You are not allowed to do this.”</strong></div>
+              <p>The exact behavior depends on the application, so analysts should also examine its documentation and configuration.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Example 4 — login followed by sensitive activity <span>+</span></button>
+            <div class="accordion-panel">
+              <div class="reflect-box"><code>192.168.1.50 - jprice [10:20:00] "POST /login HTTP/1.1" 200<br>192.168.1.50 - jprice [10:20:03] "GET /dashboard HTTP/1.1" 200<br>192.168.1.50 - jprice [10:20:05] "GET /admin/users HTTP/1.1" 403<br>192.168.1.50 - jprice [10:20:07] "DELETE /users/123 HTTP/1.1" 403</code></div>
+              <p><code>POST /login → 200</code> means the login request was processed successfully according to the HTTP response, although authentication logs should be checked to determine exactly what happened.</p>
+              <p><code>GET /dashboard → 200</code> means the same recorded identity accessed the dashboard successfully.</p>
+              <p><code>GET /admin/users → 403</code> means the client attempted to access an administrative user-management resource, but the server refused access.</p>
+              <p><code>DELETE /users/123 → 403</code> means the client attempted a DELETE request against a user resource, but the server refused it.</p>
+              <p>The server appears to have prevented the requested administrative actions. The sequence demonstrates why authorization controls and logging are important: a login occurred, a normal resource was accessed, a restricted resource was attempted, and a restricted modification was attempted and refused. Additional logs are needed to determine whether the activity was legitimate, accidental, or unauthorized.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Example 5 — 500 and 503 errors <span>+</span></button>
+            <div class="accordion-panel">
+              <div class="reflect-box"><code>192.168.1.25 - - [10:30:01] "GET /api/users HTTP/1.1" 500<br>192.168.1.25 - - [10:30:02] "GET /api/users HTTP/1.1" 500<br>192.168.1.25 - - [10:30:03] "GET /api/users HTTP/1.1" 500<br>192.168.1.25 - - [10:30:04] "GET /api/users HTTP/1.1" 503</code></div>
+              <p>A server that repeatedly fails may have crashed, lost database access, become overloaded, entered maintenance, lost a backend service, or encountered a software bug. A 5xx response does not automatically mean an attack occurred.</p>
+              <p>Compare HTTP logs with application logs, database logs, server resource usage, authentication logs, network monitoring, and system alerts. This can show whether errors came from an attack, an outage, a software problem, or something else.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Example 6 — build a timeline <span>+</span></button>
+            <div class="accordion-panel">
+              <div class="reflect-box"><code>45 - 10.0.0.25 - alex [11:00:01] "GET / HTTP/1.1" 200 4200 "-" "Mozilla/5.0"<br>46 - 10.0.0.25 - alex [11:00:01] "GET /style.css HTTP/1.1" 200 1800 "-" "Mozilla/5.0"<br>47 - 10.0.0.25 - alex [11:00:02] "GET /images/logo.png HTTP/1.1" 200 2500 "-" "Mozilla/5.0"<br>48 - 10.0.0.25 - alex [11:00:05] "POST /login HTTP/1.1" 401 600 "-" "Mozilla/5.0"<br>49 - 10.0.0.25 - alex [11:00:07] "POST /login HTTP/1.1" 401 600 "-" "Mozilla/5.0"<br>50 - 10.0.0.25 - alex [11:00:09] "POST /login HTTP/1.1" 200 1200 "-" "Mozilla/5.0"<br>51 - 10.0.0.25 - alex [11:00:10] "GET /dashboard HTTP/1.1" 200 6000 "-" "Mozilla/5.0"</code></div>
+              <p><strong>11:00:01 — Website loaded:</strong> <code>GET / → 200</code>. The client requested the homepage and the server returned it.</p>
+              <p><strong>11:00:01 — CSS loaded:</strong> <code>GET /style.css → 200</code>. <strong>11:00:02 — Image loaded:</strong> <code>GET /images/logo.png → 200</code>. These requests are consistent with normal webpage loading.</p>
+              <p><strong>11:00:05 — Failed login:</strong> <code>POST /login → 401</code>. <strong>11:00:07 — Another failed login:</strong> <code>POST /login → 401</code>. The login attempts were not authenticated successfully according to the HTTP responses.</p>
+              <p><strong>11:00:09 — Successful login response:</strong> <code>POST /login → 200</code>. <strong>11:00:10 — Dashboard accessed:</strong> <code>GET /dashboard → 200</code>.</p>
+              <div class="reflect-box"><strong>Website loaded → resources loaded → login attempted → login failed → login attempted again → login succeeded → dashboard accessed</strong></div>
+              <p>Timestamps and status codes let an analyst construct a reasonable sequence, but the logs alone do not tell us why the first two logins failed or whether the successful login was legitimate. Additional evidence is needed.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">What a cybersecurity analyst should ask <span>+</span></button>
+            <div class="accordion-panel">
+              <p>When examining HTTP logs, do not simply look for one “bad” status code. Ask:</p>
+              <ul class="compare-list">
+                <li><strong>Who?</strong> What IP address is associated with the request? What user or identity is recorded?</li>
+                <li><strong>When?</strong> When did the request happen? Are there multiple requests close together?</li>
+                <li><strong>What?</strong> What HTTP method was used? What resource was requested?</li>
+                <li><strong>Result?</strong> What status code did the server return?</li>
+                <li><strong>How?</strong> What User-Agent or other request information was recorded?</li>
+                <li><strong>Pattern?</strong> Does the activity form a recognizable pattern?</li>
+                <li><strong>Context?</strong> Is the activity expected, such as a security team running an authorized vulnerability scanner?</li>
+              </ul>
+              <p>Possible patterns include many 401s, which may indicate repeated authentication failures; many 404s for unusual paths, which may indicate scanning or reconnaissance; and many 500s, which may indicate an application or server problem.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Remember: event, timeline, pattern, context <span>+</span></button>
+            <div class="accordion-panel">
+              <p>The goal of log analysis is not to look at one line and immediately decide that something is an attack.</p>
+              <div class="reflect-box"><strong>Individual Event → Multiple Events → Timeline → Pattern → Context → Investigation</strong></div>
+              <p>A single 404 does not mean an attack. A single 401 does not mean an attack. A single 500 does not mean an attack. A large number of events, their timing, their targets, their sources, and their relationship to other system activity provide much more useful evidence.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <h3>Practice the analyst mindset</h3>
+          <p>When a log looks unusual, describe exactly what the log supports before adding an interpretation. For example: “The client requested several potentially sensitive paths from the same source at one-second intervals, and each request returned 404.” Then identify what evidence you would investigate next.</p>
+        </div>
+
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="HTTP requests and server logs notes" placeholder="Explain the difference between 401 and 403, describe what a 404 series can and cannot prove, and build a timeline from the examples..."></textarea>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Quick memory guide</h3>
+          <ul class="compact-list">
+            <li><strong>GET</strong> → retrieve information</li>
+            <li><strong>POST</strong> → submit or process data</li>
+            <li><strong>PUT</strong> → replace a resource</li>
+            <li><strong>PATCH</strong> → partially modify a resource</li>
+            <li><strong>DELETE</strong> → remove a resource</li>
+            <li><strong>401</strong> → authentication is required or failed</li>
+            <li><strong>403</strong> → access is forbidden</li>
+            <li><strong>404</strong> → resource was not found</li>
+            <li><strong>5xx</strong> → server-side problem</li>
+          </ul>
+        </div>
+
+        <div class="status-card">
+          <h3>Investigation checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can identify the method, path, status, and User-Agent in a log.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain the difference between 401 and 403.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can distinguish a requested path from a successfully accessed resource.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can connect multiple events into a timeline.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can identify context and evidence needed for the next step.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Evidence matters</h3>
+          <p>A User-Agent reports what the client claims. An IP identifies a network source, not automatically a person. A status code describes the response, not the entire story.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>HTTP methods describe what a client wants to do, while status codes describe how the server handled the request.</li>
+          <li>Server logs provide useful evidence about sources, identities, times, paths, methods, results, response sizes, referrers, and User-Agents.</li>
+          <li>Normal browsing can create many requests, and unusual requests do not prove that an attack succeeded.</li>
+          <li>Analysts should connect events into timelines and patterns, then add context before reaching conclusions.</li>
+          <li>A 404, 401, or 500 by itself does not prove an attack.</li>
+        </ul>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Carry the timeline forward.</h2>
+        <p>Use the same evidence-first approach when you study network vulnerabilities and the defenses used to detect and contain them.</p>
+        <a href="../unit-3/index.html">Open Unit 3 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 2 • 2.5</span></div></footer>
+</body>
+</html>

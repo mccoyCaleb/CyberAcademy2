@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.2 — Physical Vulnerabilities &amp; Attacks | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a class="active" href="index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">2.2 • Physical Vulnerabilities &amp; Attacks</p>
+      <h1>Physical Vulnerabilities and Attacks</h1>
+      <p class="unit-intro">Physical attacks target spaces, equipment, people, and devices. A physical weakness can become a cybersecurity problem when it exposes information, enables unauthorized access, creates downtime, or allows direct tampering with systems.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Physical access</span></div>
+        <div class="progress-meter"><span style="width: 60%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="2-1-cyber-foundations.html">2.1</a>
+      <a class="active" href="2-2-physical-vulnerabilities.html">2.2</a>
+      <a href="2-3-protecting-physical-spaces.html">2.3</a>
+      <a href="2-4-network-and-routing.html">2.4</a>
+      <a href="2-5-logs-basics.html">2.5</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>A physical problem can become a cybersecurity problem.</h2>
+          <p>A person with physical access to a device, a room, or a document may be able to bypass, weaken, or interfere with controls that are designed to prevent cyber compromise. Physical security is not separate from cybersecurity; it is part of it.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Access</span>
+            <h3>Piggybacking</h3>
+            <p>An unauthorized person gets through a controlled entry point with the help of an authorized person who is aware of the situation.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Observation</span>
+            <h3>Shoulder surfing</h3>
+            <p>An attacker observes someone entering a password, PIN, code, or confidential data without touching their device.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Physical risk</span>
+            <h3>Natural threats</h3>
+            <p>Floods, fires, severe weather, and power faults can damage equipment and disrupt access, affecting availability and causing cybersecurity consequences.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">Physical attacks</h2>
+        <div class="accordion" aria-label="Physical attacks and vulnerabilities">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Piggybacking <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>Piggybacking</strong> occurs when an unauthorized person uses social engineering to get an authorized person to allow them into a restricted area.</p>
+              <p>Examples include pretending to have forgotten an access card, pretending to be maintenance staff, or carrying a large object and asking someone to hold the door.</p>
+              <p><strong>Memory trick:</strong> Piggybacking = the person is “helping” the unauthorized person get in.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Tailgating <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Tailgating</strong> occurs when an unauthorized person follows an authorized person into a restricted area without the authorized person’s awareness or knowledge.</p>
+              <p><strong>Example:</strong> An employee badges into a secure building. Another person follows closely through the door before it closes.</p>
+              <p><strong>Piggybacking vs. tailgating:</strong> Piggybacking = authorized person is aware and allows it. Tailgating = unauthorized person follows without awareness.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Shoulder surfing <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Shoulder surfing</strong> means observing someone while they access or enter sensitive information. An attacker may watch a password, PIN, authentication code, confidential document, or screen display.</p>
+              <p>Defense ideas include privacy screens, choosing a safer viewing position, protecting documents from casual observation, and being alert to people nearby.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Dumpster diving <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Dumpster diving</strong> is searching through physical trash for information that could help an attacker.</p>
+              <p>Discarded materials might include printed account information, internal documents, schedules, contact information, or sensitive business records. This is why information security includes proper disposal of physical materials.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Card cloning <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Card cloning</strong> occurs when an attacker creates a copy of an authorized user’s access card. If successful, the copy may allow unauthorized access to a secure area or controlled space.</p>
+              <p>This demonstrates why access control systems should not depend on a single weak point when the protected area is highly sensitive.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Natural threats and power disruption <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Not every threat is a person. Natural events can also create cybersecurity risk. Examples include floods, fires, severe weather, and other disasters.</p>
+              <p>These events can damage equipment, reduce access, disrupt services, and cause downtime. The AP framework treats this as a concern for <strong>availability</strong>.</p>
+              <p>Power disruption can damage fuses, breakers, wiring, power distribution systems, and backup equipment. Organizations may use surge protectors, UPS devices, and generators to reduce the risk.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">Physical vulnerabilities</h2>
+        <div class="scenario-card">
+          <h3>What is a physical vulnerability?</h3>
+          <p>A <strong>physical vulnerability</strong> is a weakness in the physical environment that could allow an asset to be compromised. Examples include unlocked server rooms, unsecured doors, unprotected computers, exposed USB ports, poorly protected equipment, and devices placed in public areas.</p>
+          <ul class="compare-list">
+            <li><strong>High physical risk:</strong> Highly valuable systems or information are exposed and access controls are weak.</li>
+            <li><strong>Moderate physical risk:</strong> The asset may not be the most valuable thing alone, but it could provide access to a larger environment.</li>
+            <li><strong>Low physical risk:</strong> The asset is less valuable or the environment is harder to exploit. This does not mean there is no risk; it means the risk is comparatively limited.</li>
+          </ul>
+        </div>
+
+        <div class="diagram-card">
+          <span class="tag">Risk thinking</span>
+          <h3>Assessing physical risk</h3>
+          <div class="layer-diagram" aria-label="Physical risk framework">
+            <span>Asset</span>
+            <span class="arrow">↓</span>
+            <span>Threat</span>
+            <span class="arrow">↓</span>
+            <span>Vulnerability</span>
+            <span class="arrow">↓</span>
+            <span>Likelihood</span>
+            <span class="arrow">↓</span>
+            <span>Impact</span>
+          </div>
+          <p>When analyzing a physical-security scenario, ask: <strong>What are we protecting? Who or what could cause harm? What weakness exists? How likely is exploitation? How severe would the impact be?</strong></p>
+        </div>
+
+        <div class="quiz-card" data-correct="tailgating">
+          <p>An employee badges into a restricted building. Another person slips in immediately after without the employee noticing. What best describes this?</p>
+          <div class="choice-row">
+            <button class="option-button" type="button" data-answer="tailgating">Tailgating</button>
+            <button class="option-button" type="button" data-answer="dumpster_diving">Dumpster diving</button>
+            <button class="option-button" type="button" data-answer="shoulder_surfing">Shoulder surfing</button>
+          </div>
+          <div class="answer-box" hidden>
+            <strong>Correct:</strong> This is <strong>tailgating</strong>. The unauthorized person followed the authorized person without the authorized person’s awareness.
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="Notes on physical vulnerabilities" placeholder="Explain one physical attack from this section and describe how it could affect confidentiality, integrity, or availability. Then name the control that would reduce the risk..."></textarea>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain the difference between piggybacking and tailgating.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know what shoulder surfing is and why privacy screens matter.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I understand that physical threats can affect availability as well as confidentiality and integrity.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can connect a physical weakness to an asset, threat, and impact.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Physical access can create direct cyber impact.</li>
+            <li>Unsecured rooms, devices, and documents are vulnerabilities.</li>
+            <li>Natural disasters and power faults are also part of cybersecurity risk.</li>
+            <li>A physical weakness is still a weakness even if it is not technical.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Next section</h2>
+        <div class="unit-card-list">
+          <a class="unit-link-card" href="2-3-protecting-physical-spaces.html">
+            <span>2.3</span>
+            <strong>Protecting Physical Spaces</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Choose a remedy.</h2>
+        <p>Now that the attack and vulnerability are identified, determine which control best reduces the risk of the specific physical weakness.</p>
+        <a href="2-3-protecting-physical-spaces.html">Open 2.3 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 2 • 2.2</span></div></footer>
+</body>
+</html>

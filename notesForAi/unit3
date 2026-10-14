@@ -1,0 +1,1770 @@
+# Unit 3 — Securing Networks
+
+## Developing Understanding
+
+In Units 1 and 2, you learned about cybersecurity concepts such as **social engineering, passwords, authentication, vulnerabilities, threats, risk, and security controls**.
+
+Now we are going to apply those ideas to something that connects almost every modern computer system: **networks**.
+
+A network allows devices to communicate with one another. Your computer, phone, school Chromebook, printer, gaming console, and servers on the internet all rely on networks to exchange information.
+
+Networks are extremely useful, but they also create security risks.
+
+Whenever two devices communicate, information has to travel from one place to another. An attacker may try to:
+
+* Intercept that information.
+* Modify information while it is traveling.
+* Pretend to be another device.
+* Redirect users to a different destination.
+* Overload a system with traffic.
+* Gain access to parts of a network they should not be able to reach.
+* Move from one compromised device to other devices.
+* Disrupt communication entirely.
+
+Because of this, cybersecurity professionals need to understand both **how networks work** and **how attackers abuse them**.
+
+---
+
+# Before We Start: What Is a Network?
+
+A **network** is a collection of connected devices that can communicate and exchange information.
+
+For example, a school network might contain:
+
+* Student computers.
+* Teacher computers.
+* Servers.
+* Printers.
+* Wireless access points.
+* Network switches.
+* Routers.
+* Security devices.
+
+When you visit a website, your computer does not magically communicate with the website's server. Your information travels through multiple networking devices and systems.
+
+A simplified version might look like:
+
+**Your computer → School network → Router → Internet → Web server**
+
+Every step creates opportunities for security controls, but it can also create opportunities for attackers.
+
+---
+
+# Important Network Ideas Before Learning the Attacks
+
+You do not need to become a network engineer for this unit. However, there are several basic ideas you need to understand.
+
+## IP Address
+
+An **IP address** identifies a device or network interface on an IP network.
+
+You can think of an IP address somewhat like a mailing address.
+
+If a computer wants to send information to another computer, it needs to know where that information should go.
+
+For example:
+
+**Computer A → 192.168.1.25 → Computer B**
+
+The IP address helps identify the destination.
+
+---
+
+## MAC Address
+
+A **MAC address** is an address associated with a network interface.
+
+While an IP address helps with communication at the network layer, a MAC address is used for communication on a local network.
+
+You can think of it as another form of identification for a network interface.
+
+This becomes important later because several attacks in this unit involve attackers manipulating or pretending to have different MAC addresses.
+
+---
+
+## Router
+
+A **router** connects different networks and directs traffic between them.
+
+For example, your home router connects your local network to the internet.
+
+A simplified example:
+
+**Your laptop → Home router → Internet**
+
+Routers help determine where network traffic should go.
+
+---
+
+## Switch
+
+A **network switch** connects devices within a local network.
+
+For example, a school might connect hundreds of computers to switches.
+
+The switch uses information about connected devices to determine where network traffic should be sent.
+
+Switches become particularly important when we discuss:
+
+* MAC addresses.
+* MAC spoofing.
+* MAC flooding.
+* VLANs.
+
+---
+
+## Protocol
+
+A **protocol** is a set of rules that devices follow when communicating.
+
+Different protocols perform different jobs.
+
+Examples include:
+
+* **ARP** — helps associate IP addresses with MAC addresses.
+* **DNS** — translates domain names into IP addresses.
+* **HTTP/HTTPS** — used for web communication.
+* **ICMP** — used for certain network messages and diagnostics.
+
+Attackers sometimes exploit weaknesses in how these protocols work.
+
+---
+
+# Topic 3.1 — Network Vulnerabilities and Attacks
+
+## What You Will Learn
+
+In this topic, you will learn how attackers can exploit weaknesses in network communication.
+
+You should be able to:
+
+* Identify common network attacks.
+* Explain how the attacks work at a basic level.
+* Explain what attackers are trying to accomplish.
+* Identify the potential security impact.
+* Connect attacks to confidentiality, integrity, and availability.
+
+---
+
+# 3.1.1 ARP and ARP Poisoning
+
+## What Is ARP?
+
+**ARP stands for Address Resolution Protocol.**
+
+Computers on a local network often need to know both:
+
+* The destination's IP address.
+* The destination's MAC address.
+
+ARP helps connect these two pieces of information.
+
+For example, imagine that your computer knows:
+
+**Computer B's IP address = 192.168.1.20**
+
+But your computer needs the MAC address associated with that IP address in order to communicate locally.
+
+ARP helps answer:
+
+> "Which MAC address belongs to this IP address?"
+
+The computer can store this information in an **ARP table/cache**.
+
+---
+
+## What Is ARP Poisoning?
+
+The problem is that ARP was not designed with strong authentication.
+
+An attacker can send false ARP information to devices on the network.
+
+The attacker attempts to convince a device that:
+
+**Victim's IP address → Attacker's MAC address**
+
+The victim then sends traffic to the attacker instead of directly to the intended destination.
+
+---
+
+## Why Would an Attacker Do This?
+
+The attacker may want to intercept traffic.
+
+For example:
+
+**Victim → Attacker → Internet**
+
+The victim may believe they are communicating directly with the intended destination.
+
+The attacker is positioned in the middle.
+
+This can lead to an **on-path attack**.
+
+---
+
+## Security Impact
+
+ARP poisoning can threaten:
+
+### Confidentiality
+
+The attacker may be able to see information being transmitted.
+
+### Integrity
+
+The attacker may be able to modify information before forwarding it.
+
+### Availability
+
+Depending on how the attack is performed, communication can be disrupted.
+
+---
+
+## Student Example
+
+Imagine you are sending a message to a friend.
+
+Normally:
+
+**You → Friend**
+
+An attacker manipulates ARP information:
+
+**You → Attacker → Friend**
+
+If the attacker forwards the message afterward, you may not immediately realize that someone intercepted it.
+
+---
+
+## Remember
+
+**ARP poisoning = false ARP information used to redirect traffic.**
+
+---
+
+# 3.1.2 On-Path Attacks
+
+An **on-path attack** occurs when an attacker positions themselves between two parties that are communicating.
+
+The basic idea is:
+
+**Normal:**
+
+A → B
+
+**On-path attack:**
+
+A → Attacker → B
+
+The attacker may be able to:
+
+* Observe communication.
+* Capture information.
+* Modify information.
+* Forward information.
+* Potentially steal sensitive information.
+
+---
+
+## Why Is Encryption Important?
+
+Encryption can reduce the usefulness of intercepted information.
+
+If an attacker captures properly encrypted information, the attacker may see the encrypted data but not be able to easily understand it.
+
+This connects directly to concepts from earlier units:
+
+**Network interception + encryption = an important defense against data exposure**
+
+---
+
+## Remember
+
+An on-path attacker is not necessarily trying to make the connection stop.
+
+They may want the communication to continue while secretly intercepting it.
+
+---
+
+# 3.1.3 MAC Spoofing
+
+A **MAC address** is associated with a network interface.
+
+**MAC spoofing** occurs when a device changes the MAC address it presents to the network.
+
+The attacker is essentially saying:
+
+> "I am this other device."
+
+---
+
+## Why Would Someone Spoof a MAC Address?
+
+An attacker might try to:
+
+* Impersonate another device.
+* Bypass MAC-based restrictions.
+* Avoid identification.
+* Gain access to a network.
+* Circumvent certain access controls.
+
+---
+
+## Example
+
+Suppose a school network allows only approved devices.
+
+The network expects a particular MAC address.
+
+An attacker may attempt to change their device's MAC address to match an approved device.
+
+If the network relies only on MAC filtering, this could potentially bypass that control.
+
+---
+
+## Important Limitation
+
+MAC addresses should **not** be treated as a perfect form of authentication.
+
+Why?
+
+Because an attacker can potentially change the MAC address their device presents.
+
+---
+
+## Remember
+
+**MAC spoofing = pretending to have another device's MAC address.**
+
+---
+
+# 3.1.4 MAC Flooding
+
+MAC flooding takes advantage of how switches keep track of MAC addresses.
+
+A switch maintains a **MAC address table**.
+
+The table helps the switch determine which device is connected to which port.
+
+For example:
+
+| MAC Address | Switch Port |
+| ----------- | ----------- |
+| Device A    | Port 1      |
+| Device B    | Port 2      |
+| Device C    | Port 3      |
+
+This allows the switch to send traffic to the correct location.
+
+---
+
+## How Does MAC Flooding Work?
+
+An attacker sends the switch a very large number of frames containing different MAC addresses.
+
+The goal is to overwhelm the switch's MAC address table.
+
+If the switch can no longer properly keep track of all the addresses, it may begin forwarding traffic more broadly.
+
+This could allow the attacker to observe traffic they normally would not receive.
+
+---
+
+## Remember
+
+**MAC flooding attacks the switch's ability to keep track of MAC addresses.**
+
+---
+
+# 3.1.5 Eavesdropping
+
+**Eavesdropping** occurs when an attacker secretly captures information being transmitted across a network.
+
+This is similar to someone secretly listening to a conversation.
+
+Instead of listening to people talking, the attacker is observing network communication.
+
+---
+
+## What Could an Attacker Capture?
+
+Depending on the situation, an attacker might attempt to capture:
+
+* Login information.
+* Messages.
+* Files.
+* Network activity.
+* Other sensitive information.
+
+Encryption is an important defense because encrypted data is much harder for an attacker to understand.
+
+---
+
+# 3.1.6 DNS and DNS Poisoning
+
+## What Is DNS?
+
+**DNS stands for Domain Name System.**
+
+Humans generally prefer names such as:
+
+**example.com**
+
+Computers communicate using IP addresses.
+
+DNS provides the translation:
+
+**example.com → IP address**
+
+You can think of DNS like the internet's address book.
+
+---
+
+## What Is DNS Poisoning?
+
+In **DNS poisoning**, an attacker causes incorrect DNS information to be stored or returned.
+
+Instead of:
+
+**example.com → legitimate server**
+
+the victim may receive:
+
+**example.com → attacker's server**
+
+The victim may still type the correct website address.
+
+However, the DNS system directs them somewhere else.
+
+---
+
+## Why Is This Dangerous?
+
+An attacker could create a fake website that looks similar to the legitimate website.
+
+The victim might enter:
+
+* Username.
+* Password.
+* Other sensitive information.
+
+This can lead to **credential harvesting**.
+
+---
+
+# 3.1.7 Credential Harvesting
+
+Credential harvesting occurs when attackers attempt to collect a user's authentication information.
+
+A common example is a fake login page.
+
+The victim thinks:
+
+> "I'm logging into my account."
+
+But the page is controlled by an attacker.
+
+The victim enters their credentials, and the attacker obtains them.
+
+---
+
+## Connecting the Concepts
+
+These attacks can work together.
+
+For example:
+
+**DNS poisoning**
+
+↓
+
+Victim is redirected to a malicious website
+
+↓
+
+**Fake login page**
+
+↓
+
+Victim enters credentials
+
+↓
+
+**Credential harvesting**
+
+This is an important AP-style idea:
+
+> Cybersecurity attacks are not always isolated events. One vulnerability or attack can help enable another attack.
+
+---
+
+# 3.1.8 Denial-of-Service
+
+A **Denial-of-Service (DoS)** attack attempts to make a system, service, or network resource unavailable to legitimate users.
+
+Instead of trying to steal information, the attack focuses on **availability**.
+
+---
+
+## Example
+
+Imagine a website can normally handle:
+
+**1,000 requests per second**
+
+An attacker sends an enormous number of requests.
+
+The system becomes overwhelmed.
+
+Legitimate users may no longer be able to access the website.
+
+---
+
+# 3.1.9 Distributed Denial-of-Service
+
+A **Distributed Denial-of-Service (DDoS)** attack is similar to a DoS attack, but the traffic comes from multiple devices.
+
+### DoS
+
+**Attacker → Target**
+
+### DDoS
+
+**Device 1 ↘**
+
+**Device 2 → Target**
+
+**Device 3 ↗**
+
+The distributed nature of the attack can make it more difficult to block.
+
+---
+
+# 3.1.10 Smurf Attacks
+
+A **Smurf attack** is a type of denial-of-service attack involving **ICMP** traffic.
+
+The attacker sends ICMP requests toward a broadcast address while using the victim's address as the apparent source.
+
+Multiple devices may respond to the requests.
+
+This can cause a large amount of traffic to reach the victim.
+
+### Simplified process
+
+**Attacker**
+
+↓
+
+**ICMP request**
+
+↓
+
+**Broadcast network**
+
+↓
+
+**Many devices respond**
+
+↓
+
+**Victim receives large amount of traffic**
+
+---
+
+## Remember
+
+When you see:
+
+**Smurf + ICMP + broadcast**
+
+you should immediately connect those concepts.
+
+---
+
+# 3.1.11 Wireless Attacks
+
+Wireless networks introduce unique security concerns.
+
+With a wired network, an attacker generally needs some form of physical connection to the network.
+
+Wireless communication travels through the air.
+
+That means an attacker may be able to interact with a wireless network without physically connecting a cable to it.
+
+Potential wireless attacks include:
+
+* Eavesdropping.
+* Evil twins.
+* Rogue access points.
+* Wireless encryption attacks.
+* Jamming.
+
+---
+
+# Evil Twin
+
+An **evil twin** is a malicious wireless access point designed to appear similar to a legitimate network.
+
+For example, suppose a legitimate network is:
+
+**SchoolWiFi**
+
+An attacker could create a network with a similar name.
+
+A user may accidentally connect to the malicious network.
+
+The attacker may then attempt to monitor or manipulate the user's traffic.
+
+---
+
+# Rogue Access Point
+
+A **rogue access point** is an unauthorized wireless access point connected to a network.
+
+For example, an employee might connect an unauthorized wireless router to the organization's internal network.
+
+That access point could create an additional entry point into the network.
+
+---
+
+# Wireless Jamming
+
+**Jamming** attempts to interfere with wireless communication by creating electromagnetic interference.
+
+The goal is generally to prevent legitimate wireless communication from functioning properly.
+
+This primarily affects **availability**.
+
+---
+
+# Topic 3.2 — Protecting Networks
+
+Now that we understand how attackers can target networks, we can examine how defenders protect them.
+
+Security is rarely accomplished with one setting.
+
+Instead, organizations use **multiple layers of security controls**.
+
+---
+
+# 3.2.1 Security Policies
+
+A security policy establishes rules for how technology should be configured and used.
+
+For network security, policies might specify:
+
+* Which devices can connect.
+* How users authenticate.
+* Which services are allowed.
+* How remote access works.
+* What types of wireless encryption must be used.
+* Which network devices require additional protection.
+
+Policies are important because technical controls need rules behind them.
+
+---
+
+# Router Security
+
+Organizations may establish rules requiring routers to:
+
+* Use centralized authentication.
+* Disable unnecessary services.
+* Use firewalls.
+* Avoid unnecessary local accounts.
+
+---
+
+## Why Disable Unnecessary Services?
+
+Every service running on a device can potentially provide another way for an attacker to interact with that device.
+
+If a service is not necessary, disabling it can reduce the attack surface.
+
+This connects to a broader cybersecurity idea:
+
+**Reduce what attackers can access.**
+
+---
+
+# Switch Security
+
+Switches can use security controls such as:
+
+* Port security.
+* MAC filtering.
+* Authentication.
+* Restrictions on connected devices.
+
+These controls can help prevent unauthorized devices from connecting or reduce the impact of certain attacks.
+
+---
+
+# VPN Security
+
+A **VPN**, or Virtual Private Network, allows users to establish a protected connection to another network.
+
+Organizations commonly use VPNs to provide remote workers with secure access to internal resources.
+
+A VPN policy can determine:
+
+* Who is allowed to use the VPN.
+* How users authenticate.
+* Which devices are allowed.
+* What security requirements must be met.
+
+---
+
+# Split Tunneling
+
+With **split tunneling**, some traffic travels through the VPN while other traffic goes directly through the user's normal internet connection.
+
+For example:
+
+**Company traffic → VPN**
+
+**Other internet traffic → normal connection**
+
+Organizations may prohibit split tunneling because it can create additional security concerns.
+
+---
+
+# Wireless Security
+
+Wireless networks require their own security controls.
+
+Organizations can control:
+
+* Authentication.
+* Encryption.
+* Signal strength.
+* Access points.
+* Wireless network names.
+* Which devices can connect.
+
+---
+
+# Wireless Encryption
+
+Encryption protects wireless information by transforming readable data into a form that unauthorized people should not be able to understand.
+
+The framework identifies several wireless technologies with security weaknesses, including:
+
+* WEP.
+* WPS.
+* Original WPA.
+
+The framework identifies **WPA3** as the strongest wireless encryption option discussed in this material.
+
+---
+
+# MAC Filtering
+
+MAC filtering allows an administrator to specify which MAC addresses are permitted to connect.
+
+For example:
+
+**Allowed:**
+
+* Device A
+* Device B
+* Device C
+
+Other devices may be denied.
+
+However, MAC filtering is not a perfect security mechanism because MAC addresses can potentially be spoofed.
+
+---
+
+# Signal Strength
+
+Wireless signals can extend beyond the physical area an organization wants to cover.
+
+Reducing unnecessary signal range can reduce the area from which attackers may attempt to interact with the network.
+
+This is an example of **reducing exposure**.
+
+---
+
+# Beacon Frames
+
+Wireless access points can transmit **beacon frames** that provide information about the wireless network.
+
+Organizations may disable beacon frames as a security measure.
+
+However:
+
+**Hidden does not mean secure.**
+
+An attacker may still be able to discover or interact with a wireless network through other methods.
+
+---
+
+# Topic 3.3 — Network Segmentation
+
+One of the most important ideas in this unit is **network segmentation**.
+
+## What Is Segmentation?
+
+Segmentation means dividing a larger network into smaller sections.
+
+Instead of:
+
+**One giant network**
+
+you could have:
+
+**Student network**
+
+**Teacher network**
+
+**Server network**
+
+**Guest network**
+
+**Administrative network**
+
+---
+
+# Why Segment a Network?
+
+Imagine that an attacker compromises a student's computer.
+
+If every computer and server is on one large network, the attacker may have opportunities to communicate with many other systems.
+
+But if the network is segmented, security controls can restrict communication between sections.
+
+The attacker may be contained within one segment.
+
+---
+
+## The Main Idea
+
+**Segmentation limits the blast radius of an attack.**
+
+"Blast radius" refers to how far the effects of an incident spread.
+
+If an attack starts in one segment:
+
+**No segmentation → potentially broad impact**
+
+**Segmentation → potentially more limited impact**
+
+---
+
+# Subnets
+
+A **subnet** is a smaller network created from a larger IP network.
+
+Subnetting allows administrators to divide networks into separate IP ranges.
+
+For example:
+
+**192.168.1.0/24**
+
+could be divided into smaller networks.
+
+You do not need to become an expert in subnet calculations just to understand the security concept.
+
+The important idea is:
+
+**Subnetting divides a network into smaller IP-based sections.**
+
+---
+
+# VLANs
+
+A **VLAN**, or Virtual Local Area Network, creates logical network separation.
+
+Devices can physically connect to the same network infrastructure while being placed into different logical networks.
+
+For example:
+
+**VLAN 10 → Students**
+
+**VLAN 20 → Teachers**
+
+**VLAN 30 → Servers**
+
+**VLAN 40 → Guests**
+
+This allows administrators to apply different security rules to different groups.
+
+---
+
+# DMZ
+
+A **DMZ**, or **demilitarized zone**, is a network segment positioned between an organization's internal network and an external network such as the internet.
+
+Public-facing servers can be placed in the DMZ.
+
+For example:
+
+**Internet**
+
+↓
+
+**Firewall**
+
+↓
+
+**DMZ**
+
+↓
+
+**Firewall**
+
+↓
+
+**Internal network**
+
+---
+
+## Why Use a DMZ?
+
+Imagine an organization operates a public website.
+
+The website must be accessible from the internet.
+
+That means the server needs some level of exposure.
+
+Instead of placing that server directly on the internal network, the organization can place it in a DMZ.
+
+If the public server is compromised, the attacker still has additional security controls between that server and the internal network.
+
+---
+
+# Topic 3.4 — Firewalls
+
+A firewall is one of the most recognizable network security controls.
+
+## What Does a Firewall Do?
+
+A firewall examines network traffic and determines whether the traffic should be allowed or blocked.
+
+Think of a firewall as a security checkpoint.
+
+Traffic arrives:
+
+**Traffic → Firewall → Check rules → Allow / Deny**
+
+---
+
+# Firewall Rules
+
+A firewall can make decisions based on information such as:
+
+* Source IP address.
+* Destination IP address.
+* Port.
+* Protocol.
+* Direction of traffic.
+
+For example:
+
+**Allow TCP traffic to port 443**
+
+Port 443 is commonly associated with HTTPS.
+
+---
+
+# Stateless Firewall
+
+A **stateless firewall** evaluates individual packets.
+
+It primarily looks at information contained in packet headers.
+
+It does not maintain information about the overall state of network connections.
+
+Think:
+
+> "What does this packet say?"
+
+---
+
+# Stateful Firewall
+
+A **stateful firewall** keeps track of connections.
+
+It can understand whether traffic is part of an existing connection.
+
+Think:
+
+> "What does this packet say, and what is happening with this connection?"
+
+---
+
+# Next-Generation Firewall
+
+A **Next-Generation Firewall (NGFW)** provides traditional firewall capabilities along with additional security capabilities.
+
+The framework identifies capabilities such as:
+
+* Deep packet inspection.
+* Intrusion prevention.
+* Application-based filtering.
+
+This allows the firewall to make more sophisticated decisions about network traffic.
+
+---
+
+# Access Control Lists
+
+An **Access Control List (ACL)** is a collection of rules that determines which traffic should be permitted or denied.
+
+A rule might say:
+
+**Source:** 10.0.0.5
+
+**Destination:** 10.0.0.10
+
+**Protocol:** TCP
+
+**Port:** 443
+
+**Action:** ALLOW
+
+---
+
+# Firewall Rule Order
+
+This is extremely important for AP questions.
+
+Firewall rules are evaluated in order.
+
+The **first rule that matches** the traffic is applied.
+
+### Example
+
+| Rule | Traffic      | Action |
+| ---- | ------------ | ------ |
+| 1    | TCP port 443 | Allow  |
+| 2    | All TCP      | Deny   |
+| 3    | All traffic  | Allow  |
+
+Suppose traffic arrives using TCP port 443.
+
+It matches Rule 1.
+
+Therefore:
+
+**Traffic → Allowed**
+
+The firewall does not continue to Rule 2.
+
+---
+
+## Another Example
+
+Suppose the rules are:
+
+| Rule | Traffic      | Action |
+| ---- | ------------ | ------ |
+| 1    | All TCP      | Deny   |
+| 2    | TCP port 443 | Allow  |
+
+Traffic arrives on port 443.
+
+It matches Rule 1 first.
+
+Therefore:
+
+**Traffic → Denied**
+
+Even though Rule 2 says to allow port 443, the firewall never reaches it.
+
+---
+
+# AP Strategy: Reading Firewall Rules
+
+When given a firewall table:
+
+### Step 1
+
+Identify the traffic.
+
+Look at:
+
+* Source.
+* Destination.
+* Protocol.
+* Port.
+
+### Step 2
+
+Start with Rule 1.
+
+### Step 3
+
+Ask:
+
+> "Does this traffic match this rule?"
+
+### Step 4
+
+If yes, apply the rule and stop.
+
+### Step 5
+
+If no, move to the next rule.
+
+---
+
+# Topic 3.5 — Detecting Network Attacks
+
+Preventing every attack is unrealistic.
+
+That means cybersecurity professionals also need to be able to **detect attacks when they happen**.
+
+Detection involves monitoring network activity and identifying behavior that may indicate an attack.
+
+---
+
+# Network Logs
+
+A **log** is a record of activity.
+
+Network devices can create logs containing information about:
+
+* Connections.
+* Login attempts.
+* Blocked traffic.
+* Accepted traffic.
+* Errors.
+* Network addresses.
+* Ports.
+* Security events.
+
+Security analysts can examine these records to identify suspicious behavior.
+
+---
+
+# NIDS
+
+A **Network Intrusion Detection System (NIDS)** monitors network activity for signs of malicious behavior.
+
+When suspicious activity is detected, it can generate an alert.
+
+Think:
+
+**NIDS = Detect + Alert**
+
+It does not necessarily stop the attack itself.
+
+---
+
+# NIPS
+
+A **Network Intrusion Prevention System (NIPS)** can detect suspicious activity and take action to block or prevent it.
+
+Think:
+
+**NIPS = Detect + Respond**
+
+---
+
+# NIDS vs. NIPS
+
+| System | Main purpose           |
+| ------ | ---------------------- |
+| NIDS   | Detect and alert       |
+| NIPS   | Detect and take action |
+
+This distinction is important.
+
+---
+
+# SIEM
+
+A **Security Information and Event Management (SIEM)** system collects security information from many sources.
+
+For example:
+
+**Firewall logs**
+
+*
+
+**Server logs**
+
+*
+
+**NIDS alerts**
+
+*
+
+**Application logs**
+
+↓
+
+**SIEM**
+
+The SIEM can look for patterns across all of these sources.
+
+---
+
+## Why Is This Useful?
+
+An individual log might not look suspicious.
+
+But several events together might reveal an attack.
+
+For example:
+
+**Failed login**
+
+↓
+
+**Successful login**
+
+↓
+
+**Large data transfer**
+
+↓
+
+**Connection to suspicious IP**
+
+Individually, these events may not prove an attack.
+
+Together, they may be an important warning sign.
+
+---
+
+# Signature-Based Detection
+
+Signature-based detection looks for **known patterns of malicious activity**.
+
+Think of a signature like a fingerprint.
+
+If security software already knows what a particular attack looks like, it can search for that pattern.
+
+---
+
+## Advantage
+
+It can be:
+
+* Fast.
+* Efficient.
+* Effective against known attacks.
+
+## Limitation
+
+A completely new attack may not match an existing signature.
+
+---
+
+# Anomaly-Based Detection
+
+Anomaly-based detection looks for activity that differs from normal behavior.
+
+First, the system establishes a baseline.
+
+For example:
+
+**Normal network traffic:**
+
+1,000–2,000 requests per hour.
+
+Then suddenly:
+
+**50,000 requests per hour.**
+
+That is very different from the baseline.
+
+The system may generate an alert.
+
+---
+
+## Advantage
+
+Anomaly detection can identify unusual behavior even when the exact attack is not already known.
+
+## Limitation
+
+Not all unusual behavior is malicious.
+
+A legitimate event can look unusual.
+
+This can create **false positives**.
+
+---
+
+# Hybrid Detection
+
+Hybrid detection combines signature-based and anomaly-based approaches.
+
+This can provide:
+
+**Known attack detection**
+
+*
+
+**Unusual behavior detection**
+
+However, combining methods can increase:
+
+* Cost.
+* Complexity.
+* Number of alerts.
+
+---
+
+# False Positives
+
+A **false positive** occurs when the security system says:
+
+> "This is an attack."
+
+when the activity is actually legitimate.
+
+### Example
+
+A student normally logs in from Indiana.
+
+One day they travel and log in from another state.
+
+The system flags the login.
+
+The activity is legitimate.
+
+That is a false positive.
+
+---
+
+# False Negatives
+
+A **false negative** occurs when:
+
+> A real attack happens, but the security system does not detect it.
+
+This can be particularly dangerous because the security team may not realize that an attack is occurring.
+
+---
+
+# False Positives vs. False Negatives
+
+|                | Meaning                                             |
+| -------------- | --------------------------------------------------- |
+| False positive | Normal activity incorrectly identified as malicious |
+| False negative | Malicious activity incorrectly identified as normal |
+
+### Easy memory trick
+
+**Positive = system says "attack."**
+
+**False positive = wrong attack alert.**
+
+**Negative = system says "no attack."**
+
+**False negative = missed attack.**
+
+---
+
+# Alert Fatigue
+
+If a security system produces too many false positives, analysts may receive hundreds or thousands of alerts.
+
+This can lead to **alert fatigue**.
+
+Alert fatigue occurs when security professionals become overwhelmed by alerts and may have difficulty identifying the truly important ones.
+
+Therefore, a detection system should not simply generate as many alerts as possible.
+
+The goal is to generate **useful alerts**.
+
+---
+
+# AI and Threat Detection
+
+AI can help cybersecurity systems analyze extremely large amounts of information.
+
+Instead of requiring a human to manually examine every network event, automated systems can analyze patterns and assign probabilities or risk levels.
+
+For example:
+
+**Normal activity → low concern**
+
+**Unusual activity → higher concern**
+
+**Known malicious pattern → very high concern**
+
+---
+
+## Detection Thresholds
+
+Security systems often have a threshold for when an alert should be generated.
+
+### Threshold too high
+
+The system may miss attacks.
+
+This can increase **false negatives**.
+
+### Threshold too low
+
+The system may generate many unnecessary alerts.
+
+This can increase **false positives** and alert fatigue.
+
+Therefore, cybersecurity professionals must balance detection sensitivity with the number of alerts analysts can realistically handle.
+
+---
+
+# Detecting Specific Network Attacks
+
+Knowing the name of an attack is not enough.
+
+You should also know what evidence might suggest that the attack is occurring.
+
+---
+
+# Detecting an Evil Twin
+
+Look for:
+
+* Suspicious wireless networks.
+* Network names that closely resemble legitimate SSIDs.
+* Unexpected wireless access points.
+
+Security professionals may use signal information to help determine where the suspicious access point is located.
+
+---
+
+# Detecting Jamming
+
+Possible indicators include:
+
+* Wireless devices suddenly losing connectivity.
+* Large amounts of electromagnetic interference.
+* Multiple devices experiencing wireless problems simultaneously.
+
+---
+
+# Detecting ARP Poisoning
+
+Possible indicators include:
+
+* Unusual ARP messages.
+* Unexpected changes in ARP tables.
+* Multiple devices appearing associated with the same MAC address.
+* IP-to-MAC relationships changing unexpectedly.
+
+---
+
+# Detecting MAC Flooding
+
+Possible indicators include:
+
+* A sudden increase in Ethernet frames.
+* A very large number of MAC addresses.
+* Unusual changes in a switch's MAC address table.
+
+---
+
+# Detecting DNS Poisoning
+
+DNS poisoning can be difficult to identify.
+
+One possible indicator is an unusual or sudden decrease in traffic to a website.
+
+Security professionals may investigate:
+
+* DNS records.
+* DNS responses.
+* Changes in expected IP addresses.
+* Whether users are being redirected somewhere unexpected.
+
+---
+
+# Detecting a Smurf Attack
+
+Look for:
+
+* A sudden increase in ICMP traffic.
+* ICMP traffic involving broadcast addresses.
+* Large amounts of traffic directed toward a victim.
+
+---
+
+# Unit 3 — Connecting the Concepts
+
+One of the most important things to understand is that these topics are connected.
+
+Imagine an organization has a poorly secured network.
+
+An attacker could potentially:
+
+**1. Gain access**
+
+↓
+
+**2. Perform ARP poisoning**
+
+↓
+
+**3. Redirect traffic**
+
+↓
+
+**4. Conduct an on-path attack**
+
+↓
+
+**5. Capture sensitive information**
+
+At the same time, defenders could use:
+
+**Network segmentation**
+
+*
+
+**Firewalls**
+
+*
+
+**NIDS/NIPS**
+
+*
+
+**SIEM**
+
+*
+
+**Logging**
+
+to reduce the risk and detect suspicious activity.
+
+This is what cybersecurity looks like in practice.
+
+There is rarely one magic security control.
+
+Instead, organizations build **layers of defense**.
+
+---
+
+# Unit 3 — The Big Picture
+
+You should be able to organize the entire unit into five questions:
+
+## 1. How can attackers attack networks?
+
+Examples:
+
+* ARP poisoning.
+* MAC spoofing.
+* MAC flooding.
+* DNS poisoning.
+* On-path attacks.
+* DoS/DDoS.
+* Smurf attacks.
+* Evil twins.
+* Rogue access points.
+* Jamming.
+
+---
+
+## 2. How can organizations protect wireless networks?
+
+Examples:
+
+* Strong encryption.
+* Authentication.
+* Signal control.
+* MAC filtering.
+* Wireless security policies.
+* Approved access points.
+
+---
+
+## 3. How can organizations limit the spread of an attack?
+
+Use:
+
+* Subnets.
+* VLANs.
+* Network segmentation.
+* DMZs.
+* Access controls.
+
+---
+
+## 4. How can organizations control traffic?
+
+Use:
+
+* Firewalls.
+* ACLs.
+* Stateless firewalls.
+* Stateful firewalls.
+* Next-generation firewalls.
+
+---
+
+## 5. How can organizations detect attacks?
+
+Use:
+
+* NIDS.
+* NIPS.
+* SIEM.
+* Signature-based detection.
+* Anomaly-based detection.
+* Hybrid detection.
+* Log analysis.
+
+---
+
+# Unit 3 — Essential Connections to Remember
+
+### ARP poisoning
+
+**False IP-to-MAC information → traffic redirected**
+
+### MAC spoofing
+
+**Fake MAC address → impersonate another device**
+
+### MAC flooding
+
+**Many MAC addresses → overwhelm switch**
+
+### DNS poisoning
+
+**False DNS information → users redirected**
+
+### On-path attack
+
+**Attacker positioned between communicating parties**
+
+### DoS
+
+**Overwhelm a service → availability affected**
+
+### DDoS
+
+**Multiple sources → overwhelm target**
+
+### Smurf
+
+**ICMP + broadcast → traffic flood**
+
+### Network segmentation
+
+**Divide network → limit attack spread**
+
+### VLAN
+
+**Logical network separation**
+
+### DMZ
+
+**Public-facing systems separated from internal network**
+
+### Firewall
+
+**Control network traffic**
+
+### ACL
+
+**Rules determine allow/deny**
+
+### NIDS
+
+**Detect + alert**
+
+### NIPS
+
+**Detect + prevent/respond**
+
+### SIEM
+
+**Collect + correlate + analyze security events**
+
+### Signature detection
+
+**Look for known attacks**
+
+### Anomaly detection
+
+**Look for unusual behavior**
+
+### False positive
+
+**Normal activity → incorrectly flagged**
+
+### False negative
+
+**Attack → missed**
+
+---
+
+# Unit 3 — What You Should Be Able to Explain
+
+By the end of this unit, you should not just be able to define the vocabulary.
+
+You should be able to answer questions such as:
+
+### "Why would an attacker use ARP poisoning?"
+
+Because manipulating ARP information can cause network traffic to be redirected through the attacker, potentially allowing the attacker to intercept or modify communication.
+
+### "Why does network segmentation improve security?"
+
+Because dividing a network into separate segments can restrict communication and limit how far an attacker can move after compromising one system.
+
+### "Why isn't MAC filtering enough to secure a network?"
+
+Because MAC addresses can potentially be spoofed, allowing an attacker to imitate an approved device.
+
+### "Why would an organization use a DMZ?"
+
+To place public-facing systems in a separate network segment, creating an additional layer of protection between those systems and the internal network.
+
+### "What is the difference between NIDS and NIPS?"
+
+A NIDS primarily detects suspicious activity and generates alerts, while a NIPS can detect suspicious activity and take action to prevent or block it.
+
+### "Why can anomaly detection create false positives?"
+
+Because legitimate behavior can sometimes be unusual. An activity that differs from the normal baseline is not automatically malicious.
+
+### "Why does firewall rule order matter?"
+
+Because firewall rules are evaluated in order, and the first matching rule determines the result.
+
+---
+
+# Unit 3 — Final Remember Section
+
+## The Most Important Idea
+
+**Network security is about controlling who and what can communicate, limiting what happens when something is compromised, and detecting suspicious behavior as quickly as possible.**
+
+A strong network security strategy uses multiple layers:
+
+**Prevent**
+
+→ authentication and access controls
+
+**Protect**
+
+→ encryption, segmentation, and firewalls
+
+**Limit**
+
+→ VLANs, subnets, and DMZs
+
+**Detect**
+
+→ NIDS, NIPS, SIEM, and log analysis
+
+**Respond**
+
+→ block, isolate, investigate, and recover
+
+The goal is not to assume that an attacker can never get in.
+
+The goal is to make attacks **more difficult, limit their impact, detect them, and respond effectively.**

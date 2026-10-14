@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.5 — Firewalls | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a class="active" href="index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">3.5 • Firewalls</p>
+      <h1>Firewalls</h1>
+      <p class="unit-intro">A firewall is a core security control because it inspects and filters network traffic. It decides which traffic should be allowed or blocked based on the source, destination, port, protocol, and rule order.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Traffic filtering</span></div>
+        <div class="progress-meter"><span style="width: 80%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="3-1-network-vulnerabilities.html">3.1</a>
+      <a href="3-2-mac-addresses-and-arp.html">3.2</a>
+      <a href="3-3-protecting-networks.html">3.3</a>
+      <a href="3-4-network-segmentation.html">3.4</a>
+      <a class="active" href="3-5-firewalls.html">3.5</a>
+      <a href="3-6-acl-tables.html">3.6</a>
+      <a href="3-7-detecting-network-attacks.html">3.7</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>A firewall is a checkpoint.</h2>
+          <p>Traffic arrives at the device, the firewall evaluates the packet or connection, and then decides whether it is allowed or denied. The decisions are made using rules based on source, destination, protocol, port, and direction.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Rules</span>
+            <h3>Decision logic</h3>
+            <p>Firewalls examine fields such as source and destination IPs, port numbers, and protocol to decide what traffic is permitted.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">State</span>
+            <h3>Stateless vs. stateful</h3>
+            <p>A stateless firewall examines individual packets, while a stateful firewall tracks the state of a connection.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Advanced features</span>
+            <h3>NGFW</h3>
+            <p>Next-generation firewalls can do traditional filtering plus deeper inspection, threat prevention, and application-aware decisions.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">Firewall basics</h2>
+        <div class="accordion" aria-label="Firewall basics">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">What does a firewall do? <span>−</span></button>
+            <div class="accordion-panel">
+              <p>A firewall acts as a security checkpoint between networks. It evaluates traffic and allows or blocks it according to defined rules.</p>
+              <p>The firewall can make decisions based on IP addresses, ports, protocol, and connection state.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Stateless firewalls <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>stateless</strong> firewall evaluates packets individually based on their header information. It does not keep track of the larger connection context.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Stateful firewalls <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>stateful</strong> firewall keeps track of connection state. It can determine whether a packet is part of an existing communication and make a more accurate decision.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">NGFW <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>Next-Generation Firewall (NGFW)</strong> adds features beyond basic filtering, including deep packet inspection, intrusion prevention, and application-aware filtering.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">ACLs and rule order</h2>
+        <div class="accordion" aria-label="ACLs and order">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Access Control Lists <span>−</span></button>
+            <div class="accordion-panel">
+              <p>An <strong>Access Control List (ACL)</strong> is a collection of rules. For example, a rule may allow TCP traffic from one IP to another on port 443.</p>
+              <p>ACLs are the rule set that determines which packets or sessions are allowed.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Rule order matters <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Firewall rules are evaluated <strong>in order</strong>. The <strong>first matching rule</strong> is applied. This is a common AP trap.</p>
+              <p><strong>Example:</strong> If Rule 1 denies all TCP traffic and Rule 2 allows only port 443, then traffic to port 443 will still be denied because Rule 1 matches first.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">AP strategy <span>+</span></button>
+            <div class="accordion-panel">
+              <p>When reading firewall rules, identify the source, destination, protocol, and port, then start at Rule 1 and ask whether the traffic matches. If it matches, stop and apply that rule.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <h3>Firewall rule practice</h3>
+          <textarea aria-label="Firewall rule notes" placeholder="Write one example of a firewall rule and explain how rule order could change the result. Example: Which traffic is denied and why?" ></textarea>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain what a firewall does.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know the difference between stateless and stateful firewalls.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I understand why firewall rules are evaluated in order.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain what an ACL is.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Rule order is often the deciding factor.</li>
+            <li>Port 443 is commonly associated with HTTPS.</li>
+            <li>NGFWs can inspect more deeply than basic packet filter rules.</li>
+            <li>Firewalls are control points, not complete security by themselves.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Next concept</h2>
+        <div class="unit-card-list">
+          <a class="unit-link-card" href="3-6-acl-tables.html">
+            <span>3.6</span>
+            <strong>ACL Tables</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+          <a class="unit-link-card" href="3-7-detecting-network-attacks.html">
+            <span>3.7</span>
+            <strong>Detecting Network Attacks</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Detect the attack.</h2>
+        <p>Even strong control sets can fail, so defenders need logs, alerts, and monitoring to identify suspicious behavior quickly.</p>
+        <a href="3-6-acl-tables.html">Open 3.6 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 3 • 3.5</span></div></footer>
+</body>
+</html>

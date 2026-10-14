@@ -1,0 +1,68 @@
+UNIT 3 REVIEW QUESTION BANK
+Securing Networks
+
+For each scenario, name the affected asset and network layer or service when relevant. Identify the best-fit attack or control failure from the evidence, explain the likely CIA impact, and propose a response. Indicators are clues to investigate, not automatic proof of an attack.
+
+1. Duplicate ARP mappings
+Question: Several computers report that the gateway IP is associated with a different MAC address than usual. Users also report certificate warnings. What attack may be occurring? Identify the warning signs and response.
+Answer key: Possible ARP spoofing/poisoning, potentially enabling an on-path attack. Conflicting IP-to-MAC mappings and unexpected certificate warnings are indicators, not proof. Disconnect/quarantine affected devices as directed by IT, verify the gateway and certificates through trusted means, inspect ARP tables, switch/network logs and DNS, and restore trusted mappings/configuration. Do not bypass the warning.
+
+2. The flooded switch table
+Question: A switch repeatedly relearns many source MAC addresses on one port, and normal users intermittently lose connectivity. What attack is plausible, what is the role of MAC addresses here, and which controls help?
+Answer key: MAC flooding is plausible: excessive forged source MACs may overwhelm a switch's forwarding table and cause abnormal flooding. Use switch port security and limits, segmentation/VLANs, monitoring, and an incident response process. Verify interface and traffic evidence before attributing intent; reconfigure or isolate the affected port under authorized procedures.
+
+3. A DNS result changes
+Question: A user enters a familiar bank or school address, but is directed to a convincing fake page. A trusted independent DNS lookup returns a different address. Identify the possible network attack and immediate user response.
+Answer key: DNS spoofing/cache poisoning is possible; a compromised or misconfigured resolver is another possibility. The user may disclose credentials or payment information. Stop interaction, do not submit data, use the official service through a known-good route, alert IT, and investigate resolver records/caches and related logs. If credentials were entered, change them and report the exposure.
+
+4. One-way and many-to-one traffic
+Question: A public service receives an overwhelming number of requests from many sources and becomes unavailable. What attack family is this? What CIA goal is most directly affected, and how does a distributed attack differ from a single-source one?
+Answer key: Denial of service (DoS); with many coordinated sources, distributed denial of service (DDoS). Availability is primarily affected. A single-source DoS originates from one source; DDoS traffic comes from many distributed systems, making simple blocking harder. Use monitoring, provider mitigation, rate limiting/filtering where appropriate, resilient architecture, and incident coordination.
+
+5. Broadcast echo traffic
+Question: Network monitoring detects a large volume of ICMP echo responses following traffic sent to a broadcast address with the victim's source address forged. Identify the attack and explain the amplification.
+Answer key: Smurf attack, a reflection/amplification form of DoS using ICMP and broadcast responses. The forged source makes many hosts send replies to the victim. Filter spoofed source traffic, disable directed broadcasts where appropriate, coordinate upstream filtering, and monitor ICMP volume. Confirm packet evidence before classifying an event.
+
+6. The unfamiliar wireless access point
+Question: An access point with a name nearly identical to the school's appears in a hallway. Students connect, then receive certificate warnings and intermittent disconnects. What is the likely risk, and how should wireless defenses respond?
+Answer key: A rogue access point or evil twin may be attracting users for interception; interference or misconfiguration are alternatives to investigate. Do not connect or bypass warnings; notify IT and use only the verified network. Manage and inventory access points, use strong wireless authentication/encryption, monitor for unknown APs, and limit signal exposure where appropriate. Hidden SSIDs or MAC filtering alone are not sufficient security.
+
+7. Wireless disruption without a fake login
+Question: Users near a meeting room repeatedly lose wireless connectivity, but no redirect page appears. The network team sees unusual radio interference. Which availability attack or condition should be considered, and what is a suitable investigation?
+Answer key: Wireless jamming or interference may be affecting availability; a faulty device or environmental interference is also possible. Survey the radio environment, identify the source and affected area, review access-point telemetry, and apply authorized channel/power or containment changes. Do not infer credential theft merely from dropped connections.
+
+8. A compromised student workstation reaches everything
+Question: A student's infected laptop can directly communicate with payroll servers and administrative workstations. Which architectural weakness increases the blast radius? Propose a segmentation design.
+Answer key: Flat network design and insufficient segmentation permit lateral movement. Separate student, staff, guest, server, and administrative systems into appropriately controlled VLANs/subnets; permit only necessary flows using firewall/ACL rules; restrict management interfaces. Test rules to avoid accidental broad access and monitor boundary traffic.
+
+9. The broad firewall deny
+Question: An ACL first denies all traffic from a department subnet, then later allows HTTPS from that same subnet to an approved server. The HTTPS connection fails. Explain why and how to fix it safely.
+Answer key: ACLs are evaluated top-to-bottom and the first matching rule applies, so the earlier broad deny shadows the later allow. Review direction, source/destination, protocol, port, and order; place a narrowly scoped necessary allow before the broader deny, keeping default-deny behavior. Test both permitted and prohibited cases and document the change.
+
+10. Wrong direction, right-looking rule
+Question: A firewall rule allows TCP port 443 from the server subnet to the internet, but incoming client connections to the service are still blocked. What rule details should an analyst verify before changing policy?
+Answer key: Check traffic direction/interface, source and destination CIDR, protocol, destination port, rule order, statefulness, and default action. The rule may match outbound traffic rather than inbound client traffic. Add only the narrowly required flow after authorization; do not solve the issue with an unrestricted any-to-any allow.
+
+11. ACL reading exercise
+Question: A router ACL allows TCP from 192.168.20.0/24 to a server on port 443, denies TCP from that subnet to port 22, then denies all other inbound traffic. A host in 192.168.20.14 connects to HTTPS, but SSH fails. Explain whether both outcomes match the intended policy and what could still invalidate the conclusion.
+Answer key: Under the stated order and assuming the ACL is applied in the intended direction/interface, HTTPS to the server is allowed and SSH is denied. Confirm destination address, TCP protocol, port, mask, interface direction, earlier rules, statefulness, and server/service health. The scenario tests first-match semantics rather than proving what is actually happening on a configured device.
+
+12. A VPN opens more than needed
+Question: Remote users need access to one internal application, but their VPN places them on the same unrestricted network as administrators. A compromised home device could now reach many systems. Identify the principle being violated and recommend controls.
+Answer key: Least privilege and network segmentation are violated. Restrict VPN users to required applications/subnets, use strong authentication/MFA and device checks, separate administration paths, monitor connections, and review access regularly. Consider split-tunnel settings according to policy and risk; do not enable or disable it without understanding where traffic is inspected.
+
+13. The network alert is not a verdict
+Question: A NIDS reports unusual traffic from a lab computer based on an anomaly. The student says they ran an approved class exercise. What are the limits of the alert and how should the team verify it?
+Answer key: Anomaly detection identifies deviation from a baseline, not necessarily malicious intent; false positives are possible. Compare approved activity windows, signatures, packet/flow details, endpoint and authentication logs, asset ownership, and related alerts. Contain only as appropriate to risk, document findings, tune rules carefully, and avoid ignoring alerts wholesale because false positives occur.
+
+14. Repeated failed logins followed by access
+Question: Authentication logs show many failed sign-ins to several accounts, then one success from an unfamiliar host. Network logs show the host scanning internal services. Identify possible explanations and a defensible response.
+Answer key: Password spraying or brute-force attempts followed by account compromise and reconnaissance are possible; a legitimate test or shared host should also be checked. Confirm accounts, source, timing, MFA events, scan targets, and endpoint/network context. Alert the security team, protect affected accounts, isolate a confirmed malicious host through approved procedure, preserve logs, and review lateral movement.
+
+15. ARP alert and a known gateway change
+Question: Monitoring detects an ARP mapping change immediately after IT replaces a router. A student reports brief connection problems. Should this be labeled an attack? What evidence would distinguish maintenance from poisoning?
+Answer key: Not from this evidence alone. A legitimate gateway replacement can change ARP mappings. Check the approved change record, device MAC/vendor/port, timing, DHCP and switch logs, whether the new mapping is consistent across hosts, and whether there are certificate/DNS anomalies or suspicious traffic. Escalate inconsistencies; update trusted mappings through the managed change process.
+
+16. Build the investigation timeline
+Question: A user reports a redirected web page at 10:05. Logs show a DNS change at 09:58, an unusual ARP response at 10:01, and a failed login at 10:07. What can you infer, what remains uncertain, and what steps should follow?
+Answer key: The sequence raises concern for DNS/ARP manipulation and possible credential exposure, but timestamps and indicators alone do not establish cause or success. Correlate resolver, DHCP, switch, endpoint, web, and authentication logs; verify time synchronization; identify affected users/devices; preserve evidence; contain confirmed exposure and reset credentials as appropriate. State confidence and unknowns explicitly.

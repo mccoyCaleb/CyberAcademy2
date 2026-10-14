@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5.6 — Detecting Attacks on Data and Applications | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+        <a class="active" href="index.html">Unit 5</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">5.6 • Detecting Attacks on Data and Applications</p>
+      <h1>Monitoring and Detection</h1>
+      <p class="unit-intro">Preventing attacks is only part of cybersecurity. Organizations also need to determine when something suspicious has occurred. Logs, monitoring, and integrity checks help reveal abnormal access and changes.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Detection</span></div>
+        <div class="progress-meter"><span style="width: 90%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="5-1-application-and-data-vulnerabilities.html">5.1</a>
+      <a href="5-2-protecting-applications-and-data.html">5.2</a>
+      <a href="5-3-protecting-stored-data-with-cryptography.html">5.3</a>
+      <a href="5-4-asymmetric-cryptography.html">5.4</a>
+      <a href="5-5-protecting-applications.html">5.5</a>
+      <a class="active" href="5-6-detecting-attacks-on-data-and-applications.html">5.6</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Monitoring data access and file integrity can reveal suspicious behavior before damage spreads.</h2>
+          <p>Organizations can monitor who accessed information, when it was accessed, what information was accessed, where the access originated, and what actions were performed.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card"><span class="tag">Access</span><h3>Who and when</h3><p>Logs can show which accounts are interacting with data and when.</p></article>
+          <article class="info-card"><span class="tag">Trap</span><h3>Honeypot</h3><p>A fake system used to attract and detect unauthorized activity.</p></article>
+          <article class="info-card"><span class="tag">Integrity</span><h3>Hash check</h3><p>Detects whether a file or asset has changed.</p></article>
+        </div>
+
+        <div class="accordion" aria-label="Unit 5.6 content">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">5.6.1 Monitoring data access <span>−</span></button>
+            <div class="accordion-panel">
+              <p>Organizations can monitor:</p>
+              <ul class="compare-list">
+                <li>Who accessed information.</li>
+                <li>When it was accessed.</li>
+                <li>What information was accessed.</li>
+                <li>Where the access originated.</li>
+                <li>What actions were performed.</li>
+              </ul>
+              <p>For example, if an employee normally accesses company documents during 8:00 AM–5:00 PM from the company network and logs suddenly show access at 2:13 AM from an unusual location, that activity may deserve investigation.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.6.2 Honeypots <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A honeypot is a system or resource designed to attract or detect attackers.</p>
+              <p>It is intentionally made to appear interesting to an attacker.</p>
+              <p>Because legitimate users generally should not interact with it, activity on the honeypot can be a strong indicator of suspicious behavior.</p>
+              <div class="reflect-box">A company creates a fake database server containing fake information. An attacker discovers it and begins attempting to access it. The security team receives an alert because legitimate employees were not supposed to use the fake server.</div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.6.3 Honeytokens <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A honeytoken is a piece of information or resource designed to detect unauthorized access.</p>
+              <p>Examples could include fake credentials, fake database records, fake files, or special tracking information.</p>
+              <p>If someone uses a honeytoken, the organization can investigate the activity.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.6.4 File integrity monitoring <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A cryptographic hash can be used to detect whether a file has changed.</p>
+              <p>Suppose an organization calculates the hash of an original file. Later, the organization calculates the hash again. If the values differ, the file has changed.</p>
+              <p>This does not automatically tell us who changed it or why it changed, but it tells us that the file's contents are different.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.6.5 Detecting suspicious behavior <span>+</span></button>
+            <div class="accordion-panel">
+              <p>The AP framework gives examples of suspicious activity that can appear in logs, including:</p>
+              <ul class="compare-list">
+                <li>Unexpected access at unusual times</li>
+                <li>Large numbers of files accessed</li>
+                <li>Mass changes to application or data files</li>
+                <li>Access from unusual locations or devices</li>
+                <li>Failed login attempts or privilege escalation attempts</li>
+              </ul>
+              <p>Logs help detect suspicious behavior because activity that deviates from expected patterns may indicate an attack or misuse.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Detection tools</h3>
+          <ul class="compact-list">
+            <li><strong>Monitoring</strong> = watch who, when, what, where, and how.</li>
+            <li><strong>Honeypot</strong> = decoy system to attract attackers.</li>
+            <li><strong>Honeytoken</strong> = fake secret or record used to detect misuse.</li>
+            <li><strong>File integrity monitoring</strong> = hash changes to detect tampering.</li>
+          </ul>
+        </div>
+        <div class="status-card">
+          <h3>Detection rule</h3>
+          <p>Suspicious activity does not automatically prove an attack occurred, but it may be worth investigating. Logs are one of the best ways to turn a signal into an action.</p>
+        </div>
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="Unit 5.6 notes" placeholder="Explain how logs can indicate suspicious activity, and describe the difference between a honeypot and a honeytoken..."></textarea>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>Monitoring helps reveal who accessed what, when, and from where.</li>
+          <li>Honeypots and honeytokens are designed to attract and detect attacker behavior.</li>
+          <li>File integrity monitoring can detect unauthorized file changes using hash comparisons.</li>
+          <li>Logs are a key tool for identifying suspicious patterns and investigating attacks.</li>
+        </ul>
+      </div>
+      <aside class="next-panel">
+        <p>Completion</p>
+        <h2>Unit 5 summary</h2>
+        <p>This unit connects application weaknesses, data protection, cryptography, secure design, and monitoring into one security model.</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 5 • 5.6</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,1132 @@
+AP Cybersecurity — Unit 4: Securing Devices
+
+These notes follow the Unit 4 topics and learning objectives in your AP Cybersecurity course framework. They are written for students who have completed Units 1–3, with explanations, examples, key vocabulary, and AP-style practice.
+
+4.1 — Securing Devices
+
+Authentication, passwords, and password attacks
+
+4.2 — Authentication
+
+Verifying a user's identity and authentication factors
+
+4.3 — Protecting Devices
+
+Security policies, anti-malware, updates, and host-based firewalls
+
+4.4 — Detecting Attacks on Devices
+
+Logs, indicators of compromise, and recognizing suspicious activity
+
+Topic 4.1 — Securing Devices
+4.1.1 Why do devices need security?
+
+A device can contain personal information, saved passwords, files, applications, and access to a larger network. If an attacker gains control of one device, they may be able to steal information, install malicious software, impersonate the user, or use the device to attack other systems.
+
+Device security is the collection of methods used to prevent unauthorized access, protect information, and keep a device operating as intended.
+
+Examples of devices that need protection include:
+
+Personal computers and laptops.
+
+Smartphones and tablets.
+
+Servers that store or process data.
+
+Network devices such as routers and switches.
+
+Internet of Things (IoT) devices, such as security cameras and smart appliances.
+
+Device security involves several layers. A password helps restrict access, authentication verifies identity, software updates address known vulnerabilities, anti-malware detects malicious software, and firewalls control network traffic.
+
+No single security measure prevents every attack. Multiple safeguards help reduce the chance that one failure will compromise the entire device.
+
+4.1.2 Passwords and password security
+
+A password is a secret used to help verify a user's identity. When a user signs in, the system checks the submitted password against the stored password information.
+
+Passwords are widely used, but they can be compromised when they are weak, reused, exposed, or guessed.
+
+Password reuse
+
+Password reuse occurs when someone uses the same password for multiple accounts.
+
+Imagine a student uses the same password for a gaming account, an email account, and a school account. If the gaming service suffers a data breach, an attacker may try the exposed username and password on the other services.
+
+This is called a credential stuffing attack when attackers use previously exposed username-password combinations to attempt access to other accounts.
+
+The main problem is that one compromised account can put several other accounts at risk.
+
+How to reduce the risk:
+
+Use a different password for each account.
+
+Use a reputable password manager to generate and store unique passwords.
+
+Enable multifactor authentication where available.
+
+Change a password promptly if there is evidence it has been compromised.
+
+Changing passwords on a fixed schedule is not a substitute for strong, unique passwords. Password changes are especially important when a password has been exposed or an account may have been accessed without permission.
+
+Common password attacks
+
+Brute-force attack
+
+An attacker repeatedly tries possible passwords until a correct one is found. The attack may use automated software to test many combinations.
+
+Example: A system with a short numeric password is vulnerable to attempts that systematically test possible combinations.
+
+Dictionary attack
+
+An attacker tests likely passwords from a prepared list of common words, phrases, and password patterns.
+
+Example: Someone chooses a common word with a predictable number appended to it. A dictionary-based attack may test that pattern.
+
+Credential stuffing
+
+An attacker uses credentials exposed in one breach to try signing in to other services.
+
+Example: A password leaked from a shopping website is tried on an email service.
+
+Password spraying
+
+An attacker tries a small number of common passwords against many different accounts instead of trying many passwords against just one account.
+
+Example: The same commonly used password is attempted against multiple employee accounts. This may help the attacker avoid triggering some account-specific protections.
+
+Rainbow-table attack
+
+An attacker uses precomputed tables that map candidate passwords to their hash values. If a stored hash matches a table entry, the attacker may be able to determine the original password.
+
+Example: A stolen database contains password hashes created using an older, unsuitable password-storage method.
+
+4.1.3 Password hashing
+
+Systems should not store users' passwords as readable plaintext. Instead, a secure system stores a password hash produced by a suitable cryptographic hashing algorithm.
+
+A hash function takes input data and produces a fixed-length output called a hash or digest.
+
+Original password
+
+The password entered by the user
+
+Password-hashing algorithm
+
+Transforms the password into a hash
+
+Stored password hash
+
+Used to verify future login attempts
+
+When a user logs in, the system processes the submitted password using its password-verification method and checks whether it matches the stored password hash.
+
+Important properties:
+
+One-way behavior: A secure hash function is designed to make recovering the original input computationally impractical.
+
+Fixed-length output: A given hash algorithm produces outputs of a defined length.
+
+Sensitivity to input: Even a small change in the input generally changes the output significantly.
+
+Collision possibility: Different inputs can theoretically produce the same hash. A cryptographic hash is designed to make finding such collisions difficult.
+
+A hash is not encryption. Encryption is designed to allow authorized decryption with the appropriate key; a secure hash is not designed to be reversed.
+
+What is a salt?
+
+A salt is a unique, random value added to a password before hashing. A salt makes identical passwords produce different stored hashes when different salts are used.
+
+Salts make precomputed rainbow tables much less useful because an attacker cannot simply reuse one table for every account.
+
+For password storage, systems should use a password-hashing algorithm designed for the purpose, such as Argon2id, scrypt, or bcrypt, with appropriate parameters and unique salts. A fast general-purpose hash alone is not the recommended password-storage method.
+
+4.1.4 Password policy settings
+
+A password policy defines requirements for passwords and account access. The Unit 4 framework identifies several settings that organizations may use.
+
+Setting
+
+	
+
+What it does
+
+	
+
+Why it matters
+
+
+
+
+Minimum length
+
+	
+
+Requires passwords to contain a minimum number of characters.
+
+	
+
+Longer passwords are generally harder to guess.
+
+
+
+
+Character requirements
+
+	
+
+May require a combination of uppercase letters, lowercase letters, numbers, or symbols.
+
+	
+
+Can increase the number of possible combinations, though length and unpredictability also matter.
+
+
+
+
+Maximum password age
+
+	
+
+Limits how long a password can remain in use before a change is required.
+
+	
+
+Can support responses to certain risks, but routine changes alone do not guarantee security.
+
+
+
+
+Password history
+
+	
+
+Prevents users from immediately reusing recently used passwords.
+
+	
+
+Reduces repeated cycling through old passwords.
+
+
+
+
+Account lockout
+
+	
+
+Temporarily blocks further login attempts after a configured number of failed attempts.
+
+	
+
+Can slow automated guessing, although poorly designed lockouts can be abused to deny access.
+
+An organization should choose password settings that balance security and usability. For example, a lockout policy can slow an attacker, but a very strict policy might allow someone to repeatedly lock out a legitimate user's account.
+
+4.1.5 How to defend against password attacks
+
+The appropriate defense depends on the attack.
+
+Brute-force and dictionary attacks: Use strong passwords, rate limits, monitoring, and appropriately configured lockout protections.
+
+Credential stuffing: Use unique passwords, password managers, and multifactor authentication.
+
+Password spraying: Monitor failed logins across multiple accounts, apply rate limits, and use multifactor authentication.
+
+Rainbow-table attacks: Store passwords using an appropriate password-hashing algorithm with unique salts.
+
+Password reuse: Avoid reusing passwords and change compromised credentials.
+
+Remember: Password complexity alone is not enough. Unique passwords, secure storage, and protections against repeated login attempts all contribute to account security.
+
+Topic 4.2 — Authentication
+4.2.1 What is authentication?
+
+Authentication is the process of verifying that a user, device, or other entity is who or what it claims to be.
+
+For example, when a student signs in to a school computer, the system needs to determine whether the person attempting to log in is authorized to use that account.
+
+Authentication is different from authorization:
+
+Authentication: Who are you?
+
+Authorization: What are you allowed to access?
+
+A user might successfully authenticate to a school network but still lack permission to access a teacher's private files. Authentication establishes identity; authorization determines permitted actions.
+
+4.2.2 The four authentication factors
+
+Authentication factors are categories of evidence used to verify identity. The AP framework emphasizes four categories.
+
+1. Something you know — knowledge factor
+
+Information that the user knows.
+
+Examples:
+
+Password
+
+PIN
+
+Answers to security questions
+
+A weakness is that information can be guessed, observed, or stolen.
+
+2. Something you have — possession factor
+
+An object or device that the user possesses.
+
+Examples:
+
+Security key
+
+Authentication token
+
+Registered smartphone receiving an authentication prompt
+
+The system checks for proof that the user possesses the required item.
+
+3. Something you are — biometric factor
+
+A physical or behavioral characteristic used to identify a person.
+
+Examples:
+
+Fingerprint
+
+Facial recognition
+
+Iris recognition
+
+Voice recognition
+
+Biometric systems compare a measurement with previously enrolled biometric data. They are not perfect and can sometimes make incorrect matches.
+
+4. Somewhere you are — location factor
+
+Information about the user's physical or network location.
+
+Examples:
+
+A login originating from an approved location
+
+A device connecting from an organization's internal network
+
+A location check used as part of a sign-in risk assessment
+
+Location can provide useful evidence, but it can be inaccurate or manipulated.
+
+The category matters more than the particular technology. A PIN and a password are both knowledge factors, so using them together does not automatically create multifactor authentication.
+
+4.2.3 Multifactor authentication (MFA)
+
+Multifactor authentication (MFA) requires evidence from at least two different authentication-factor categories.
+
+For example, a system might require:
+
+A password — something you know.
+
+A hardware security key — something you have.
+
+Even if an attacker steals the password, they still need the second factor.
+
+Compare these examples:
+
+Login method
+
+	
+
+Authentication factors
+
+	
+
+MFA?
+
+
+
+
+Password only
+
+	
+
+Knowledge
+
+	
+
+No
+
+
+
+
+Password and PIN
+
+	
+
+Knowledge and knowledge
+
+	
+
+No
+
+
+
+
+Password and registered security key
+
+	
+
+Knowledge and possession
+
+	
+
+Yes
+
+
+
+
+Password and fingerprint
+
+	
+
+Knowledge and biometric
+
+	
+
+Yes
+
+
+
+
+Security key and fingerprint
+
+	
+
+Possession and biometric
+
+	
+
+Yes
+
+MFA improves security because compromising one factor may not be sufficient to gain access. However, it does not eliminate every risk. Attackers may attempt to trick users into approving fraudulent requests or steal an authenticated session.
+
+4.2.4 Passwordless authentication
+
+Some systems allow users to sign in without entering a traditional password.
+
+Examples include passkeys and certain hardware-security-key methods. These often use public-key cryptography: a device proves possession of a private key, while the service verifies the proof using the corresponding public key.
+
+Passwordless authentication can reduce exposure to password guessing, credential reuse, and phishing attacks, depending on how the system is implemented.
+
+4.2.5 Choosing authentication methods
+
+The appropriate authentication method depends on the sensitivity of the information and the risks involved.
+
+For example:
+
+A public website may permit a password-based login.
+
+A school administration system may require MFA.
+
+A financial service may require a stronger authentication process for sensitive transactions.
+
+An organization may request additional verification when a login appears unusual.
+
+Remember: Authentication verifies identity. MFA uses multiple different factor categories, not simply multiple pieces of information from the same category.
+
+Topic 4.3 — Protecting Devices
+
+This topic focuses on the controls an organization can use to reduce the risk of a device being compromised.
+
+4.3.1 Acceptable-use policies
+
+An acceptable-use policy (AUP) describes how users are permitted to use an organization's devices, networks, software, and internet access.
+
+An AUP establishes rules and expectations for using technology responsibly and securely.
+
+Common policy requirements include:
+
+Prohibiting access to inappropriate or unauthorized websites.
+
+Restricting the installation of unapproved software.
+
+Requiring users to keep software updated.
+
+Controlling whether external devices, such as USB drives, may be connected.
+
+Establishing rules for social media, gaming, and personal use.
+
+Explaining what users should do when they suspect a security incident.
+
+Example: A school may prohibit students from installing unapproved applications on school computers. This reduces the chance that an application containing malware will be introduced into the school's environment.
+
+An AUP is a management control. It defines expected behavior, but it does not automatically enforce every rule. Technical controls may be needed to prevent prohibited actions.
+
+4.3.2 Software-installation policies
+
+A software-installation policy determines what software users may install and under what conditions.
+
+An organization might allow users to install only approved applications or require them to submit a request to an administrator.
+
+Possible policy elements include:
+
+A list of approved applications.
+
+A process for requesting new software.
+
+Requirements for reviewing software before installation.
+
+Restrictions on administrative privileges.
+
+Rules for installing updates and extensions.
+
+Why this matters: Software can introduce vulnerabilities, unwanted functionality, or malware. Limiting installation privileges reduces the opportunities for users to unintentionally compromise a device.
+
+4.3.3 Anti-malware software
+
+Anti-malware software is designed to detect, block, quarantine, or remove malicious software.
+
+Malware is a general term for software designed to perform harmful or unauthorized actions.
+
+Examples include:
+
+Viruses that attach themselves to files or programs.
+
+Trojans that disguise malicious functionality as legitimate software.
+
+Spyware that collects information without appropriate authorization.
+
+Ransomware that can deny access to files or systems.
+
+Anti-malware tools can use several detection methods.
+
+Signature-based detection
+
+Compares files or activity against known patterns associated with malware. It can be effective for known threats but may not recognize previously unseen malware.
+
+Behavior-based detection
+
+Looks for suspicious actions, such as a program attempting to modify many files unexpectedly or perform unauthorized system changes. This can help identify previously unknown threats, although legitimate software may sometimes behave similarly.
+
+Quarantine
+
+Isolates a suspicious file or program so it cannot interact normally with the rest of the system while it is being investigated or handled.
+
+Anti-malware software is most effective as part of a broader security strategy. It should be updated regularly, and users should still avoid suspicious downloads and follow organizational security policies.
+
+4.3.4 Software updates and patches
+
+Software may contain vulnerabilities that attackers can exploit. A software update may add features, fix bugs, or improve security. A security patch is an update intended to correct a security vulnerability.
+
+For example, suppose a web browser contains a known vulnerability that allows a malicious website to exploit the browser. The software developer releases a patch that corrects the flaw. Installing the patch reduces the opportunity to exploit that vulnerability.
+
+The process is:
+
+1
+
+Vulnerability is discovered
+
+A weakness exists in a program or operating system.
+
+2
+
+A patch is released
+
+The developer provides a correction.
+
+3
+
+The patch is installed
+
+The device receives the security fix.
+
+4
+
+Exposure is reduced
+
+The specific vulnerability is less likely to be exploitable.
+
+Organizations should establish a process for applying updates, prioritizing important security fixes, and checking that devices are properly updated.
+
+Important distinction: Updating software reduces exposure to known vulnerabilities, but it does not guarantee that a device is free from malware or other security weaknesses.
+
+4.3.5 Host-based firewalls
+
+A host-based firewall is software that controls network traffic entering or leaving an individual device.
+
+Unlike a network firewall that protects traffic at a network boundary, a host-based firewall operates on the endpoint itself.
+
+Examples of endpoints include laptops, desktops, and servers.
+
+A host-based firewall uses rules to determine whether network traffic should be allowed or denied. Depending on its capabilities and configuration, a rule may consider:
+
+Direction of traffic: inbound or outbound.
+
+Source IP address.
+
+Destination IP address.
+
+Protocol, such as TCP or UDP.
+
+Source or destination port.
+
+Application or service.
+
+Example: Host-based firewall
+
+Incoming network traffic
+
+Firewall checks its rules
+
+Direction, protocol, addresses, ports, and other configured conditions
+
+Allow
+
+Matching traffic is permitted.
+
+Deny
+
+Matching traffic is blocked.
+
+Example firewall rules
+
+Suppose a device has these rules:
+
+Rule
+
+	
+
+Direction
+
+	
+
+Protocol
+
+	
+
+Destination port
+
+	
+
+Action
+
+
+
+
+1
+
+	
+
+Inbound
+
+	
+
+TCP
+
+	
+
+22
+
+	
+
+Deny
+
+
+
+
+2
+
+	
+
+Inbound
+
+	
+
+TCP
+
+	
+
+443
+
+	
+
+Allow
+
+
+
+
+3
+
+	
+
+Inbound
+
+	
+
+Any
+
+	
+
+Any
+
+	
+
+Deny
+
+Interpretation:
+
+Rule 1 blocks incoming TCP traffic to port 22, commonly used by SSH.
+
+Rule 2 permits incoming TCP traffic to port 443, commonly used by HTTPS.
+
+Rule 3 blocks other incoming traffic that reaches it without matching an earlier rule.
+
+The exact result depends on the firewall's configuration and rule-processing behavior. Some firewalls process rules in order and stop at the first match, while others use different mechanisms.
+
+Why host-based firewalls matter: Even if a device connects to an untrusted network, its own firewall can restrict which connections are permitted to reach or leave that device.
+
+A firewall is not a complete anti-malware solution. It controls network traffic; it does not automatically detect every malicious file or stop every attack.
+
+4.3.6 Combining security controls
+
+Security is stronger when different controls work together.
+
+Consider a school laptop:
+
+Control
+
+	
+
+Purpose
+
+
+
+
+Acceptable-use policy
+
+	
+
+Establishes rules for device use.
+
+
+
+
+Limited user privileges
+
+	
+
+Restricts unauthorized system changes.
+
+
+
+
+Anti-malware software
+
+	
+
+Detects and handles malicious software.
+
+
+
+
+Software updates
+
+	
+
+Corrects known vulnerabilities.
+
+
+
+
+Host-based firewall
+
+	
+
+Restricts unwanted network traffic.
+
+
+
+
+MFA
+
+	
+
+Adds protection to account sign-ins.
+
+These controls address different risks. If one control fails, others may still reduce the likelihood or impact of a compromise.
+
+Remember: Policies define expected behavior, updates fix software weaknesses, anti-malware handles malicious software, and firewalls filter network traffic.
+
+Topic 4.4 — Detecting Attacks on Devices
+
+Preventing every attack is difficult. Organizations also need ways to identify suspicious activity and determine whether a device or network has been compromised.
+
+4.4.1 What is a log?
+
+A log is a record of events that occur on a device, application, or network.
+
+Logs can contain information about system activity, user actions, authentication attempts, application events, and changes to settings.
+
+Examples include:
+
+A user successfully signing in.
+
+A user entering an incorrect password.
+
+A program starting or stopping.
+
+A system configuration changing.
+
+Software being installed.
+
+A network connection being established.
+
+Logs are useful because they provide evidence that investigators can analyze when troubleshooting problems or investigating possible attacks.
+
+4.4.2 Common types of logs
+
+System logs
+
+Record events related to the operating system, hardware, services, and system configuration.
+
+Example: A system service unexpectedly stops running.
+
+Authentication logs
+
+Record attempts to authenticate, such as successful and failed logins.
+
+Example: A single account has many failed login attempts within a short period.
+
+Application logs
+
+Record events generated by individual applications or services.
+
+Example: An application records an unexpected error or an unusual administrative action.
+
+Network and firewall logs
+
+Record network connections, traffic decisions, and other network-related events.
+
+Example: A firewall records repeated connection attempts from an unfamiliar external address.
+
+Different log sources provide different pieces of information. Combining them can help investigators reconstruct what happened.
+
+4.4.3 Reading and interpreting logs
+
+A log entry often includes a timestamp, an event description, and details about the device, account, process, or connection involved.
+
+Consider this fictional log:
+
+2026-10-02 09:14:02 Login failed: user=alex
+2026-10-02 09:14:08 Login failed: user=alex
+2026-10-02 09:14:15 Login failed: user=alex
+2026-10-02 09:14:21 Login failed: user=alex
+2026-10-02 09:14:29 Login success: user=alex
+
+Ask yourself:
+
+What happened? There were several failed login attempts followed by a successful login.
+
+What pattern appears? Multiple failures occurred within a short period.
+
+Why might this matter? It could indicate password guessing or a user having difficulty remembering a password.
+
+What additional evidence would help? The source IP address, device information, login location, usual account behavior, and any subsequent activity.
+
+The log raises a concern, but it does not prove that an attack occurred. A security analyst should examine the surrounding evidence before reaching a conclusion.
+
+4.4.4 Indicators of compromise (IoCs)
+
+An indicator of compromise (IoC) is evidence that a device, account, or network may have been compromised.
+
+An IoC does not always prove that an attack succeeded. It identifies activity or artifacts that warrant investigation.
+
+Examples include:
+
+An unusual number of failed login attempts.
+
+An unexpected new account with administrative privileges.
+
+An unfamiliar process running on a device.
+
+An unauthorized change to system configuration.
+
+Unexpected software installation or updates.
+
+Connections to suspicious external destinations.
+
+Known malicious file hashes appearing on a device.
+
+Example: Recognizing suspicious activity
+
+Imagine a school computer normally runs a browser and a document editor. An administrator reviews its logs and discovers:
+
+A new program was installed unexpectedly.
+
+A previously disabled service began running.
+
+The computer started connecting to an unfamiliar external server.
+
+Each event might have a legitimate explanation individually. However, the combination could suggest that the device has been compromised.
+
+The investigator should examine the installation source, process details, network records, and user activity to determine what occurred.
+
+4.4.5 Detecting authentication attacks
+
+Authentication logs can reveal patterns that are difficult to notice from a single login attempt.
+
+Pattern in the logs
+
+	
+
+Possible explanation
+
+
+
+
+Many failed attempts against one account
+
+	
+
+Brute-force or dictionary attack, or a user repeatedly entering the wrong password
+
+
+
+
+The same password attempted across many accounts
+
+	
+
+Password spraying
+
+
+
+
+Successful logins using credentials exposed in a breach
+
+	
+
+Possible credential stuffing
+
+
+
+
+Login from an unusual device followed by sensitive actions
+
+	
+
+Possible account compromise
+
+
+
+
+Repeated login failures followed by success
+
+	
+
+Possible guessing attempt; investigate further
+
+These are indicators to investigate, not automatic proof of an attack.
+
+A security analyst should consider the number of attempts, timing, source addresses, affected accounts, and whether the behavior differs from normal activity.
+
+4.4.6 Using logs during an incident
+
+Logs can help answer four important questions:
+
+What happened? Identify the recorded events.
+
+When did it happen? Establish the timeline using timestamps.
+
+Where did it happen? Identify the relevant device, account, process, or network source.
+
+What may have been affected? Determine which accounts, systems, or files may have been involved.
+
+A typical investigation might involve the following steps:
+
+1
+
+Identify suspicious activity
+
+An alert or unusual log entry triggers investigation.
+
+2
+
+Collect relevant evidence
+
+Review authentication, system, application, and network logs.
+
+3
+
+Build a timeline
+
+Arrange events by time and compare them across systems.
+
+4
+
+Determine the likely cause and scope
+
+Look for supporting evidence and identify affected accounts or devices.
+
+5
+
+Respond and document
+
+Follow incident-response procedures and record findings.
+
+Logs are most useful when they contain accurate timestamps, enough context to interpret events, and records from relevant systems. Organizations also need appropriate access controls and retention policies to protect logs and keep them available for investigations.
+
+Remember: Detecting an attack requires recognizing suspicious patterns, checking supporting evidence, and distinguishing normal activity from possible compromise.
+
+Unit 4 review — Key concepts to remember
+
+Concept
+
+	
+
+Essential takeaway
+
+
+
+
+Brute-force attack
+
+	
+
+Systematically tries possible passwords.
+
+
+
+
+Dictionary attack
+
+	
+
+Tests likely passwords from a prepared list.
+
+
+
+
+Credential stuffing
+
+	
+
+Reuses exposed credentials across services.
+
+
+
+
+Password spraying
+
+	
+
+Tries a few common passwords across many accounts.
+
+
+
+
+Rainbow-table attack
+
+	
+
+Uses precomputed password-hash mappings.
+
+
+
+
+Password hash
+
+	
+
+A one-way cryptographic representation used in password verification.
+
+
+
+
+Salt
+
+	
+
+A unique random value added before password hashing.
+
+
+
+
+Authentication
+
+	
+
+Verifies identity.
+
+
+
+
+Authorization
+
+	
+
+Determines what an authenticated identity may access.
+
+
+
+
+MFA
+
+	
+
+Requires factors from at least two different categories.
+
+
+
+
+Acceptable-use policy
+
+	
+
+Defines permitted and prohibited technology use.
+
+
+
+
+Anti-malware
+
+	
+
+Detects, blocks, quarantines, or removes malware.
+
+
+
+
+Security patch
+
+	
+
+Fixes a software vulnerability.
+
+
+
+
+Host-based firewall
+
+	
+
+Filters network traffic on an individual device.
+
+
+
+
+Log
+
+	
+
+Records events for monitoring and investigation.
+
+
+
+
+IoC
+
+	
+
+Evidence suggesting possible compromise
+
+
+

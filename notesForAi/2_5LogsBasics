@@ -1,0 +1,1517 @@
+# HTTP Requests, Status Codes, and Server Logs
+
+## 1. Understanding HTTP Requests
+
+HTTP (Hypertext Transfer Protocol) is a protocol that allows clients, such as web browsers, applications, and other devices, to communicate with web servers.
+
+When you visit a website, your browser sends an HTTP request to a server. The server processes that request and sends back an HTTP response.
+
+**Basic communication:**
+
+```text
+Client → HTTP Request → Server → HTTP Response → Client
+```
+
+An HTTP request can contain several important pieces of information:
+
+* **Method:** What the client wants to do.
+* **Path:** Which resource the client wants to access.
+* **HTTP version:** Which version of HTTP is being used.
+* **Headers:** Additional information about the request.
+* **Body:** Data being sent to the server, when applicable.
+
+The server's response contains a **status code** that describes how the server handled the request.
+
+---
+
+# 2. HTTP Methods and Their Responses
+
+## GET — Retrieve Information
+
+`GET` requests are used to retrieve information from a server.
+
+Example:
+
+```http
+GET /users HTTP/1.1
+```
+
+The client is asking the server to return the resource at `/users`.
+
+GET is one of the most common HTTP methods because browsers use it constantly when loading websites.
+
+For example, when you visit:
+
+```text
+https://example.com/
+```
+
+your browser will typically send a GET request for the page.
+
+The browser may then make additional GET requests for:
+
+* Images
+* CSS files
+* JavaScript
+* Fonts
+* Videos
+* Other resources
+
+### Characteristics
+
+**Safe:** GET is intended to retrieve information rather than modify server data.
+
+**Idempotent:** Repeating the same GET request should have the same intended effect on the server.
+
+**Cacheable:** GET responses can generally be cached when the server's caching rules allow it.
+
+### Query strings
+
+GET requests can include information in the URL using a query string.
+
+Example:
+
+```http
+GET /search?q=cybersecurity HTTP/1.1
+```
+
+Here:
+
+```text
+/search
+```
+
+is the path, while:
+
+```text
+?q=cybersecurity
+```
+
+is the query string.
+
+The server can use the `q` parameter to determine what the client is searching for.
+
+### Common responses
+
+A GET request might result in:
+
+* **200 OK** — The requested resource was successfully returned.
+* **304 Not Modified** — The cached version can still be used.
+* **400 Bad Request** — The request was invalid.
+* **401 Unauthorized** — Authentication is required.
+* **403 Forbidden** — The server refuses access.
+* **404 Not Found** — The requested resource does not exist.
+* **500 Internal Server Error** — The server encountered a problem.
+
+### Cybersecurity consideration
+
+Sensitive information should generally not be placed in a GET URL.
+
+For example, putting a password in a URL would be dangerous because URLs can potentially appear in:
+
+* Browser history
+* Server logs
+* Proxy logs
+* Monitoring systems
+* Analytics systems
+
+---
+
+# POST — Submit or Process Data
+
+POST is commonly used to send data to a server for processing.
+
+Example:
+
+```http
+POST /users HTTP/1.1
+```
+
+The request body could contain:
+
+```text
+username=jprice
+email=jprice@example.com
+```
+
+POST is commonly used for:
+
+* Creating accounts
+* Submitting forms
+* Sending messages
+* Uploading information
+* Creating database records
+* Sending API requests
+
+### Characteristics
+
+**Not safe:** POST can modify the server's state.
+
+**Not inherently idempotent:** Repeating the same POST request can produce multiple results.
+
+For example, if a website uses POST to create an order, sending the request twice could potentially create two orders.
+
+**Not cacheable by default.**
+
+### Common responses
+
+* **200 OK** — The request was successfully processed.
+* **201 Created** — A new resource was created.
+* **202 Accepted** — The request was accepted for processing.
+* **400 Bad Request** — The submitted information was invalid.
+* **401 Unauthorized** — Authentication is required.
+* **403 Forbidden** — The client is not allowed to perform the action.
+* **409 Conflict** — The request conflicts with the current state.
+* **500 Internal Server Error** — The server encountered a problem.
+
+---
+
+# PUT — Replace a Resource
+
+PUT is used to replace the current representation of a resource with the information supplied by the client.
+
+Example:
+
+```http
+PUT /users/123 HTTP/1.1
+```
+
+The request might contain:
+
+```json
+{
+  "name": "John Price",
+  "email": "john@example.com"
+}
+```
+
+The server would use that information to replace or update the representation of user 123.
+
+### Characteristics
+
+* Not safe
+* Idempotent
+* Generally not cacheable
+
+If the same PUT request is sent multiple times, the intended final state should remain the same.
+
+---
+
+# PATCH — Partially Modify a Resource
+
+PATCH modifies only part of an existing resource.
+
+Example:
+
+```http
+PATCH /users/123 HTTP/1.1
+```
+
+The body could contain:
+
+```json
+{
+  "email": "newemail@example.com"
+}
+```
+
+Instead of replacing all of the user's information, the server only changes the email address.
+
+### Characteristics
+
+* Not safe
+* Not inherently idempotent
+* Generally not cacheable
+
+Whether a particular PATCH operation is idempotent depends on what the operation actually does.
+
+---
+
+# DELETE — Remove a Resource
+
+DELETE requests the removal of a resource.
+
+Example:
+
+```http
+DELETE /users/123 HTTP/1.1
+```
+
+The server is being asked to remove user 123.
+
+### Characteristics
+
+* Not safe
+* Idempotent
+* Generally not cacheable
+
+Repeating a DELETE request does not normally cause additional deletions after the resource is already gone.
+
+### Cybersecurity consideration
+
+DELETE requests can be important during security investigations because unauthorized users may attempt to delete:
+
+* Accounts
+* Files
+* Database records
+* Backups
+* Logs
+* Configuration information
+
+---
+
+# HEAD — Retrieve Headers Only
+
+HEAD works similarly to GET, but the server does not return the response body.
+
+Example:
+
+```http
+HEAD /index.html HTTP/1.1
+```
+
+The client may receive information such as:
+
+```text
+Content-Type: text/html
+Content-Length: 24567
+Last-Modified: ...
+```
+
+but does not receive the actual HTML page.
+
+HEAD is useful when a client wants to determine information about a resource without downloading the resource itself.
+
+---
+
+# OPTIONS — Discover Supported Methods
+
+OPTIONS asks the server which communication methods or options are supported.
+
+Example:
+
+```http
+OPTIONS /api/users HTTP/1.1
+```
+
+The server might respond with:
+
+```text
+Allow: GET, POST, PUT, DELETE
+```
+
+This tells the client which methods the endpoint supports.
+
+OPTIONS is also important in CORS, where browsers can perform a **preflight request** before certain cross-origin requests.
+
+---
+
+# CONNECT — Establish a Tunnel
+
+CONNECT asks a proxy to create a tunnel to another server.
+
+Example:
+
+```http
+CONNECT www.example.com:443 HTTP/1.1
+```
+
+This is commonly associated with HTTPS connections through a proxy.
+
+A successful response might be:
+
+```text
+200 Connection Established
+```
+
+The important idea is:
+
+> CONNECT establishes a tunnel; HTTPS/TLS provides the encryption and authentication for HTTPS traffic.
+
+---
+
+# TRACE — Diagnostic Loop-Back
+
+TRACE is primarily a diagnostic method.
+
+Example:
+
+```http
+TRACE /test HTTP/1.1
+```
+
+The server can return information about the request it received.
+
+TRACE can help diagnose how requests are being handled by network components.
+
+It is commonly disabled on production servers because of security concerns in certain configurations.
+
+---
+
+# 3. HTTP Status Codes
+
+HTTP status codes are three-digit numbers returned by the server.
+
+They are divided into five categories:
+
+```text
+1xx → Informational
+2xx → Success
+3xx → Redirection
+4xx → Client/request error
+5xx → Server error
+```
+
+## 1xx — Informational
+
+The server has received the request and communication is continuing.
+
+### 100 Continue
+
+The server is telling the client that it can continue sending the request.
+
+### 101 Switching Protocols
+
+The server agrees to switch to another protocol.
+
+### 103 Early Hints
+
+The server sends preliminary information before the final response.
+
+---
+
+# 2xx — Success
+
+These indicate that the server successfully handled the request.
+
+### 200 OK
+
+The request succeeded.
+
+Example:
+
+```text
+GET /index.html → 200
+```
+
+The requested resource was successfully returned.
+
+### 201 Created
+
+A new resource was successfully created.
+
+This is common after a POST request.
+
+```text
+POST /users → 201 Created
+```
+
+### 202 Accepted
+
+The request was accepted, but processing may not be finished yet.
+
+### 204 No Content
+
+The request succeeded, but there is no response body.
+
+---
+
+# 3xx — Redirection
+
+These indicate that additional action may be necessary.
+
+### 301 Moved Permanently
+
+The resource has permanently moved.
+
+### 302 Found
+
+The resource is temporarily available somewhere else.
+
+### 304 Not Modified
+
+The resource has not changed, so the client can use its cached copy.
+
+### 307 Temporary Redirect
+
+The client should temporarily use another URL while preserving the request method.
+
+### 308 Permanent Redirect
+
+The resource has permanently moved while preserving the request method.
+
+---
+
+# 4xx — Client/Request Errors
+
+These indicate that the server could not fulfill the request as submitted.
+
+### 400 Bad Request
+
+The request is invalid or malformed.
+
+### 401 Unauthorized
+
+Authentication is required or failed.
+
+Think:
+
+> **Who are you?**
+
+### 403 Forbidden
+
+The server understood the request but refuses access.
+
+Think:
+
+> **You are not allowed to do this.**
+
+### 404 Not Found
+
+The requested resource could not be found.
+
+### 405 Method Not Allowed
+
+The resource exists, but the HTTP method being used is not allowed.
+
+### 408 Request Timeout
+
+The server did not receive the request within the expected amount of time.
+
+### 409 Conflict
+
+The request conflicts with the current state of the resource.
+
+### 429 Too Many Requests
+
+The client has sent too many requests in a given period.
+
+This is commonly associated with **rate limiting**.
+
+---
+
+# 5xx — Server Errors
+
+These indicate a problem on the server side.
+
+### 500 Internal Server Error
+
+The server encountered an unexpected problem.
+
+### 502 Bad Gateway
+
+A server acting as a gateway or proxy received an invalid response from another server.
+
+### 503 Service Unavailable
+
+The service is temporarily unable to handle the request.
+
+### 504 Gateway Timeout
+
+A gateway or proxy did not receive a response from another server in time.
+
+---
+
+# 4. Reading Server Logs
+
+Web servers create logs that record requests and other events.
+
+These logs are extremely useful in cybersecurity because they allow analysts to reconstruct what happened.
+
+A log entry might look like this:
+
+```text
+29 - 192.168.1.50 - jprice [10/Nov/2025:09:05:30 -0500] "GET / HTTP/1.1" 200 4231 "-" "Mozilla/5.0 (Ubuntu)"
+```
+
+At first, this may look like a random collection of numbers and text.
+
+Instead, break it into pieces.
+
+```text
+29
+192.168.1.50
+jprice
+[10/Nov/2025:09:05:30 -0500]
+GET
+/
+HTTP/1.1
+200
+4231
+-
+Mozilla/5.0 (Ubuntu)
+```
+
+Each part provides information about the request.
+
+---
+
+# 5. Example 1 — Understanding a Normal Web Request
+
+Consider:
+
+```text
+29 - 192.168.1.50 - jprice [10/Nov/2025:09:05:30 -0500] "GET / HTTP/1.1" 200 4231 "-" "Mozilla/5.0 (Ubuntu)"
+```
+
+Let's analyze this from left to right.
+
+## Step 1: Request Identifier
+
+```text
+29
+```
+
+This is a field included in this particular log format.
+
+It may represent a request or record identifier.
+
+The exact meaning depends on how the server's logging system is configured.
+
+For basic log analysis, the most important information begins with the IP address.
+
+---
+
+## Step 2: Source IP Address
+
+```text
+192.168.1.50
+```
+
+This is the IP address associated with the client making the request.
+
+We can therefore say:
+
+> The server recorded a request associated with `192.168.1.50`.
+
+However, we should **not automatically say that a specific person made the request**.
+
+Why?
+
+Because IP addresses do not necessarily map directly to individuals.
+
+For example:
+
+```text
+Person A
+Person B
+Person C
+     ↓
+  Router
+     ↓
+Public IP
+     ↓
+Internet
+```
+
+Additionally, proxies, VPNs, NAT, and compromised devices can affect which IP address appears in a log.
+
+So a security analyst treats the IP as evidence about the **network source**, not automatic proof of the person's identity.
+
+---
+
+## Step 3: Identity
+
+```text
+jprice
+```
+
+This field represents an identity or username according to the logging configuration.
+
+It should not automatically be interpreted as the device name.
+
+If the server is configured to associate requests with authenticated users, this might represent the account that made the request.
+
+An analyst would want to know how this particular server defines the field before drawing conclusions.
+
+---
+
+## Step 4: Timestamp
+
+```text
+[10/Nov/2025:09:05:30 -0500]
+```
+
+This tells us when the request was recorded.
+
+The information includes:
+
+```text
+Date: 10/Nov/2025
+Time: 09:05:30
+Offset: -0500
+```
+
+The timestamp is extremely important when investigating an incident.
+
+Suppose an administrator reports:
+
+> "The suspicious activity happened around 9:05 AM."
+
+An analyst can search the logs around that time.
+
+The analyst could then build a timeline:
+
+```text
+09:05:28 → Login
+09:05:30 → GET /
+09:05:31 → GET /images/banner.jpg
+09:05:32 → GET /style.css
+09:05:35 → POST /login
+```
+
+The sequence is often more informative than any individual event.
+
+---
+
+## Step 5: HTTP Method
+
+```text
+GET
+```
+
+The client used the GET method.
+
+That means it was requesting information from the server.
+
+This is consistent with normal web browsing.
+
+---
+
+## Step 6: Requested Path
+
+```text
+/
+```
+
+The `/` represents the root path of the website.
+
+In many web applications, this corresponds to the site's homepage.
+
+So:
+
+```text
+GET /
+```
+
+can be understood as:
+
+> "Give me the resource located at the website's root."
+
+---
+
+## Step 7: HTTP Version
+
+```text
+HTTP/1.1
+```
+
+This identifies the HTTP version being used.
+
+For basic log analysis, we usually don't need to focus heavily on the differences between HTTP versions.
+
+The important thing is that the request is using HTTP/1.1.
+
+---
+
+## Step 8: Status Code
+
+```text
+200
+```
+
+This is the server's response status.
+
+`200 OK` means the server successfully processed the request.
+
+So:
+
+```text
+GET / → 200
+```
+
+means:
+
+> The client requested `/`, and the server reported that the request succeeded.
+
+---
+
+## Step 9: Response Size
+
+```text
+4231
+```
+
+This commonly represents the size of the response.
+
+In this example, the server returned approximately 4,231 bytes of data.
+
+The exact interpretation depends on the server's logging configuration.
+
+---
+
+## Step 10: Referrer
+
+```text
+-
+```
+
+The `-` indicates that no referrer information was recorded.
+
+A referrer can sometimes tell the server which page led to the current request.
+
+For example:
+
+```text
+"https://example.com/home"
+```
+
+might indicate that the request came from a link or resource associated with that page.
+
+---
+
+## Step 11: User-Agent
+
+```text
+Mozilla/5.0 (Ubuntu)
+```
+
+The User-Agent provides information about the software making the request.
+
+It may include information about:
+
+* Browser
+* Operating system
+* Client software
+
+However, User-Agent information should not be treated as definitive proof.
+
+A program can intentionally send a User-Agent that pretends to be a browser.
+
+---
+
+## Overall Interpretation
+
+Putting everything together:
+
+> At 9:05:30 AM on November 10, 2025, the server recorded a GET request for the website's root path from the source IP `192.168.1.50`, associated with the identity `jprice`. The server returned a `200 OK` response.
+
+This is consistent with a normal request for a website's homepage.
+
+However, **we should not conclude that it is definitely legitimate solely from this one log entry**.
+
+A cybersecurity analyst would examine surrounding events and other logs to understand the larger context.
+
+---
+
+# 6. Example 2 — Loading Additional Website Resources
+
+Now consider:
+
+```text
+30 - 192.168.1.50 - jprice [10/Nov/2025:09:05:31 -0500] "GET /images/banner.jpg HTTP/1.1" 200 3087 "-" "Mozilla/5.0 (Ubuntu)"
+```
+
+This request occurred one second after the previous request.
+
+Let's analyze it.
+
+### Source
+
+```text
+192.168.1.50
+```
+
+Same source IP as the previous request.
+
+### Identity
+
+```text
+jprice
+```
+
+Same recorded identity.
+
+### Time
+
+```text
+09:05:31
+```
+
+One second after the previous request.
+
+### Method
+
+```text
+GET
+```
+
+The client wants to retrieve information.
+
+### Resource
+
+```text
+/images/banner.jpg
+```
+
+The client requested an image resource.
+
+### Status
+
+```text
+200
+```
+
+The server successfully returned the requested resource.
+
+### Response size
+
+```text
+3087
+```
+
+The response was approximately 3,087 bytes according to this log field.
+
+### User-Agent
+
+```text
+Mozilla/5.0 (Ubuntu)
+```
+
+The same client software information appears.
+
+---
+
+## Why might this happen immediately after GET /?
+
+A webpage is usually made up of many different resources.
+
+For example:
+
+```text
+GET /
+     ↓
+HTML page
+     ↓
+Browser reads HTML
+     ↓
+Finds image
+     ↓
+GET /images/banner.jpg
+     ↓
+Finds CSS
+     ↓
+GET /style.css
+     ↓
+Finds JavaScript
+     ↓
+GET /script.js
+```
+
+Therefore, seeing several GET requests within a few seconds is completely normal for many websites.
+
+This is an important cybersecurity concept:
+
+> **Normal web browsing can generate many requests.**
+
+An analyst should not automatically treat a high number of requests as malicious.
+
+The analyst needs to understand what the application normally does.
+
+---
+
+# 7. Example 3 — A Series of 404 Requests
+
+Now consider a very different set of logs:
+
+```text
+10.20.30.40 - - [10/Nov/2025:09:15:01 -0500] "GET /admin HTTP/1.1" 404 512 "-" "python-requests"
+
+10.20.30.40 - - [10/Nov/2025:09:15:02 -0500] "GET /backup HTTP/1.1" 404 512 "-" "python-requests"
+
+10.20.30.40 - - [10/Nov/2025:09:15:03 -0500] "GET /config HTTP/1.1" 404 512 "-" "python-requests"
+
+10.20.30.40 - - [10/Nov/2025:09:15:04 -0500] "GET /.env HTTP/1.1" 404 512 "-" "python-requests"
+```
+
+This example is much more interesting from a cybersecurity perspective.
+
+Instead of looking at one line, we should examine the **pattern**.
+
+---
+
+## Step 1: Look at the IP
+
+Every request comes from:
+
+```text
+10.20.30.40
+```
+
+That means the same recorded source is making all four requests.
+
+This is useful because we can group the activity together.
+
+---
+
+## Step 2: Look at the timing
+
+The requests occur at:
+
+```text
+09:15:01
+09:15:02
+09:15:03
+09:15:04
+```
+
+There is exactly one second between each request.
+
+That regular timing may be consistent with automated activity.
+
+However, timing alone does not prove that a request is malicious.
+
+---
+
+## Step 3: Look at the requested paths
+
+The client requests:
+
+```text
+/admin
+/backup
+/config
+/.env
+```
+
+These are not random image or CSS files.
+
+They are paths that could potentially contain administrative or configuration information on some systems.
+
+For example:
+
+```text
+/admin
+```
+
+might be an administrative interface.
+
+```text
+/backup
+```
+
+might refer to backup files.
+
+```text
+/config
+```
+
+might refer to configuration information.
+
+```text
+/.env
+```
+
+is commonly associated with environment configuration files in some web-development environments.
+
+The fact that someone requests these paths does **not** prove that those files exist or that the person successfully accessed them.
+
+---
+
+## Step 4: Look at the status codes
+
+Every request returned:
+
+```text
+404
+```
+
+Remember:
+
+> `404 Not Found` means the requested resource could not be found.
+
+Therefore, based on these four entries, the server did **not** report that these requested resources were found.
+
+This is an important distinction.
+
+We should say:
+
+> "The client requested these paths, and the server returned 404 responses."
+
+We should **not** say:
+
+> "The attacker accessed the configuration files."
+
+The logs shown do not support that conclusion.
+
+---
+
+## Step 5: Look at the User-Agent
+
+The User-Agent is:
+
+```text
+python-requests
+```
+
+This indicates that the request identifies itself as being made using the Python Requests library.
+
+That can be a clue that the traffic was generated programmatically rather than through a normal browser.
+
+But again, User-Agent values can be changed.
+
+Therefore:
+
+```text
+python-requests
+```
+
+is evidence about what the client **reported**, not absolute proof of the software being used.
+
+---
+
+## Step 6: Look at the Overall Pattern
+
+Now combine the information:
+
+```text
+Same IP
+   ↓
+Requests every second
+   ↓
+Multiple potentially interesting paths
+   ↓
+Automated-looking User-Agent
+   ↓
+All requests return 404
+```
+
+This pattern could be consistent with automated reconnaissance or directory/file scanning.
+
+The important word is **could**.
+
+A legitimate vulnerability scanner or authorized security-testing tool could create exactly this type of traffic.
+
+Therefore, an analyst would investigate the context before determining what happened.
+
+---
+
+## What would we investigate next?
+
+A security analyst might ask:
+
+### 1. Is the IP address expected?
+
+Is `10.20.30.40`:
+
+* An employee's computer?
+* A security scanner?
+* A known monitoring system?
+* A public Internet address?
+* Another server?
+
+### 2. Did the same source make successful requests?
+
+For example, search for:
+
+```text
+10.20.30.40 ... 200
+```
+
+or:
+
+```text
+10.20.30.40 ... 302
+```
+
+A series of failed requests followed by a successful request could provide additional information.
+
+### 3. Did authentication events occur?
+
+Maybe the source later attempted:
+
+```text
+POST /login
+```
+
+The analyst could compare HTTP logs with authentication logs.
+
+### 4. Were any files actually accessed?
+
+The analyst would look for successful responses and other evidence rather than assuming that a requested path existed.
+
+### 5. Is this authorized scanning?
+
+Many organizations intentionally scan their own systems.
+
+If the source belongs to the company's security team, the activity may be expected.
+
+---
+
+# 8. Example 4 — 401 vs. 403
+
+Understanding the difference between `401` and `403` is especially important in cybersecurity.
+
+Imagine the following:
+
+```text
+192.168.1.80 - - [10/Nov/2025:10:00:01] "GET /admin HTTP/1.1" 401
+192.168.1.80 - - [10/Nov/2025:10:00:03] "GET /admin HTTP/1.1" 401
+192.168.1.80 - - [10/Nov/2025:10:00:05] "GET /admin HTTP/1.1" 401
+```
+
+The server is returning:
+
+```text
+401 Unauthorized
+```
+
+This generally indicates that authentication is required or that the supplied authentication credentials were not accepted.
+
+An analyst might investigate whether there are repeated authentication attempts.
+
+Now imagine:
+
+```text
+192.168.1.80 - jprice [10:05:01] "GET /admin HTTP/1.1" 403
+```
+
+The server returns:
+
+```text
+403 Forbidden
+```
+
+The server understood the request but refused access.
+
+This generally points more toward an **authorization/access-control** issue.
+
+A simplified way to remember the difference is:
+
+```text
+401 → Authentication
+      "Who are you?"
+
+403 → Authorization
+      "You are not allowed to do this."
+```
+
+The exact behavior depends on the application, so analysts should also examine the application's documentation and configuration.
+
+---
+
+# 9. Example 5 — Successful Login Followed by Sensitive Activity
+
+Consider this sequence:
+
+```text
+192.168.1.50 - jprice [10:20:00] "POST /login HTTP/1.1" 200
+
+192.168.1.50 - jprice [10:20:03] "GET /dashboard HTTP/1.1" 200
+
+192.168.1.50 - jprice [10:20:05] "GET /admin/users HTTP/1.1" 403
+
+192.168.1.50 - jprice [10:20:07] "DELETE /users/123 HTTP/1.1" 403
+```
+
+This sequence gives us much more information than one individual request.
+
+### Event 1
+
+```text
+POST /login → 200
+```
+
+A login request was processed successfully according to the HTTP response.
+
+We would still want to check authentication logs to determine exactly what happened.
+
+### Event 2
+
+```text
+GET /dashboard → 200
+```
+
+The same recorded identity accessed the dashboard successfully.
+
+### Event 3
+
+```text
+GET /admin/users → 403
+```
+
+The client attempted to access an administrative user-management resource, but the server refused access.
+
+### Event 4
+
+```text
+DELETE /users/123 → 403
+```
+
+The client attempted a DELETE request against a user resource, but the server refused it.
+
+### Why is this useful?
+
+The server appears to have prevented the requested administrative actions.
+
+From a cybersecurity perspective, this demonstrates why **authorization controls and logging are important**.
+
+The logs provide evidence that:
+
+1. A login occurred.
+2. The account accessed a normal resource.
+3. The account attempted to access a restricted resource.
+4. The account attempted a restricted modification.
+5. Both restricted actions were refused.
+
+However, an analyst would need additional logs to determine whether the activity was legitimate, accidental, or unauthorized.
+
+---
+
+# 10. Example 6 — 500 and 503 Errors
+
+Consider:
+
+```text
+192.168.1.25 - - [10:30:01] "GET /api/users HTTP/1.1" 500
+192.168.1.25 - - [10:30:02] "GET /api/users HTTP/1.1" 500
+192.168.1.25 - - [10:30:03] "GET /api/users HTTP/1.1" 500
+192.168.1.25 - - [10:30:04] "GET /api/users HTTP/1.1" 503
+```
+
+At first, this might look suspicious because the server is repeatedly failing.
+
+But there are many possible explanations.
+
+For example:
+
+* The application may have crashed.
+* A database may be unavailable.
+* The server may be overloaded.
+* A backend service may be down.
+* The system may be undergoing maintenance.
+* A software bug may have been triggered.
+
+The important lesson is:
+
+> **A 5xx response does not automatically mean an attack occurred.**
+
+The analyst should compare the HTTP logs with:
+
+* Application logs
+* Database logs
+* Server resource usage
+* Authentication logs
+* Network monitoring
+* System alerts
+
+This allows them to determine whether the errors came from an attack, an outage, a software problem, or something else.
+
+---
+
+# 11. Example 7 — Putting Everything Together
+
+Consider this sequence:
+
+```text
+45 - 10.0.0.25 - alex [11:00:01] "GET / HTTP/1.1" 200 4200 "-" "Mozilla/5.0"
+
+46 - 10.0.0.25 - alex [11:00:01] "GET /style.css HTTP/1.1" 200 1800 "-" "Mozilla/5.0"
+
+47 - 10.0.0.25 - alex [11:00:02] "GET /images/logo.png HTTP/1.1" 200 2500 "-" "Mozilla/5.0"
+
+48 - 10.0.0.25 - alex [11:00:05] "POST /login HTTP/1.1" 401 600 "-" "Mozilla/5.0"
+
+49 - 10.0.0.25 - alex [11:00:07] "POST /login HTTP/1.1" 401 600 "-" "Mozilla/5.0"
+
+50 - 10.0.0.25 - alex [11:00:09] "POST /login HTTP/1.1" 200 1200 "-" "Mozilla/5.0"
+
+51 - 10.0.0.25 - alex [11:00:10] "GET /dashboard HTTP/1.1" 200 6000 "-" "Mozilla/5.0"
+```
+
+Now we can build a timeline.
+
+### 11:00:01 — Website loaded
+
+```text
+GET / → 200
+```
+
+The client requested the homepage, and the server successfully returned it.
+
+### 11:00:01 — CSS loaded
+
+```text
+GET /style.css → 200
+```
+
+The browser requested the site's CSS file.
+
+### 11:00:02 — Image loaded
+
+```text
+GET /images/logo.png → 200
+```
+
+The browser requested the site's logo.
+
+These three requests are consistent with normal webpage loading.
+
+### 11:00:05 — Failed login
+
+```text
+POST /login → 401
+```
+
+The login attempt was not authenticated successfully according to the HTTP response.
+
+### 11:00:07 — Another failed login
+
+```text
+POST /login → 401
+```
+
+Another authentication attempt failed.
+
+### 11:00:09 — Successful login response
+
+```text
+POST /login → 200
+```
+
+The server reported success for the login request.
+
+### 11:00:10 — Dashboard accessed
+
+```text
+GET /dashboard → 200
+```
+
+The client successfully requested the dashboard immediately after the successful login response.
+
+### What can we learn?
+
+We can construct a reasonable sequence:
+
+```text
+Website loaded
+      ↓
+Resources loaded
+      ↓
+Login attempted
+      ↓
+Login failed
+      ↓
+Login attempted again
+      ↓
+Login succeeded
+      ↓
+Dashboard accessed
+```
+
+This demonstrates why timestamps and status codes are useful.
+
+Instead of looking at individual log entries, an analyst can connect them into a **timeline of events**.
+
+However, the logs alone do not tell us why the first two logins failed or whether the successful login was legitimate.
+
+Additional evidence would be needed.
+
+---
+
+# 12. What a Cybersecurity Analyst Should Ask
+
+When examining HTTP logs, do not simply look for one "bad" status code.
+
+Instead, ask several questions.
+
+### Who?
+
+What IP address is associated with the request?
+
+What user or identity is recorded?
+
+### When?
+
+When did the request happen?
+
+Are there multiple requests close together?
+
+### What?
+
+What HTTP method was used?
+
+What resource was requested?
+
+### Result?
+
+What status code did the server return?
+
+### How?
+
+What User-Agent or other request information was recorded?
+
+### Pattern?
+
+Does the activity form a recognizable pattern?
+
+For example:
+
+```text
+Many 401s
+      ↓
+Possible repeated authentication failures
+```
+
+or:
+
+```text
+Many 404s for unusual paths
+      ↓
+Possible scanning/reconnaissance
+```
+
+or:
+
+```text
+Many 500s
+      ↓
+Possible application/server problem
+```
+
+### Context?
+
+Is the activity expected?
+
+For example, a security team running a vulnerability scanner may intentionally generate many unusual requests.
+
+---
+
+# Remember
+
+The goal of log analysis is **not** to look at one line and immediately decide that something is an attack.
+
+Instead:
+
+```text
+Individual Event
+       ↓
+Multiple Events
+       ↓
+Timeline
+       ↓
+Pattern
+       ↓
+Context
+       ↓
+Investigation
+```
+
+A single `404` does not mean an attack.
+
+A single `401` does not mean an attack.
+
+A single `500` does not mean an attack.
+
+A large number of events, their timing, their targets, their sources, and their relationship to other system activity provide much more useful evidence.
+

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.8 — Logs Part 2 | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a class="active" href="index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">3.8 • Logs Part 2</p>
+      <h1>Advanced Log Analysis</h1>
+      <p class="unit-intro">The first logs lesson taught how to read one entry. This lesson goes further and shows how analysts sort through large amounts of ordinary activity to find patterns that may indicate suspicious behavior.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Pattern analysis</span></div>
+        <div class="progress-meter"><span style="width: 100%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="3-1-network-vulnerabilities.html">3.1</a>
+      <a href="3-2-mac-addresses-and-arp.html">3.2</a>
+      <a href="3-3-protecting-networks.html">3.3</a>
+      <a href="3-4-network-segmentation.html">3.4</a>
+      <a href="3-5-firewalls.html">3.5</a>
+      <a href="3-6-acl-tables.html">3.6</a>
+      <a href="3-7-detecting-network-attacks.html">3.7</a>
+      <a class="active" href="3-8-logs-part-2.html">3.8</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Normal activity is noisy. Suspicious behavior becomes clear when you compare patterns.</h2>
+          <p>Real cybersecurity work is not about identifying a single "attack" word in a log. It is about understanding the normal baseline and then noticing repeated events, unusual commands, suspicious URLs, failed logins, privilege changes, or access attempts that deserve investigation.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Baseline</span>
+            <h3>Know the normal</h3>
+            <p>Before you can call something suspicious, you need to know what ordinary activity looks like on the system.</p>
+          </article>
+          <article class="info-card">
+            <span class="tag">Patterns</span>
+            <h3>Look for repetition</h3>
+            <p>One strange event may be harmless. Several related events in a short period are much more meaningful.</p>
+          </article>
+          <article class="info-card">
+            <span class="tag">Context</span>
+            <h3>Ask the right questions</h3>
+            <p>Analysts ask who, when, what, which source, and what happened around the event before deciding if it is a problem.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">1. Logs are not all the same</h2>
+        <p>Different systems produce different log types. A single security investigation may require information from several sources:</p>
+        <ul class="compare-list">
+          <li><strong>Web server logs:</strong> HTTP methods, paths, status codes, and suspicious URLs.</li>
+          <li><strong>Linux system logs:</strong> service activity, package updates, scheduled tasks, and administrative actions.</li>
+          <li><strong>Authentication logs:</strong> logins, failed passwords, SSH access, and privilege changes.</li>
+          <li><strong>Network logs:</strong> connections, ports, firewall rules, DNS, and ARP behavior.</li>
+        </ul>
+
+        <div class="accordion" aria-label="Advanced log analysis">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Normal logs are important <span>−</span></button>
+            <div class="accordion-panel">
+              <p>A server might generate thousands of legitimate events every day. A system may log:</p>
+              <div class="reflect-box"><strong>User logs in → opens a website → loads CSS → loads JavaScript → downloads an image → checks email → runs software updates → logs out</strong></div>
+              <p>All of those can appear in logs. This means: <strong>a technical-looking log entry does not automatically mean suspicious activity.</strong></p>
+              <p>For example, something like <code>sudo: jprice : USER=root ; COMMAND=/usr/bin/apt update</code> may look alarming, but it could simply be a user running a legitimate software update.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Normal Linux activity <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Consider a sequence where a user runs:</p>
+              <div class="reflect-box"><code>sudo<br>less /var/log/syslog<br>apt-get update<br>systemctl status apache2<br>ufw status verbose</code></div>
+              <p>These are normal administrative and troubleshooting actions. A student or administrator may review logs, check the firewall, inspect Apache, or update packages. These actions only become suspicious when the surrounding context does not make sense.</p>
+              <p><strong>Context matters.</strong> If the user is expected to manage the system, the event is normal. If the user is not authorized, or the behavior happens at odd times with other suspicious events, then the analyst would investigate further.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">ARP mapping changes <span>+</span></button>
+            <div class="accordion-panel">
+              <p>ARP is used to map an IP address to a MAC address on a local network. This is important because a device may send a request like:</p>
+              <div class="reflect-box"><code>Who has 192.168.1.13?<br>192.168.1.13 is-at 00:01:5e:00:fc:16</code></div>
+              <p>If the same IP later appears with a different MAC address, that could be normal or it could be suspicious. A device may have changed, DHCP may have assigned a new address, or a virtual machine may have moved.</p>
+              <p>That means: <strong>a changed ARP mapping does not automatically mean ARP poisoning.</strong> But it is a pattern worth checking, especially if multiple IPs suddenly map to the same MAC address.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">XSS and directory traversal in logs <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Web logs can show suspicious input patterns such as:</p>
+              <div class="reflect-box"><code>GET /search?q=&lt;script&gt;...&lt;/script&gt;<br>GET /download?file=../../etc/passwd</code></div>
+              <p>These patterns may indicate <strong>XSS</strong> or <strong>directory traversal</strong> attempts. But the presence of suspicious text alone does not prove a successful attack. A server might return <strong>400</strong>, <strong>403</strong>, or even <strong>200</strong> for a request that was attempted. The analyst still needs to check the response, the application behavior, and related logs.</p>
+              <p>The key distinction is between an <strong>attempt</strong> and a <strong>successful compromise</strong>.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Repeated failed logins <span>+</span></button>
+            <div class="accordion-panel">
+              <p>One failed login is often not enough to conclude anything. But repeated failures from the same source are much more interesting:</p>
+              <div class="reflect-box"><code>Failed login for invalid user admin<br>Failed login for invalid user root<br>Failed login for invalid user test<br>Failed login for invalid user guest</code></div>
+              <p>This pattern is consistent with automated password guessing or account enumeration. The source is the same, the events are close together, and the usernames are common. That is a stronger signal than a single failed login.</p>
+              <p>Again, the key word is <strong>consistent</strong>. It is evidence for investigation, not proof of compromise.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">SSH and FTP examples <span>+</span></button>
+            <div class="accordion-panel">
+              <p>SSH and FTP logs can show the same pattern when an attacker is testing accounts or guessing credentials.</p>
+              <div class="reflect-box"><code>Failed login for invalid user admin from 203.0.113.25<br>Failed login for invalid user root from 203.0.113.25<br>Failed login for invalid user guest from 203.0.113.25</code></div>
+              <p>When the same IP tries many usernames very quickly, analysts should ask whether this is automated reconnaissance, a brute-force attempt, or a normal maintenance action from an approved source.</p>
+              <p>On the other hand, a successful SSH login followed by a normal administrative command can also be harmless. The analyst must follow the sequence and determine whether the activity matches expected behavior.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Privilege escalation and sudo activity <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Commands like:</p>
+              <div class="reflect-box"><code>sudo<br>USER=root<br>uid=0<br>COMMAND=/usr/bin/apt update</code></div>
+              <p>should be considered carefully. Root access is not automatically malicious, but it deserves attention.</p>
+              <p>Analysts should ask:</p>
+              <ul class="compare-list">
+                <li>Who used it?</li>
+                <li>When did it happen?</li>
+                <li>What command did they run?</li>
+                <li>Was that user expected to have admin rights?</li>
+                <li>Did the command match normal behavior for that account?</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">The real lesson: pattern over one line <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Advanced log analysis is about moving from:</p>
+              <div class="reflect-box"><strong>"What does this one line mean?"</strong><br><strong>→ "What story do these events tell together?"</strong></div>
+              <p>A single <code>404</code> does not mean an attack. A single <code>401</code> does not mean an attack. A single <code>500</code> does not mean an attack. But a burst of failed requests, suspicious paths, unusual commands, or repeated authentication activity from one source may be a meaningful event sequence.</p>
+              <p>The strongest analysis combines:</p>
+              <ul class="compare-list">
+                <li>IP addresses</li>
+                <li>Usernames</li>
+                <li>Timestamps</li>
+                <li>HTTP methods and paths</li>
+                <li>Status codes</li>
+                <li>Authentication events</li>
+                <li>Process or command activity</li>
+                <li>Context within the system</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">2. Patterns that deserve attention</h2>
+        <div class="scenario-card">
+          <h3>Common advanced indicators</h3>
+          <ul class="compare-list">
+            <li><strong>Repeated failed logins:</strong> same source, many usernames, tight time intervals.</li>
+            <li><strong>Suspicious URLs:</strong> <code>../</code>, <code>../../</code>, <code>%2e%2e%2f</code>, <code>&lt;script&gt;</code>.</li>
+            <li><strong>Unexpected ARP changes:</strong> IP address changes from one MAC to another without explanation.</li>
+            <li><strong>Large numbers of 404s:</strong> especially for paths like <code>/admin</code>, <code>/backup</code>, <code>/config</code>, and <code>/.env</code>.</li>
+            <li><strong>Unexpected privilege use:</strong> commands that use <code>sudo</code>, <code>su</code>, or <code>USER=root</code>.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-card" data-correct="timelines">
+          <p>Which statement best reflects the goal of advanced log analysis?</p>
+          <div class="choice-row">
+            <button class="option-button" type="button" data-answer="timelines">To build a timeline and compare patterns from multiple events before deciding what happened</button>
+            <button class="option-button" type="button" data-answer="singleline">To react to any single strange line immediately</button>
+            <button class="option-button" type="button" data-answer="download">To assume every 404 means a successful hack</button>
+          </div>
+          <div class="answer-box" hidden>
+            <strong>Correct:</strong> Good log analysis combines evidence from several events and asks what the broader pattern means before drawing conclusions.
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain why one log line is not enough to prove an attack.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know how to look for repeated patterns across logs.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can identify suspicious URL and login patterns.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I understand that context and baseline matter more than isolated events.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Normal activity can look technical.</li>
+            <li>Suspicious activity often becomes clear only when a sequence is analyzed.</li>
+            <li>Attack patterns are evidence for investigation, not automatic proof.</li>
+            <li>Timeline-building is one of the strongest tools in cyber analysis.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Unit wrap-up</h2>
+        <div class="unit-card-list">
+          <a class="unit-link-card" href="index.html">
+            <span>Unit</span>
+            <strong>Return to Unit 3 overview</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Use the timeline mindset.</h2>
+        <p>When you review logs, look for patterns, compare surrounding events, and identify what the sequence suggests before deciding what happened.</p>
+        <a href="index.html">Back to overview →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 3 • 3.8</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,400 @@
+Unit 1 — Introduction to Security
+1.1 Social Engineering
+What is Social Engineering?
+Social engineering is the use of psychological manipulation to trick people into revealing information, taking an action, or giving an attacker access to something.
+Instead of attacking a computer directly, an attacker may attack the person using the computer.
+This is important because even a highly secure system can be compromised if someone is tricked into giving away their credentials or access.
+Why does social engineering work?
+Social engineering attacks often take advantage of normal human behaviors and emotions.
+Attackers may try to create:
+•	Urgency — “You must act right now.” 
+•	Fear — “Your account will be deleted.” 
+•	Authority — “This is your school administrator.” 
+•	Curiosity — “Look at this secret document.” 
+•	Trust — pretending to be someone the victim knows. 
+•	Greed — promising money, prizes, or other rewards. 
+•	Helpfulness — convincing someone that they are helping another person. 
+The attacker wants the victim to react instead of carefully thinking about the request.
+________________________________________
+Phishing
+Phishing is a social engineering attack in which an attacker uses a fake message to trick someone into providing information or performing an action.
+Phishing can happen through:
+•	Email 
+•	Text messages 
+•	Social media 
+•	Messaging applications 
+•	Fake websites 
+For example, you might receive a message claiming that your school account has a problem and asking you to click a link and sign in.
+The link may lead to a fake login page designed to collect your username and password.
+Signs of phishing
+Look for:
+•	Unexpected messages 
+•	Urgent or threatening language 
+•	Suspicious links 
+•	Strange sender addresses 
+•	Requests for passwords or sensitive information 
+•	Spelling or grammar that seems unusual 
+•	Unexpected attachments 
+•	Messages that seem too good to be true 
+Important: A message can look professional and still be malicious.
+________________________________________
+Spear Phishing
+Spear phishing is a phishing attack specifically targeted at a particular person or organization.
+Instead of sending the same message to thousands of people, the attacker researches the target and creates a more believable message.
+For example:
+An attacker discovers that a student is part of the school's robotics club. The attacker sends an email pretending to be the club advisor and asks the student to open a document.
+The more information an attacker knows about a target, the more convincing the attack can become.
+________________________________________
+Whaling
+Whaling is a type of targeted phishing aimed at an important or high-value individual.
+Targets may include:
+•	Executives 
+•	School administrators 
+•	Business leaders 
+•	Financial officers 
+•	Other people with significant authority or access 
+The goal is often to convince the target to authorize something valuable or provide access to sensitive information.
+Remember:
+Phishing → broad targeting
+Spear phishing → specific target
+Whaling → high-value individual
+These categories can overlap because whaling is essentially a highly targeted form of phishing.
+________________________________________
+Smishing
+Smishing is phishing through SMS/text messages.
+Example:
+“Your package could not be delivered. Confirm your information here.”
+The message may contain a malicious link.
+SMishing = SMS + phishing
+________________________________________
+Vishing
+Vishing is phishing through voice communication, such as a phone call.
+An attacker may pretend to be:
+•	A bank employee 
+•	A technical-support employee 
+•	A government employee 
+•	A school administrator 
+The attacker may attempt to convince the victim to reveal information or perform an action.
+Vishing = Voice + phishing
+________________________________________
+Pretexting
+Pretexting occurs when an attacker creates a false story or identity to convince someone to provide information.
+The attacker establishes a believable pretext, or reason for contacting the victim.
+For example:
+Someone contacts a school's technology department pretending to be a new employee who needs access to an account.
+The attacker is relying on the victim believing the story.
+________________________________________
+Baiting
+Baiting uses something appealing to trick someone into taking an unsafe action.
+The “bait” could be:
+•	A free item 
+•	A fake prize 
+•	An interesting file 
+•	A tempting download 
+•	A message promising something valuable 
+The goal is to make the victim curious enough to interact with the bait.
+________________________________________
+Tailgating
+Tailgating is a physical form of social engineering.
+An unauthorized person follows an authorized person into a restricted area.
+For example:
+An employee opens a secure door, and someone follows behind them without using their own access card.
+The attacker is taking advantage of social politeness and trust.
+________________________________________
+Social Engineering: What You Should Remember
+The most important idea is:
+Security is not only about protecting computers. People are part of the security system too.
+When evaluating a suspicious message, ask:
+1.	Who sent it? 
+2.	Was I expecting it? 
+3.	What is the person asking me to do? 
+4.	Is the request urgent or threatening? 
+5.	Is sensitive information being requested? 
+6.	Can I verify the request another way? 
+AP Skill: Analyze Risk
+When given a social engineering scenario, identify:
+Asset → Threat → Vulnerability → Potential Impact
+Example:
+Asset: Student's school account
+Threat: Phishing attacker
+Vulnerability: Student trusts a fake login message
+Impact: Attacker gains access to the account
+AP Skill: Mitigate Risk
+Possible mitigations include:
+•	Verify unexpected requests 
+•	Avoid clicking suspicious links 
+•	Use strong authentication 
+•	Use multifactor authentication 
+•	Report suspicious messages 
+•	Limit the information publicly available about yourself 
+•	Follow organizational security policies 
+________________________________________
+1.2 Suspicious Website Logins & Password Attacks
+Authentication
+Authentication is the process of verifying that someone is who they claim to be.
+A website might authenticate you using:
+•	Something you know — a password 
+•	Something you have — a security key or phone 
+•	Something you are — a biometric characteristic 
+A username identifies an account.
+A password helps authenticate the person attempting to access that account.
+________________________________________
+Why Passwords Matter
+Passwords are often the first barrier protecting an account.
+If an attacker obtains your password, they may be able to access:
+•	Personal information 
+•	Messages 
+•	Files 
+•	Financial information 
+•	School accounts 
+•	Other connected services 
+A password therefore represents an important security control.
+________________________________________
+Brute-Force Attacks
+A brute-force attack attempts to discover a password by systematically trying many possible passwords.
+The basic idea is simple:
+Try possible passwords until the correct one is found.
+The difficulty of a brute-force attack depends on factors such as:
+•	Password length 
+•	Password complexity 
+•	Number of possible combinations 
+•	Login protections 
+•	Whether the attacker can make unlimited attempts 
+Defending against brute force
+Systems can make brute-force attacks harder through:
+•	Strong passwords 
+•	Rate limiting 
+•	Account lockouts 
+•	Multifactor authentication 
+•	Monitoring failed login attempts 
+________________________________________
+Password Spraying
+Password spraying is different from traditional brute force.
+Instead of trying many passwords against one account, an attacker may try a small number of commonly used passwords against many accounts.
+This can help attackers avoid triggering protections that detect repeated attempts against a single account.
+The important distinction is:
+Brute force: many password attempts → one account
+Password spraying: a few common passwords → many accounts
+________________________________________
+Credential Stuffing
+Credential stuffing uses stolen username/password combinations obtained from previous data breaches.
+Attackers rely on people reusing passwords across multiple websites.
+For example:
+A password is stolen from Website A.
+The attacker tries the same username and password on Website B.
+If the person reused the password, the second account may also be compromised.
+Why password reuse is dangerous
+If every account has the same password, one compromised account can potentially lead to multiple compromised accounts.
+Using different passwords for different accounts limits the damage from a single breach.
+________________________________________
+Rainbow Tables
+A rainbow table is a precomputed collection used to help attackers recover passwords from certain types of password hashes.
+You don't need to know the mathematics behind rainbow tables yet.
+The important idea is:
+Attackers can sometimes use precomputed information to make recovering weak passwords from stolen password data faster.
+This is one reason modern systems use techniques such as salting passwords before hashing them.
+Hashing vs. Encryption
+These should not be confused.
+Encryption is designed so information can be decrypted back into its original form using the appropriate key.
+Hashing is designed as a one-way transformation.
+Passwords should generally be stored using appropriate password-hashing techniques rather than being stored as plain text.
+________________________________________
+Why You Shouldn't Reuse Passwords
+Imagine you use the same password for:
+•	Your gaming account 
+•	Your email 
+•	Your school account 
+•	Your social media 
+If one service experiences a breach and your password is exposed, an attacker could attempt to use those credentials elsewhere.
+This is called credential stuffing.
+Better practice
+Use a unique password or passphrase for each important account.
+A password manager can help users generate and remember unique passwords.
+________________________________________
+Should You Change Your Password Regularly?
+Changing passwords can be useful when there is a reason to believe a password has been:
+•	Stolen 
+•	Exposed 
+•	Shared 
+•	Compromised 
+•	Used on a breached service 
+However, constantly changing a password for no reason is not necessarily the most important security improvement.
+A better approach is to focus on:
+•	Unique passwords 
+•	Strong passwords/passphrases 
+•	Multifactor authentication 
+•	Not sharing passwords 
+•	Changing compromised passwords promptly 
+________________________________________
+Suspicious Login Activity
+Cybersecurity isn't just about creating a strong password.
+You should also be able to detect suspicious authentication activity.
+Examples include:
+•	Repeated failed login attempts 
+•	A login from an unexpected location 
+•	A login at an unusual time 
+•	An unfamiliar device 
+•	Password-reset requests you didn't make 
+•	Unexpected security notifications 
+Logs can provide evidence that something suspicious may be happening.
+The AP framework uses scenarios involving login records and asks students to identify patterns and suspicious entries. 
+________________________________________
+What You Should Remember
+Attack types
+Attack	Basic idea
+Brute force	Try many possible passwords
+Password spraying	Try common passwords against many accounts
+Credential stuffing	Try stolen credentials on other services
+Rainbow tables	Use precomputed information to help recover certain password hashes
+Good password security
+Remember:
+Unique + Strong + Protected + MFA
+A strong authentication system makes it harder for an attacker to guess, steal, or reuse credentials.
+________________________________________
+1.3 Security Practices & Public Networks
+This section should introduce students to a bigger idea:
+Good cybersecurity isn't one tool. It is multiple security controls working together.
+This connects directly to defense in depth, which is a major idea in cybersecurity. College Board describes the course as emphasizing defense-in-depth strategies across different types of systems and environments. 
+________________________________________
+Public Wi-Fi
+Public Wi-Fi can be convenient, but students should understand that connecting to a network means trusting the network to some degree.
+Examples include:
+•	Coffee shops 
+•	Airports 
+•	Hotels 
+•	Libraries 
+•	Schools 
+•	Shopping centers 
+Risks of public networks
+Potential risks include:
+•	Connecting to a malicious or fake network 
+•	Unauthorized monitoring of network traffic 
+•	Exposure of sensitive information 
+•	Attacks against poorly secured devices 
+•	Account compromise 
+A particularly important warning sign is a network that looks legitimate but isn't actually operated by the organization it claims to represent.
+________________________________________
+Evil Twin Networks
+An evil twin is a fake Wi-Fi network designed to imitate a legitimate network.
+For example, suppose a coffee shop normally provides:
+CoffeeShop_WiFi
+An attacker could create a nearby network with a similar name.
+A user might accidentally connect to the attacker's network.
+Protect yourself
+Before connecting:
+•	Verify the network name 
+•	Ask an employee for the correct network 
+•	Avoid performing highly sensitive activities on untrusted networks 
+•	Use encrypted connections 
+•	Keep your device and security software updated 
+________________________________________
+Least Privilege
+Least privilege is the principle that users and systems should receive only the permissions they need to perform their job or task—and no more.
+For example:
+A student who only needs to read a file shouldn't automatically have permission to delete it.
+An employee who only needs access to one department's data shouldn't automatically have access to the entire company's database.
+Why least privilege matters
+Suppose an attacker compromises an account.
+If that account has administrator privileges, the attacker may have much more control.
+If the account has limited privileges, the potential damage can be reduced.
+So:
+Less access → less potential damage
+Least privilege is therefore both a security and risk-management concept.
+________________________________________
+Defense in Depth
+Defense in depth means using multiple security controls so that one failed control does not automatically result in a complete compromise.
+For example:
+Password
+↓
+Multifactor authentication
+↓
+Firewall
+↓
+Endpoint protection
+↓
+Access controls
+↓
+Monitoring and logging
+Each control provides another opportunity to stop or detect an attack.
+The AP course itself emphasizes defense-in-depth strategies. 
+________________________________________
+The Security Onion
+The security onion is an analogy for defense in depth.
+Imagine an onion with multiple layers.
+An attacker attempting to reach the center must get through multiple layers of protection.
+The important lesson is:
+One security control should not be expected to protect everything.
+________________________________________
+The Security Artichoke
+The security artichoke is another analogy for layered security.
+Unlike the onion, where an attacker might need to work through every layer, an attacker may be able to compromise individual “leaves” or exposed parts of a larger environment and use those weaknesses to move toward more valuable information.
+The analogy is useful because modern environments can contain many interconnected devices, accounts, applications, and services. 
+Think about it this way:
+Security Onion
+“There are many layers between the attacker and the important data.”
+Security Artichoke
+“There are many connected pieces, and compromising one exposed piece may provide a path toward something more valuable.”
+________________________________________
+Other Important Security Practices
+Multifactor Authentication
+Multifactor authentication (MFA) requires more than one type of authentication factor.
+For example:
+Password + code from your phone
+Even if an attacker obtains the password, they may still be unable to access the account.
+________________________________________
+Patching and Updates
+Software can contain vulnerabilities.
+Patching means applying updates that fix bugs or security vulnerabilities.
+Keeping software updated reduces the number of known vulnerabilities attackers can exploit.
+________________________________________
+Secure Configuration
+A system should be configured with security in mind.
+Examples include:
+•	Disable unnecessary services 
+•	Remove unnecessary accounts 
+•	Change default credentials 
+•	Restrict permissions 
+•	Enable appropriate security controls 
+________________________________________
+Backups
+A backup is a separate copy of important data.
+Backups can help organizations recover from incidents such as:
+•	Hardware failure 
+•	Accidental deletion 
+•	Malware 
+•	Ransomware 
+•	Other forms of data loss 
+A backup is most useful when it is protected from the same incident that affects the original data.
+________________________________________
+Unit 1.4 What Students Should Be Able to Do
+By the end of 1.1–1.3, students should be able to:
+1. Recognize social engineering
+Students should be able to identify:
+•	Phishing 
+•	Spear phishing 
+•	Whaling 
+•	Smishing 
+•	Vishing 
+•	Pretexting 
+•	Baiting 
+•	Tailgating 
+And explain what makes a situation suspicious.
+2. Analyze a cybersecurity risk
+Given a scenario, students should be able to identify:
+Asset → Threat → Vulnerability → Impact
+3. Recognize basic password attacks
+Students should understand the difference between:
+•	Brute force 
+•	Password spraying 
+•	Credential stuffing 
+•	Rainbow tables 
+They should also understand why password reuse creates additional risk.
+4. Recognize suspicious authentication activity
+Students should be able to look at basic login information and identify unusual patterns.
+5. Explain least privilege
+Students should understand why giving users unnecessary permissions increases risk.
+6. Explain defense in depth
+Students should understand why organizations use multiple security controls instead of relying on one defense.
+7. Understand public-network risks
+Students should recognize risks associated with public Wi-Fi and understand the basic idea behind attacks such as evil-twin networks.
+

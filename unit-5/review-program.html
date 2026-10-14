@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 5 Review Program</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+  <script src="../review-program.js" defer></script>
+</head>
+<body data-unit-number="5">
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+        <a href="index.html">Unit 5</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <p class="unit-kicker">Review Program</p>
+    <h1>Unit 5 Review</h1>
+    <p class="unit-intro">This review uses 30 randomized questions: 10 from Unit 5, plus 5 from each earlier unit.</p>
+
+    <div class="progress-block" aria-label="Review progress">
+      <div class="progress-label"><span>Review set</span><span>30 questions</span></div>
+      <div class="progress-meter"><span style="width: 100%;"></span></div>
+    </div>
+
+    <div id="review-root" class="content-panel" aria-live="polite"></div>
+    <div id="score-box" class="status-card" style="margin-top: 20px;">Score: 0 / 0</div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Review program</span></div></footer>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const unitNumber = Number(document.body.dataset.unitNumber || 5);
+      window.renderUnitReview(unitNumber);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.7 — OSI Model and Network Layers | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a class="active" href="index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">1.7 • OSI Model and Network Layers</p>
+      <h1>How Computers Communicate Across Network Layers</h1>
+      <p class="unit-intro">The Open Systems Interconnection (OSI) model divides network communication into seven layers. Each layer has a different responsibility, and together they explain how data moves from an application on one computer to an application on another.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Seven-layer model</span></div>
+        <div class="progress-meter"><span style="width: 100%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="1-1-social-engineering.html">1.1</a>
+      <a href="1-2-password-attacks.html">1.2</a>
+      <a href="1-3-security-practices.html">1.3</a>
+      <a href="1-4-CyberAttackers.html">1.4</a>
+      <a href="1-5-cybersecurity-defense-terms.html">1.5</a>
+      <a href="1-6-security-foundations-review.html">1.6</a>
+      <a class="active" href="1-7-osi-network-layers.html">1.7</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Communication is easier to understand when it is divided into layers.</h2>
+          <p>The OSI model gives each part of network communication a job. Applications create data, lower layers prepare it for delivery, network devices move it, and the receiving computer rebuilds the data as it moves back up the layers.</p>
+          <div class="layer-diagram">
+            <span>7. Application</span>
+            <span>6. Presentation</span>
+            <span>5. Session</span>
+            <span>4. Transport</span>
+            <span>3. Network</span>
+            <span>2. Data Link</span>
+            <span>1. Physical</span>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Upper layers</span>
+            <h3>Applications and data</h3>
+            <p>Layers 7 through 5 work with applications, data formats, conversations, authentication sessions, and the services users interact with.</p>
+          </article>
+          <article class="info-card">
+            <span class="tag">Delivery</span>
+            <h3>Transport and routing</h3>
+            <p>Layers 4 and 3 manage end-to-end delivery, ports, reliability, IP addressing, and the paths packets take between networks.</p>
+          </article>
+          <article class="info-card">
+            <span class="tag">Local network</span>
+            <h3>Frames and signals</h3>
+            <p>Layers 2 and 1 move data across the local network using MAC addresses, frames, cables, radio waves, and electrical or optical signals.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">The OSI model</h2>
+        <p><strong>OSI</strong> stands for <strong>Open Systems Interconnection</strong>. It is a conceptual model used to describe how computers communicate over a network. The model has seven layers. Each layer provides services to the layer above it and uses services from the layer below it.</p>
+        <p>When data is sent, it moves down the layers on the sender's computer. When it arrives, it moves up the layers on the receiver's computer. This process is called <strong>encapsulation and decapsulation</strong>.</p>
+
+        <div class="accordion" aria-label="OSI model layers">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Layer 7 — Application <span>−</span></button>
+            <div class="accordion-panel">
+              <p>The <strong>Application layer</strong> is the layer closest to the user. It provides network services to applications such as web browsers, email clients, file-transfer programs, and messaging applications.</p>
+              <p>This does not mean that the application itself is the entire layer. The layer contains the network protocols and services that applications use to communicate.</p>
+              <p><strong>Examples:</strong> HTTP and HTTPS for web traffic, DNS for resolving domain names, SMTP for sending email, IMAP and POP3 for retrieving email, and SSH for secure remote access.</p>
+              <p><strong>Security relevance:</strong> Application-layer attacks target the services and data that users interact with. Examples include phishing, malicious requests, SQL injection, cross-site scripting, insecure authentication, and abuse of exposed APIs. Strong authentication, input validation, authorization, secure coding, and logging help protect this layer.</p>
+              <p><strong>Memory clue:</strong> The Application layer is where network-aware applications request services such as web pages, name lookups, and remote access.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Layer 6 — Presentation <span>+</span></button>
+            <div class="accordion-panel">
+              <p>The <strong>Presentation layer</strong> handles how data is represented. It can translate data between formats, encode and decode information, compress data, and encrypt or decrypt data.</p>
+              <p>Two computers may need to agree on how characters, numbers, images, or structured information are represented. The Presentation layer helps make sure the receiving system can interpret the data correctly.</p>
+              <p><strong>Examples:</strong> character encoding such as UTF-8, data formats such as JSON and XML, image formats such as JPEG and PNG, compression, and encryption formats used by secure communication.</p>
+              <p><strong>Security relevance:</strong> Encryption protects confidentiality, while integrity checks help detect changes to data. Weak encoding, unsafe deserialization, format confusion, and poor certificate handling can create vulnerabilities. TLS is often discussed near this layer because it protects the representation and exchange of application data, even though real protocols do not always fit perfectly into one OSI layer.</p>
+              <p><strong>Memory clue:</strong> The Presentation layer makes data understandable, usable, compressed, and protected.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Layer 5 — Session <span>+</span></button>
+            <div class="accordion-panel">
+              <p>The <strong>Session layer</strong> establishes, manages, and ends communication sessions between applications. A session is an organized conversation that can remain active while multiple messages are exchanged.</p>
+              <p>Session responsibilities can include starting a conversation, keeping track of its state, controlling who is sending data, synchronizing communication, and recovering or closing the session.</p>
+              <p><strong>Examples:</strong> login sessions, RPC sessions, long-running connections, checkpoints, and mechanisms that allow a conversation to resume after an interruption. In modern networks, session responsibilities are often built into application protocols rather than appearing as one separate protocol.</p>
+              <p><strong>Security relevance:</strong> Session hijacking, stolen session cookies, weak timeouts, predictable session identifiers, and failure to invalidate sessions after logout can allow an attacker to act as another user. Secure random session tokens, expiration, reauthentication for sensitive actions, and protected cookies reduce these risks.</p>
+              <p><strong>Memory clue:</strong> The Session layer keeps track of the conversation between applications.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Layer 4 — Transport <span>+</span></button>
+            <div class="accordion-panel">
+              <p>The <strong>Transport layer</strong> provides communication between applications running on different devices. It can divide data into smaller pieces, identify the destination application with port numbers, manage flow, detect errors, and provide reliable delivery when the protocol supports it.</p>
+              <p>The two transport protocols most commonly discussed are <strong>TCP</strong> and <strong>UDP</strong>.</p>
+              <p><strong>TCP — Transmission Control Protocol:</strong> TCP is connection-oriented. It establishes a connection before sending application data, numbers segments, acknowledges received data, retransmits missing data, manages flow, and helps control congestion. TCP is useful when data must arrive reliably and in order, such as web pages, email, file transfers, and SSH sessions.</p>
+              <p><strong>UDP — User Datagram Protocol:</strong> UDP is connectionless and has less overhead. It does not guarantee delivery, ordering, or retransmission. UDP is useful when speed and low delay matter or when the application handles reliability itself, such as DNS queries, streaming, voice traffic, online games, and some real-time services.</p>
+              <p><strong>Ports:</strong> A port number identifies the application or service that should receive transport-layer data. An IP address identifies a host, while a port identifies a service on that host. For example, HTTPS commonly uses TCP port 443, DNS commonly uses UDP or TCP port 53, and SSH commonly uses TCP port 22.</p>
+              <p><strong>Security relevance:</strong> Firewalls often filter traffic by protocol, source, destination, and port. Port scanning can reveal available services. Attacks such as SYN floods, connection exhaustion, UDP floods, and abuse of exposed services target transport behavior. Secure configurations should expose only the ports that are needed.</p>
+              <p><strong>Memory clue:</strong> The Transport layer delivers data from one application to another using ports, reliability, and flow control.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Layer 3 — Network <span>+</span></button>
+            <div class="accordion-panel">
+              <p>The <strong>Network layer</strong> moves packets between different networks. It uses logical addressing and routing so data can travel from a source network to a destination network.</p>
+              <p><strong>IP addresses</strong> identify the source and destination locations for network traffic. IPv4 uses 32-bit addresses such as <code>192.168.1.25</code>. IPv6 uses 128-bit addresses such as <code>2001:db8::1</code>. Routers inspect destination information and forward packets toward the correct network.</p>
+              <p><strong>Examples:</strong> IPv4, IPv6, ICMP, and routing protocols. ICMP supports control, error, and diagnostic messages, including the messages used by tools such as ping.</p>
+              <p><strong>Security relevance:</strong> Network-layer threats include IP spoofing, route manipulation, unauthorized scanning, denial-of-service traffic, and poorly controlled movement between network segments. Firewalls, access control lists, segmentation, secure routing, monitoring, and filtering help defend this layer.</p>
+              <p><strong>Important distinction:</strong> An IP address identifies a network location or interface at a particular time. It does not automatically prove the identity of a specific person because NAT, proxies, VPNs, shared networks, and compromised devices can affect the source address recorded by a system.</p>
+              <p><strong>Memory clue:</strong> The Network layer decides where packets go between networks.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Layer 2 — Data Link <span>+</span></button>
+            <div class="accordion-panel">
+              <p>The <strong>Data Link layer</strong> moves data between devices on the same local network segment. It organizes network-layer packets into <strong>frames</strong> and uses local hardware addresses to deliver those frames.</p>
+              <p><strong>MAC addresses</strong> are commonly used to identify network interfaces on a local network. Switches examine MAC addresses and forward frames through the appropriate switch port. Ethernet and Wi-Fi provide important Layer 2 technologies.</p>
+              <p>The Data Link layer also includes framing, local error detection, and rules for sharing a local communication medium. ARP helps IPv4 devices associate an IP address with a MAC address on a local network. IPv6 uses Neighbor Discovery for similar local-network functions.</p>
+              <p><strong>Security relevance:</strong> Threats include ARP spoofing, MAC flooding, rogue devices, unauthorized wireless access points, VLAN attacks, and attacks that intercept or redirect local traffic. Switch security, port security, segmentation, 802.1X, wireless encryption, DHCP snooping, and dynamic ARP inspection can help protect the local network.</p>
+              <p><strong>Memory clue:</strong> The Data Link layer moves frames across the local network using MAC addresses.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Layer 1 — Physical <span>+</span></button>
+            <div class="accordion-panel">
+              <p>The <strong>Physical layer</strong> sends raw bits across a physical medium. It describes the electrical, optical, or radio signals used to represent binary data, along with connectors, cables, frequencies, signal timing, and transmission distances.</p>
+              <p><strong>Examples:</strong> copper Ethernet cable, fiber-optic cable, Wi-Fi radio signals, network connectors, repeaters, hubs, antennas, and the electrical or optical signals that carry bits.</p>
+              <p>The Physical layer does not understand files, usernames, or IP addresses. It carries the physical signals that higher layers use to exchange those kinds of information.</p>
+              <p><strong>Security relevance:</strong> Physical access can allow someone to disconnect equipment, install an unauthorized device, tap a cable, interfere with wireless signals, steal hardware, or cause a power outage. Locks, access controls, cable protection, surveillance, environmental controls, UPS devices, and secure equipment rooms help protect this layer.</p>
+              <p><strong>Memory clue:</strong> The Physical layer carries bits as signals over a medium.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Encapsulation and decapsulation <span>+</span></button>
+            <div class="accordion-panel">
+              <p>When a computer sends data, each layer adds information needed by the corresponding layer on the receiving computer. This wrapping process is called <strong>encapsulation</strong>.</p>
+              <div class="reflect-box"><strong>Application data → Segment → Packet → Frame → Bits</strong></div>
+              <p>At the Transport layer, application data is commonly divided into TCP segments or UDP datagrams. At the Network layer, the transport data is placed inside an IP packet. At the Data Link layer, the packet is placed inside a frame. At the Physical layer, the frame becomes bits represented by signals.</p>
+              <p>Network devices process different layers. A switch primarily works with Layer 2 frames, while a router primarily works with Layer 3 packets. The receiving computer removes the headers as data moves upward. This reverse process is called <strong>decapsulation</strong>.</p>
+              <div class="reflect-box"><strong>Bits → Frame → Packet → Segment → Application data</strong></div>
+              <p>Encapsulation allows each layer to focus on its own responsibility. A web browser does not need to know how a cable represents bits, and a network cable does not need to understand the meaning of a web request.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">OSI model and TCP/IP model <span>+</span></button>
+            <div class="accordion-panel">
+              <p>The OSI model is a useful seven-layer framework for learning and troubleshooting. Real-world Internet protocols are often described using the <strong>TCP/IP model</strong>, which groups some OSI layers together.</p>
+              <table style="width:100%; border-collapse:collapse; margin-top:10px; color: var(--ink); font-size:0.95rem;">
+                <thead>
+                  <tr style="background:#f8f2f0;">
+                    <th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">OSI layers</th>
+                    <th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">Common TCP/IP grouping</th>
+                    <th style="padding:10px; border:1px solid #e8ddd9; text-align:left;">Examples</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td style="padding:10px; border:1px solid #e8ddd9;">7 Application, 6 Presentation, 5 Session</td><td style="padding:10px; border:1px solid #e8ddd9;">Application</td><td style="padding:10px; border:1px solid #e8ddd9;">HTTP, DNS, SSH, TLS</td></tr>
+                  <tr><td style="padding:10px; border:1px solid #e8ddd9;">4 Transport</td><td style="padding:10px; border:1px solid #e8ddd9;">Transport</td><td style="padding:10px; border:1px solid #e8ddd9;">TCP, UDP, ports</td></tr>
+                  <tr><td style="padding:10px; border:1px solid #e8ddd9;">3 Network</td><td style="padding:10px; border:1px solid #e8ddd9;">Internet</td><td style="padding:10px; border:1px solid #e8ddd9;">IP, ICMP, routing</td></tr>
+                  <tr><td style="padding:10px; border:1px solid #e8ddd9;">2 Data Link, 1 Physical</td><td style="padding:10px; border:1px solid #e8ddd9;">Link or Network Access</td><td style="padding:10px; border:1px solid #e8ddd9;">Ethernet, Wi-Fi, MAC, signals</td></tr>
+                </tbody>
+              </table>
+              <p>The models are not competing networks. They are ways of organizing related responsibilities. The OSI model gives more detail, while the TCP/IP model more closely reflects the protocols used by the Internet.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Troubleshooting by layer <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Layered thinking helps an analyst narrow down a problem instead of treating the entire network as one large mystery.</p>
+              <ul class="compare-list">
+                <li><strong>Physical:</strong> Is the device powered on? Is the cable connected? Is there signal or wireless coverage?</li>
+                <li><strong>Data Link:</strong> Is the network interface connected? Is the device on the correct VLAN or Wi-Fi network? Are frames and MAC addresses working?</li>
+                <li><strong>Network:</strong> Does the device have a valid IP address? Is the subnet, gateway, route, or firewall configuration correct?</li>
+                <li><strong>Transport:</strong> Is the service listening on the expected port? Is TCP establishing a connection? Is UDP traffic being filtered?</li>
+                <li><strong>Session:</strong> Is the login or application session active, expired, or being rejected?</li>
+                <li><strong>Presentation:</strong> Can both sides interpret the data? Is encryption, encoding, or a certificate causing the problem?</li>
+                <li><strong>Application:</strong> Is the service running correctly? Is the request valid? Are permissions, authentication, or application errors blocking the action?</li>
+              </ul>
+              <p>A problem can involve more than one layer. For example, a web page that does not load could involve a disconnected cable, a missing IP address, a blocked TCP port, a failed DNS lookup, an expired TLS certificate, or an application error.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <h3>Follow one web request</h3>
+          <p>When a user enters <code>https://example.com</code>, the application requests a web resource. DNS may resolve the domain name, TCP may establish a connection, TLS may protect the session, and HTTPS carries the request. IP addresses guide the packet between networks, frames move it across each local link, and physical signals carry the bits. The receiving computer reverses the process and delivers the response to the browser.</p>
+        </div>
+
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="OSI network layers notes" placeholder="Write the seven OSI layers in order, explain TCP versus UDP, and describe how a web request moves from an application to physical signals..."></textarea>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Seven-layer memory guide</h3>
+          <ul class="compact-list">
+            <li><strong>7 Application</strong> → network services used by applications</li>
+            <li><strong>6 Presentation</strong> → format, encryption, compression</li>
+            <li><strong>5 Session</strong> → starts and manages conversations</li>
+            <li><strong>4 Transport</strong> → ports, TCP, UDP, delivery</li>
+            <li><strong>3 Network</strong> → IP addresses and routing</li>
+            <li><strong>2 Data Link</strong> → frames, MAC addresses, local delivery</li>
+            <li><strong>1 Physical</strong> → bits, cables, radio, signals</li>
+          </ul>
+        </div>
+
+        <div class="status-card">
+          <h3>Layer checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can name all seven OSI layers in order.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain the Transport layer and ports.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain the Network layer and IP routing.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can distinguish a MAC address from an IP address.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can describe encapsulation and decapsulation.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can troubleshoot a network problem by layer.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <p>OSI is a model for understanding communication. Real protocols may span more than one layer, but the model gives analysts a common language for explaining where a behavior or problem occurs.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>The OSI model has seven layers: Application, Presentation, Session, Transport, Network, Data Link, and Physical.</li>
+          <li>The Transport layer uses ports and protocols such as TCP and UDP to deliver data between applications.</li>
+          <li>The Network layer uses IP addressing and routing to move packets between networks.</li>
+          <li>The Data Link and Physical layers handle local frames, hardware addresses, and signals.</li>
+          <li>Encapsulation wraps data as it moves down the sender's stack; decapsulation unwraps it at the receiver.</li>
+          <li>Layered thinking helps security teams understand attacks and troubleshoot communication.</li>
+        </ul>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Bring the layers together.</h2>
+        <p>Use the OSI model to connect the human, application, network, and physical security ideas from Unit 1 before moving into secured spaces.</p>
+        <a href="../unit-2/index.html">Open Unit 2 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 1 • 1.7</span></div></footer>
+</body>
+</html>

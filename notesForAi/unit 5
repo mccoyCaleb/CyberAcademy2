@@ -1,0 +1,1609 @@
+AP Cybersecurity — Unit 5: Securing Applications and Data
+
+Unit 5 focuses on protecting the applications that process information and the data those applications store, transmit, and use. Students learn how vulnerabilities can be exploited, how access to data can be controlled, how cryptography protects information, and how attacks can be detected. The AP framework organizes the unit into six topics: 5.1 Application and Data Vulnerabilities and Attacks, 5.2 Protecting Applications and Data: Managerial Controls and Access Controls, 5.3 Protecting Stored Data with Cryptography, 5.4 Asymmetric Cryptography, 5.5 Protecting Applications, and 5.6 Detecting Attacks on Data and Applications.
+
+5.1 — Application and Data Vulnerabilities and Attacks
+5.1.1 What is a vulnerability?
+
+A vulnerability is a weakness in a system, application, configuration, or process that can potentially be exploited.
+
+An attacker may exploit a vulnerability to:
+
+Read information they should not have access to.
+Modify data.
+Delete data.
+Execute unauthorized commands.
+Gain additional privileges.
+Disrupt an application.
+Take control of part of a system.
+
+A vulnerability does not necessarily mean that an attack has occurred. It means that a weakness exists that could be exploited.
+
+Example
+
+Imagine a website allows users to enter information into a search box.
+
+If the application does not properly handle the input, an attacker might be able to enter specially constructed data that causes the application to behave in an unintended way.
+
+The vulnerability is the weakness in the application.
+
+The attack is the attempt to exploit that weakness.
+
+5.1.2 Data vulnerabilities
+
+Data can be vulnerable depending on where it is stored and how it is protected.
+
+The AP framework identifies several important situations.
+
+Unencrypted data
+
+If sensitive information is stored without encryption, someone who gains access to the storage system may be able to read it directly.
+
+For example:
+
+Username: alex
+Password: MyPassword123
+SSN: 123-45-6789
+
+If this information is stored as readable text, anyone who gains unauthorized access to the file may be able to read it.
+
+This is why sensitive data should be protected appropriately.
+
+5.1.3 Applications and user privileges
+
+Applications commonly run using a particular user's permissions.
+
+This means an application may be able to access files, directories, databases, or system resources that the user is allowed to access.
+
+If an attacker compromises an application, the attacker may inherit some of those permissions.
+
+Example
+
+Suppose a user has permission to read:
+
+/student-files/
+
+but not:
+
+/admin-files/
+
+If an application runs with the user's permissions and is compromised, the attacker may be able to access the student files.
+
+The attacker may not automatically gain access to the administrator files.
+
+This is one reason least privilege is important.
+
+Give users and applications only the permissions they need.
+
+The fewer permissions an application has, the less damage may occur if that application is compromised.
+
+5.1.4 Application vulnerabilities
+
+Applications can contain vulnerabilities because of:
+
+Programming errors.
+Poor input validation.
+Incorrect permissions.
+Unsafe assumptions.
+Improper handling of data.
+Insecure configurations.
+
+Attackers can attempt to exploit these weaknesses to manipulate the application's behavior.
+
+The AP framework specifically identifies several important application attacks:
+
+SQL injection
+Cross-site scripting (XSS)
+Buffer overflow
+Buffer overread
+Directory traversal
+5.1.5 SQL Injection
+
+SQL injection is an attack in which an attacker provides specially constructed input that causes an application to modify or interfere with a SQL query.
+
+First: What is SQL?
+
+SQL (Structured Query Language) is commonly used to interact with relational databases.
+
+For example, an application might use SQL to retrieve a student's information:
+
+SELECT * FROM students WHERE username = 'alex';
+
+The application takes information supplied by the user and incorporates it into a database query.
+
+The vulnerability
+
+If the application directly inserts untrusted user input into a SQL query without properly validating or safely handling it, an attacker may be able to alter the intended query.
+
+Instead of the application treating the input purely as data, the database may interpret part of the input as SQL commands.
+
+Why SQL injection is dangerous
+
+Depending on the vulnerability and permissions available, SQL injection may allow an attacker to:
+
+Retrieve unauthorized information.
+Modify database records.
+Delete information.
+Bypass intended restrictions.
+Potentially perform other actions available to the database account.
+Defense
+
+Applications should use safe methods for handling database queries, such as parameterized queries / prepared statements, rather than constructing SQL commands by directly concatenating untrusted input.
+
+5.1.6 Cross-Site Scripting — XSS
+
+Cross-site scripting (XSS) occurs when an attacker causes a website to deliver malicious script content to a user's browser.
+
+Web pages commonly use technologies such as:
+
+HTML
+JavaScript
+CSS
+
+The browser interprets this content to create an interactive webpage.
+
+The problem occurs when an application treats untrusted input as trustworthy webpage code.
+
+Example
+
+Imagine a website allows users to post comments.
+
+A legitimate comment might be:
+
+Great website!
+
+If the application does not properly handle user input, an attacker might submit content containing executable script.
+
+When another user's browser loads the page, the browser may interpret the malicious content as code.
+
+Potential consequences
+
+Depending on the vulnerability and browser protections, XSS can potentially be used to:
+
+Manipulate webpage content.
+Perform actions as the victim within a website.
+Steal sensitive information accessible to the script.
+Trick users into interacting with malicious content.
+Defense
+
+Applications should properly validate and sanitize/escape untrusted input before displaying it.
+
+Developers should also use security controls such as appropriate Content Security Policy configurations where applicable.
+
+5.1.7 Buffer overflow
+
+A buffer is a region of memory used to temporarily hold data.
+
+A buffer overflow occurs when a program attempts to place more data into a buffer than the allocated space can hold.
+
+Simple example
+
+Imagine a container can hold 10 items:
+
+[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
+
+If a program attempts to put 20 items into it without properly handling the extra data, the additional information can overwrite memory that was not intended to contain that data.
+
+In software, this can cause:
+
+Application crashes.
+Corrupted data.
+Unexpected behavior.
+Potential execution of unauthorized code in some vulnerable systems.
+Why it happens
+
+A common cause is failing to properly check the size of input before copying it into a fixed-size memory region.
+
+Defense
+
+Developers can reduce the risk through:
+
+Bounds checking.
+Safe memory-management practices.
+Memory-safe programming languages.
+Compiler and operating-system protections.
+5.1.8 Buffer overread
+
+A buffer overread occurs when a program reads beyond the intended boundaries of a buffer.
+
+Instead of writing too much data into memory, the program attempts to read data that it should not be reading.
+
+This could potentially expose information stored nearby in memory.
+
+Buffer overflow vs. buffer overread
+Attack	Problem
+Buffer overflow	Writes too much data into a buffer.
+Buffer overread	Reads beyond the intended end of a buffer.
+
+Both result from improper memory handling.
+
+5.1.9 Directory traversal
+
+Directory traversal is an attack in which an attacker manipulates a file path to access files outside the directory the application intended to expose.
+
+Imagine a website allows users to access:
+
+/website/public/
+
+The application is supposed to allow access only to files inside that directory.
+
+If the application improperly handles file paths, an attacker may attempt to manipulate the path to move outside the intended directory.
+
+Conceptually:
+
+/public/file.txt
+
+becomes something similar to:
+
+/public/../private/file.txt
+
+The .. notation can represent moving to a parent directory.
+
+Why this matters
+
+A successful directory traversal vulnerability could expose:
+
+Configuration files.
+Application data.
+Credentials.
+Source code.
+Other sensitive files.
+Defense
+
+Applications should validate file paths and restrict file access to approved directories.
+
+5.1.10 Assessing application and data risk
+
+Not every vulnerability creates the same amount of danger.
+
+When evaluating a vulnerability, consider:
+
+What information could be exposed?
+
+For example:
+
+Public information
+Student records
+Password information
+Financial information
+Medical information
+Company intellectual property
+How likely is exploitation?
+
+A vulnerability that is extremely difficult to exploit may present less immediate risk than one that is easily exploited.
+
+What could happen if it is exploited?
+
+Possible impacts include:
+
+Data theft.
+Data modification.
+Data deletion.
+Service disruption.
+Loss of confidentiality.
+Loss of integrity.
+Loss of availability.
+5.2 — Protecting Applications and Data
+Managerial Controls and Access Controls
+
+Protecting data is not just a technical problem. Organizations also need policies, procedures, classifications, and access-control systems.
+
+5.2.1 Data states
+
+One of the most important concepts in cybersecurity is understanding that data exists in different states.
+
+There are three major states:
+
+Data at rest
+
+Data at rest is stored data that is not currently being transmitted.
+
+Examples:
+
+A file stored on a hard drive.
+A database stored on a server.
+A backup stored on a storage device.
+A file stored on a USB drive.
+Data in transit
+
+Data in transit is data moving between systems.
+
+Examples:
+
+Computer → Wi-Fi → Router → Server
+
+or:
+
+Phone → Internet → Website
+
+Data in transit may need protection against interception or modification.
+
+Data in use
+
+Data in use is data currently being processed or accessed by a system.
+
+Examples:
+
+A document opened in a program.
+A database record being processed.
+Information currently being displayed to a user.
+Remember
+
+Think:
+
+At rest = stored
+
+In transit = moving
+
+In use = being processed
+
+5.2.2 Why data state matters
+
+Different states create different security concerns.
+
+Data state	Example	Major concern
+At rest	Database on a server	Unauthorized access to storage
+In transit	Information sent over a network	Interception or modification
+In use	Data being processed	Unauthorized access or manipulation
+
+An organization may therefore need different controls to protect the same data depending on its state.
+
+5.2.3 Data classification
+
+Organizations often classify data according to how sensitive it is.
+
+Classification helps determine:
+
+Who should have access.
+How data should be stored.
+How data should be transmitted.
+How closely data should be monitored.
+What security controls should be applied.
+
+For example:
+
+Public
+
+Information that can be freely shared.
+
+Internal
+
+Information intended primarily for members of an organization.
+
+Confidential
+
+Information that should only be available to authorized individuals.
+
+Highly sensitive
+
+Information where unauthorized disclosure could cause serious harm.
+
+The exact classification levels vary between organizations.
+
+5.2.4 Personally identifiable information — PII
+
+Personally identifiable information (PII) is information that can identify or help identify an individual.
+
+Examples can include:
+
+Name.
+Address.
+Email address.
+Phone number.
+Social Security number.
+Biometric information.
+Other identifying information.
+
+The AP framework also discusses regulations governing particular categories of sensitive information, including COPPA, HIPAA, and PCI DSS.
+
+Why PII matters
+
+If PII is exposed, attackers may be able to use it for:
+
+Identity theft.
+Fraud.
+Social engineering.
+Account takeover.
+Tracking or targeting individuals.
+
+Organizations therefore need to determine what information they collect, why they collect it, who can access it, and how it is protected.
+
+5.2.5 Protected Health Information — PHI
+
+Protected Health Information (PHI) refers to protected health-related information associated with an individual.
+
+The AP framework identifies HIPAA as a regulation related to protected health information.
+
+Examples can include:
+
+Medical records.
+Diagnoses.
+Treatment information.
+Certain information connected to healthcare services.
+5.2.6 Payment Card Information
+
+Payment information can also require special protection.
+
+Examples include:
+
+Credit card numbers.
+Debit card information.
+Cardholder information.
+Other payment-related data.
+
+The AP framework identifies PCI DSS as a standard governing protection of payment card information.
+
+5.2.7 Cryptography policies
+
+Organizations should establish policies describing how cryptography is used.
+
+A cryptography policy may specify:
+
+Approved encryption algorithms.
+Minimum key lengths.
+Requirements for encryption.
+Key-generation requirements.
+Key-storage requirements.
+When encryption is required.
+Which data must be encrypted.
+
+This is important because simply saying "use encryption" is not enough.
+
+The organization must determine how encryption is implemented.
+
+5.2.8 Access control
+
+Access control determines what users or systems are allowed to do with resources.
+
+Access control can determine whether a user can:
+
+Read data.
+Write data.
+Modify data.
+Delete data.
+Execute programs.
+Access specific resources.
+
+The basic idea is:
+
+Who can do what to which resource?
+
+5.2.9 Role-Based Access Control — RBAC
+
+Role-Based Access Control (RBAC) assigns permissions based on a user's role.
+
+For example:
+
+Role	Possible permissions
+Student	Read assignments
+Teacher	Read/write assignments
+Administrator	Manage users and settings
+
+Instead of assigning every permission individually, administrators assign users to roles.
+
+Why RBAC is useful
+
+Imagine a school with 10,000 students.
+
+Instead of individually configuring permissions for every student, the administrator can create a:
+
+Student
+
+role with the appropriate permissions.
+
+A user assigned to that role automatically receives those permissions.
+
+5.2.10 Rule-Based Access Control — RuBAC
+
+Rule-Based Access Control (RuBAC) determines whether access is allowed based on rules.
+
+A rule might consider:
+
+User.
+Location.
+Time.
+Device.
+Network.
+Other conditions.
+Example
+
+A school might create a rule:
+
+Allow access
+IF
+    user = teacher
+    AND
+    location = school network
+    AND
+    time = school hours
+
+If the conditions are not satisfied, access may be denied.
+
+5.2.11 Discretionary Access Control — DAC
+
+Discretionary Access Control (DAC) allows the owner of a resource to determine who can access it.
+
+For example, a user creates a file and decides which other users can read or modify it.
+
+The owner has discretion over access.
+
+Example
+
+Alex creates:
+
+project.txt
+
+Alex gives:
+
+Alex → Read + Write
+Jordan → Read
+Taylor → No access
+
+The owner controls the permissions.
+
+5.2.12 Mandatory Access Control — MAC
+
+Mandatory Access Control (MAC) uses centrally defined security rules and classifications.
+
+Users cannot simply change permissions because they own a file.
+
+Instead, access can depend on:
+
+Security clearance.
+Data classification.
+Centrally established security policies.
+Example
+
+Suppose information is classified as:
+
+Public
+Confidential
+Secret
+Top Secret
+
+A user may have:
+
+Secret clearance
+
+That user could potentially access information classified at or below their permitted level, depending on the organization's rules.
+
+MAC is commonly associated with environments requiring strict centralized control.
+
+5.2.13 Least privilege
+
+Least privilege means giving a user or program only the permissions necessary to perform its required tasks.
+
+Example
+
+A student who only needs to read a file should not automatically receive permission to:
+
+Read
+Write
+Delete
+Change permissions
+
+Instead, they might receive:
+
+Read
+
+Least privilege limits the damage caused if an account or application is compromised.
+
+5.3 — Protecting Stored Data with Cryptography
+
+This is one of the most important sections of Unit 5.
+
+What is cryptography?
+
+Cryptography is the use of mathematical techniques to protect information.
+
+Cryptography can be used to provide properties such as:
+
+Confidentiality — preventing unauthorized people from reading information.
+Integrity — detecting whether information has been changed.
+Authentication — helping verify identities or sources.
+Nonrepudiation — providing evidence associated with who created or approved information in certain systems.
+
+The AP framework specifically focuses on how cryptography uses algorithms and keys to transform information.
+
+5.3.1 Encryption
+
+Encryption transforms readable information into an unintelligible form using an encryption algorithm and a key.
+
+The original readable information is called plaintext.
+
+The encrypted information is called ciphertext.
+
+The basic process is:
+
+PLAINTEXT
+    ↓
+Encryption algorithm + key
+    ↓
+CIPHERTEXT
+
+To recover the original information:
+
+CIPHERTEXT
+    ↓
+Decryption algorithm + key
+    ↓
+PLAINTEXT
+Example
+
+Suppose the plaintext is:
+
+MEET AT 5
+
+After encryption, the ciphertext could look like:
+
+X7Q9K2L...
+
+The ciphertext is designed to be unreadable without the appropriate key.
+
+5.3.2 Encryption vs. hashing
+
+This distinction is extremely important.
+
+Encryption
+
+Encryption is designed to be reversible.
+
+Plaintext
+   ↓ encryption
+Ciphertext
+   ↓ decryption
+Plaintext
+
+The goal is to protect information while still allowing an authorized party to recover the original information.
+
+Hashing
+
+Hashing is designed to be one-way.
+
+Input
+  ↓
+Hash function
+  ↓
+Hash
+
+A hash is not intended to be decrypted back into the original input.
+
+Remember
+
+Encryption protects data by making it unreadable and allowing authorized recovery.
+
+Hashing creates a digest that can be used to verify data or passwords without storing the original input.
+
+5.3.3 Hashing
+
+A cryptographic hash function takes input and produces a fixed-size output called a hash, hash value, or digest.
+
+For example:
+
+Input
+"Hello"
+
+       ↓
+Hash function
+
+Hash
+2cf24dba...
+
+Changing the input even slightly should produce a substantially different hash.
+
+"Hello"
+     ↓
+Hash A
+
+"hello"
+     ↓
+Hash B
+
+The outputs should be different.
+
+5.3.4 Why use hashing?
+
+Hashing can help detect whether data has changed.
+
+Suppose a file originally produces:
+
+HASH A
+
+Later, someone calculates the hash again.
+
+If the result is:
+
+HASH B
+
+and:
+
+HASH A ≠ HASH B
+
+then the data has changed.
+
+This can help detect accidental or malicious modification.
+
+5.3.5 Hashing passwords
+
+Passwords should not normally be stored as plaintext.
+
+Instead:
+
+User password
+      ↓
+Password hashing function
+      ↓
+Stored password hash
+
+When the user logs in, the system processes the submitted password and checks it against the stored password-verification data.
+
+Why not encryption?
+
+If passwords were simply encrypted, someone who obtained the encryption key could potentially decrypt all of the passwords.
+
+Password hashing is designed so that the original password is not simply recoverable from the stored value.
+
+For password storage, specialized password-hashing algorithms are used rather than relying on a fast general-purpose hash alone.
+
+5.3.6 Salt
+
+A salt is a random value added to a password before hashing.
+
+Conceptually:
+
+Password + Salt
+      ↓
+Hash function
+      ↓
+Password hash
+
+Suppose two users both choose:
+
+password123
+
+Without salts, they could potentially produce the same hash.
+
+With unique salts:
+
+User A:
+password123 + SaltA → HashA
+
+User B:
+password123 + SaltB → HashB
+
+The resulting hashes are different.
+
+Salting makes precomputed password-hash tables much less useful.
+
+5.3.7 Hashing does not equal encryption
+
+This is an important AP distinction.
+
+Property	Encryption	Hashing
+Main purpose	Protect information	Produce a digest / verify information
+Reversible?	Yes, with the appropriate key	Designed to be one-way
+Produces ciphertext?	Yes	No
+Uses a key?	Encryption algorithms use keys	Cryptographic hashes do not use an encryption key in the same way
+Can recover original data?	Yes, through decryption	Not designed for recovery
+Example use	Protecting files or communications	Password storage / integrity checking
+5.3.8 Symmetric encryption
+
+Symmetric encryption uses the same key for encryption and decryption.
+
+                 SAME KEY
+                    ↓
+Plaintext → Encryption → Ciphertext
+                         ↓
+                    Decryption
+                         ↓
+                      Plaintext
+
+The sender and receiver must both have access to the secret key.
+
+Example
+
+Alice wants to send Bob a secret message.
+
+Alice and Bob already share:
+
+Secret Key = K
+
+Alice:
+
+Message + K
+    ↓
+Ciphertext
+
+Bob:
+
+Ciphertext + K
+    ↓
+Original message
+Advantages
+
+Symmetric encryption is generally:
+
+Fast.
+Efficient.
+Suitable for encrypting large amounts of data.
+Disadvantage
+
+The major challenge is key distribution.
+
+How do Alice and Bob securely obtain the same secret key in the first place?
+
+If an attacker obtains the key, the attacker may be able to decrypt the protected data.
+
+5.3.9 AES
+
+One major symmetric encryption algorithm is AES — Advanced Encryption Standard.
+
+The AP framework specifically identifies AES as a common symmetric encryption algorithm.
+
+AES uses block-based encryption.
+
+Common AES key sizes include:
+
+128 bits
+192 bits
+256 bits
+
+The key size affects the number of possible keys and the computational difficulty of guessing the key through brute force.
+
+Example
+
+A 128-bit key has:
+
+2¹²⁸
+
+possible combinations.
+
+A 256-bit key has:
+
+2²⁵⁶
+
+possible combinations.
+
+The number of possible keys becomes enormously larger as the key length increases.
+
+5.3.10 Block encryption
+
+A block cipher processes data in fixed-size blocks.
+
+Conceptually:
+
+Large message
+      ↓
+[Block 1][Block 2][Block 3][Block 4]
+      ↓
+Encryption
+      ↓
+[Cipher][Cipher][Cipher][Cipher]
+
+AES is a block cipher.
+
+The AP framework contrasts this with stream encryption, which processes information as a continuous stream of data.
+
+5.3.11 Symmetric encryption in real systems
+
+Symmetric encryption is useful when large amounts of data need to be protected.
+
+Examples include:
+
+Encrypting files.
+Encrypting stored databases.
+Encrypting backups.
+Encrypting disk drives.
+Encrypting network data after a secure session has been established.
+5.4 — Asymmetric Cryptography
+5.4.1 The problem with symmetric encryption
+
+Symmetric encryption requires both parties to possess the same secret key.
+
+That creates a problem:
+
+How can two people securely exchange the secret key if they do not already have a secure communication channel?
+
+Asymmetric cryptography helps address this problem.
+
+5.4.2 Public and private keys
+
+Asymmetric cryptography uses a pair of mathematically related keys:
+
+Public key
+Private key
+
+The keys are related, but they have different roles.
+
+Public key
+
+The public key can be shared with others.
+
+PUBLIC
+↓
+Can be distributed
+Private key
+
+The private key must be kept secret.
+
+PRIVATE
+↓
+Must be protected
+
+If an attacker obtains someone's private key, the security of systems relying on that key can be compromised.
+
+5.4.3 Asymmetric encryption
+
+Suppose Alice wants to send Bob a secret message.
+
+Bob has:
+
+Public Key
+Private Key
+
+Alice obtains Bob's public key.
+
+She encrypts the message using:
+
+Bob's public key
+
+The encrypted message is sent to Bob.
+
+Bob decrypts it using:
+
+Bob's private key
+
+Conceptually:
+
+Alice
+  |
+  | Bob's PUBLIC key
+  ↓
+Encrypt
+  ↓
+Ciphertext
+  ↓
+Bob
+  |
+  | Bob's PRIVATE key
+  ↓
+Decrypt
+  ↓
+Original message
+Key idea
+
+Public key encrypts; corresponding private key decrypts.
+
+This allows someone to send encrypted information without first sharing a secret symmetric key.
+
+5.4.4 Digital signatures
+
+Asymmetric cryptography can also be used in the opposite direction to help provide authentication and integrity.
+
+A sender can use their private key to create a digital signature.
+
+Others can use the sender's public key to verify it.
+
+Conceptually:
+
+Message
+   ↓
+Hash
+   ↓
+Signature created using private key
+
+A recipient can use the public key to verify the signature.
+
+This can help answer:
+
+Did the message come from the expected key holder?
+Was the signed information changed?
+Important distinction
+
+Encryption primarily addresses confidentiality.
+
+Digital signatures primarily help with authentication and integrity.
+
+5.4.5 Public key vs. private key
+Key	Who should have it?	Common use
+Public key	Can be shared	Encryption to the key owner / signature verification
+Private key	Only the owner or authorized system	Decryption / creating signatures
+
+Never treat the private key like a password that can safely be posted publicly.
+
+It must be protected.
+
+5.4.6 Key length
+
+The AP framework emphasizes that key length affects the security of encrypted data. Longer keys generally create a larger keyspace, making brute-force key searching more difficult, although security also depends on the algorithm and implementation.
+
+For example:
+
+2⁸
+
+possible keys is much smaller than:
+
+2²⁵⁶
+
+possible keys.
+
+An attacker attempting to guess a key has more possibilities to search as the key length increases.
+
+But longer is not automatically better
+
+Longer keys can also require:
+
+More computation.
+More processing time.
+More resources.
+
+Security systems therefore choose key sizes appropriate for the algorithm and intended security level.
+
+5.4.7 Common asymmetric algorithms
+
+The AP framework identifies examples including:
+
+RSA
+ECC — Elliptic Curve Cryptography
+
+RSA and ECC use different mathematical approaches but can be used for asymmetric cryptographic operations.
+
+RSA
+
+RSA is a widely known public-key cryptographic system.
+
+Its security is based on mathematical properties involving very large numbers.
+
+ECC
+
+Elliptic Curve Cryptography provides public-key cryptography using elliptic-curve mathematics.
+
+One advantage is that ECC can provide strong security with comparatively smaller key sizes than some traditional public-key systems.
+
+5.4.8 Symmetric vs. asymmetric cryptography
+
+This is one of the most important comparisons in Unit 5.
+
+	Symmetric	Asymmetric
+Number of keys	One shared secret key	Public/private key pair
+Encryption	Secret key	Public key
+Decryption	Same secret key	Corresponding private key
+Speed	Generally faster	Generally slower
+Large amounts of data	Very suitable	Usually less efficient
+Key distribution	Difficult	Easier for establishing secure communication
+Examples	AES	RSA, ECC
+Why use both?
+
+Modern systems often combine them.
+
+For example, asymmetric cryptography can help establish or exchange a secret, and symmetric cryptography can then efficiently protect large amounts of data.
+
+This gives systems the advantages of both approaches.
+
+5.5 — Protecting Applications
+5.5.1 Secure by design
+
+Secure by design means security is considered during the design and development of an application rather than being added only after the application is completed.
+
+Security should be considered throughout the development process.
+
+Instead of:
+
+Build application
+       ↓
+Find security problems
+       ↓
+Try to fix them
+
+developers should think about security from the beginning:
+
+Plan
+ ↓
+Design securely
+ ↓
+Develop
+ ↓
+Test
+ ↓
+Deploy
+ ↓
+Monitor
+ ↓
+Update
+
+The AP framework identifies three important principles:
+
+Customer security
+Company responsibility
+Leadership and commitment
+5.5.2 Security by default
+
+Security by default means applications should begin with secure settings rather than requiring users to manually enable every security feature.
+
+Examples might include:
+
+Strong authentication enabled by default.
+Secure communication enabled by default.
+Unnecessary services disabled.
+Restrictive permissions by default.
+
+The basic principle is:
+
+The safest reasonable configuration should be the default configuration.
+
+5.5.3 Input sanitization
+
+One of the most important application-security techniques is input sanitization.
+
+Whenever a program accepts information from a user, that information should be treated as untrusted.
+
+Examples:
+
+Username
+Password
+Search query
+Comment
+File name
+URL
+Form submission
+
+The application should check whether the input is valid before processing it.
+
+5.5.4 Why input validation matters
+
+Without proper input validation, attackers may attempt to provide unexpected input that changes how the application behaves.
+
+The AP framework connects improper input handling to attacks such as:
+
+SQL injection.
+Cross-site scripting.
+Directory traversal.
+Example
+
+Suppose a website expects:
+
+Age: 15
+
+The application should determine whether the submitted value is actually an appropriate age value.
+
+It should not blindly trust:
+
+<script>...</script>
+
+or:
+
+../../../private/file
+
+or unexpected database commands.
+
+5.5.5 Common application-security principle
+
+A useful rule for developers is:
+
+Never trust user input.
+
+This does not mean users are automatically malicious.
+
+It means the application should assume that input could be:
+
+Incorrect.
+Unexpected.
+Malicious.
+Manipulated.
+5.6 — Detecting Attacks on Data and Applications
+
+Preventing attacks is only part of cybersecurity.
+
+Organizations also need to determine when something suspicious has occurred.
+
+5.6.1 Monitoring data access
+
+Organizations can monitor:
+
+Who accessed information.
+When it was accessed.
+What information was accessed.
+Where the access originated.
+What actions were performed.
+Example
+
+Imagine an employee normally accesses:
+
+Company Documents
+
+during:
+
+8:00 AM – 5:00 PM
+
+from:
+
+Company Network
+
+Suddenly the logs show:
+
+2:13 AM
+Large number of sensitive files accessed
+Unusual location
+
+That activity may deserve investigation.
+
+It does not automatically prove an attack occurred, but it is suspicious.
+
+5.6.2 Honeypots
+
+A honeypot is a system or resource designed to attract or detect attackers.
+
+It is intentionally made to appear interesting to an attacker.
+
+The important idea is that legitimate users generally should not need to interact with it.
+
+Therefore, activity on the honeypot can be a strong indicator of suspicious behavior.
+
+Example
+
+A company creates:
+
+Fake database server
+
+containing fake information.
+
+An attacker discovers it and begins attempting to access it.
+
+The security team receives an alert.
+
+Because legitimate employees were not supposed to use the fake server, the activity is highly suspicious.
+
+5.6.3 Honeytokens
+
+A honeytoken is a piece of information or resource designed to detect unauthorized access.
+
+Examples could include:
+
+Fake credentials.
+Fake database records.
+Fake files.
+Special tracking information.
+
+If someone uses a honeytoken, the organization can investigate the activity.
+
+5.6.4 File integrity monitoring
+
+A cryptographic hash can be used to detect whether a file has changed.
+
+Suppose an organization calculates:
+
+Original file
+     ↓
+Hash function
+     ↓
+ABC123...
+
+Later, the organization calculates the hash again.
+
+Current file
+     ↓
+Hash function
+     ↓
+XYZ789...
+
+Because:
+
+ABC123... ≠ XYZ789...
+
+the file has changed.
+
+This does not automatically tell us who changed it or why it changed, but it tells us that the file's contents are different.
+
+5.6.5 Detecting suspicious behavior
+
+The AP framework gives examples of suspicious activity that can appear in logs, including:
+
+Accessing files that are not normally accessed.
+Accessing files at unusual times.
+Accessing information outside of a user's normal pattern.
+Attempts to access sensitive data.
+Example
+
+Normal behavior:
+
+Employee → Marketing files
+9:00 AM → 4:00 PM
+Company computer
+
+Suspicious behavior:
+
+Employee account
+2:00 AM
+Thousands of confidential files
+Unrecognized device
+
+The security team should investigate the event.
+
+5.6.6 Detecting data exfiltration
+
+Data exfiltration is the unauthorized transfer of data out of a system or organization.
+
+Possible warning signs include:
+
+Unusually large outbound data transfers.
+Sensitive files being accessed before network transfers.
+Unexpected connections to external systems.
+Large numbers of files being compressed or copied.
+Transfers occurring outside normal working patterns.
+
+Organizations can use monitoring and data-loss-prevention technologies to detect suspicious data movement.
+
+5.6.7 Data Loss Prevention — DLP
+
+Data Loss Prevention (DLP) systems are designed to help prevent sensitive information from being improperly disclosed, transferred, or removed.
+
+A DLP system might monitor:
+
+Email
+↓
+Files
+↓
+Cloud storage
+↓
+USB devices
+↓
+Network transfers
+
+If sensitive information is detected leaving the organization, the system may:
+
+Alert security personnel.
+Block the transfer.
+Require additional authorization.
+Record the event.
+5.6.8 Cost of detection
+
+Security controls have costs.
+
+A detection system may require:
+
+Hardware.
+Software.
+Storage.
+Personnel.
+Maintenance.
+Processing power.
+Monitoring.
+
+Organizations therefore have to balance:
+
+Security
+    ↕
+Cost
+    ↕
+Performance
+
+A security system that is extremely expensive or slows a system so much that users cannot effectively work may not be practical.
+
+5.6.9 Speed vs. accuracy
+
+Detection systems also have tradeoffs.
+
+A system that detects everything may generate a huge number of false alarms.
+
+A system that is extremely selective may miss real attacks.
+
+False positive
+
+The system reports something as malicious when it is actually legitimate.
+
+False negative
+
+The system fails to identify something that actually is malicious.
+
+For example:
+
+Real attack → Detection system → "Safe"
+
+is a false negative.
+
+A false negative can be especially dangerous because the organization may not realize an attack is occurring.
+
+5.6.10 Sensitivity of data
+
+The more sensitive the information, the more closely it should generally be monitored.
+
+For example:
+
+Public school schedule
+       ↓
+Lower monitoring requirements
+
+Student medical information
+       ↓
+Higher monitoring requirements
+
+Organizations should prioritize security resources based on the potential impact of unauthorized access.
+
+5.6.11 Impact of an attack
+
+When evaluating an attack, consider:
+
+Confidentiality
+
+Was information exposed to someone who should not have seen it?
+
+Integrity
+
+Was information changed without authorization?
+
+Availability
+
+Was information or a service made unavailable?
+
+These three concepts form the CIA triad:
+
+             CONFIDENTIALITY
+                   /\
+                  /  \
+                 /    \
+                /      \
+               /        \
+        INTEGRITY ---- AVAILABILITY
+Example
+
+An attacker steals a company's customer database.
+
+Confidentiality: compromised because unauthorized people accessed the data.
+
+If the attacker changes customer records:
+
+Integrity: compromised.
+
+If the attacker deletes the database and prevents employees from accessing it:
+
+Availability: compromised.
+
+An attack can affect more than one part of the CIA triad.
+
+Unit 5 — Encryption vs. Hashing vs. Encoding
+
+This is an especially important distinction for AP Cybersecurity.
+
+Concept	Purpose	Reversible?	Uses a key?	Example
+Encryption	Protect confidentiality	Yes	Yes	AES
+Hashing	Create a digest / verify data	No, by design	No encryption key	SHA-family hashes
+Encoding	Represent data in another format	Yes	No	Base64
+Encryption
+Plaintext
+   ↓
+Encryption + key
+   ↓
+Ciphertext
+   ↓
+Decryption + key
+   ↓
+Plaintext
+Hashing
+Input
+   ↓
+Hash function
+   ↓
+Digest
+Encoding
+Data
+ ↓
+Encoding scheme
+ ↓
+Encoded data
+
+Encoding is not encryption.
+
+Base64, for example, is designed to represent binary data as text. Anyone who knows the encoding can decode it.
+
+Unit 5 — The Big Picture
+
+Unit 5 can be thought of as one security chain:
+
+                    DATA
+                      ↓
+             Where is the data?
+          ↙           ↓           ↘
+      At rest      In transit     In use
+         ↓             ↓             ↓
+      Protect       Protect        Protect
+         ↓             ↓             ↓
+     Encryption    Encryption     Access control
+         ↓
+     APPLICATION
+         ↓
+  ┌─────────────────┐
+  │ Vulnerabilities │
+  └─────────────────┘
+         ↓
+     SQL Injection
+     XSS
+     Buffer attacks
+     Directory traversal
+         ↓
+      DEFENSE
+         ↓
+  Input validation
+  Secure design
+  Access controls
+  Least privilege
+         ↓
+      DETECTION
+         ↓
+  Logs + monitoring
+  Honeypots
+  Honeytokens
+  DLP
+  File hashes
+         ↓
+    INVESTIGATION
+⭐ Unit 5 — What You Need to Remember
+Applications
+Applications can contain vulnerabilities.
+Never assume user input is safe.
+SQL injection attacks database queries.
+XSS attacks can inject malicious script into webpages.
+Buffer overflows write beyond an allocated buffer.
+Buffer overreads read beyond the intended buffer.
+Directory traversal attempts to access files outside the intended directory.
+Data
+Data at rest = stored.
+Data in transit = moving.
+Data in use = being processed.
+Sensitive data should receive stronger protection.
+PII can identify an individual.
+Organizations may have legal or regulatory requirements for certain data.
+Access control
+RBAC → permissions based on roles.
+RuBAC → permissions based on rules.
+DAC → resource owner controls access.
+MAC → centralized security policy controls access.
+Least privilege → only give the permissions necessary.
+Cryptography
+Encryption protects confidentiality and can be reversed with the appropriate key.
+Hashing produces a one-way digest.
+Salting adds random data before password hashing.
+Symmetric encryption uses the same secret key for encryption and decryption.
+AES is a symmetric encryption algorithm.
+Asymmetric cryptography uses a public/private key pair.
+RSA and ECC are examples of asymmetric cryptography.
+Public keys can be shared.
+Private keys must be protected.
+Digital signatures can provide authentication and integrity.
+Application security
+Security should be considered during application design.
+Secure defaults reduce risk.
+Input should be validated and sanitized.
+Applications should not blindly trust user input.
+Detection
+Logs provide evidence of activity.
+Hashes can help detect file changes.
+Honeypots attract or identify suspicious activity.
+Honeytokens are fake resources designed to detect unauthorized use.
+DLP helps identify and prevent inappropriate movement of sensitive information.
+Detection systems must balance speed, accuracy, cost, and performance.
+A false positive is an alert for something that is not actually malicious.
+A false negative is when malicious activity is missed.
+🧠 Unit 5 AP Checkpoint
+
+Before moving on, you should be able to answer these without notes:
+
+What is the difference between a vulnerability and an attack?
+Why is SQL injection dangerous?
+What is the difference between a buffer overflow and a buffer overread?
+What is directory traversal?
+What are the three states of data?
+What is the difference between RBAC, RuBAC, DAC, and MAC?
+Why is least privilege important?
+What is the difference between encryption and hashing?
+Why are salts used when storing passwords?
+What is the difference between symmetric and asymmetric encryption?
+Why is AES considered symmetric?
+What is the purpose of a public key?
+Why must a private key be protected?
+How can a cryptographic hash help detect a modified file?
+What is a digital signature used for?
+What is the purpose of input sanitization?
+What is a honeypot?
+What is a honeytoken?
+What is the difference between a false positive and a false negative?
+How can logs help detect an attack?

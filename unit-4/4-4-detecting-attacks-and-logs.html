@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.4 — Detecting Attacks and Logs | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a class="active" href="index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">4.4 • Detecting attacks and logs</p>
+      <h1>Detecting Attacks and Analyzing Logs</h1>
+      <p class="unit-intro">Prevention is important, but defenders also need ways to identify suspicious activity after it begins. Logs and indicators of compromise help analysts determine whether a device or account may have been affected.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Monitoring and response</span></div>
+        <div class="progress-meter"><span style="width: 100%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="4-1-password-attacks-and-hashing.html">4.1</a>
+      <a href="4-2-authentication.html">4.2</a>
+      <a href="4-3-protecting-devices.html">4.3</a>
+      <a class="active" href="4-4-detecting-attacks-and-logs.html">4.4</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Logs turn activity into evidence.</h2>
+          <p>Logs record what happened on devices, applications, and networks. They help analysts answer what happened, when it happened, where it happened, and what may have been affected.</p>
+          <div class="card-grid">
+            <img src="https://images.openai.com/static-rsc-4/yozx5i58YRk4zF2f2i-T031vZ2IdpTzyKq8IaElQK-nGekq--sYFbc-c-TYqq1Z8KnfpqHwAdfRh_BxPkYZTZLD25UVzomLqXbhY0RIB63DCZfE_-xDv-uEMEgyl_PS8gvV5iduEqEEWngtXfCpLjT4eioFARh6hLXCblymsy2A?purpose=inline" alt="System logs illustration" style="width:100%; border-radius:12px; border:1px solid var(--line);" />
+            <img src="https://images.openai.com/static-rsc-4/NTX2b-igsa3qh2B0hGl5xjiHL3KjzGmLF7b8EEQeyn86NjkPZe41iBncOmFARbepu4n1NtIq0xtdUovhDbu1C-aux1mjLrjbfi8CV0qxI1aSN2g46vV0-zh4YNbs_24CCW1AEfiTM1gV3wsWb_2euGOBB9LkqA8i3qtYdR_QhNU?purpose=inline" alt="Authentication logs illustration" style="width:100%; border-radius:12px; border:1px solid var(--line);" />
+            <img src="https://images.openai.com/static-rsc-4/ZcHnZvsTi3VApHB_Pa2cqi7RniOrTMEynEeUdXZVNVFqWWB3RTVrdnqpdnAmNnUP5dNWifoazRGKJvAa0xojJQOJau5m-t_EkFGIsmyuBGFL1cujxFBp6Ocrpu3hH0XnYK_pYZ6Pmj6DWp1tlpBTbAxsY99SCLUnQt3RhJywHJo?purpose=inline" alt="Network and firewall logs illustration" style="width:100%; border-radius:12px; border:1px solid var(--line);" />
+          </div>
+        </div>
+
+        <h2 class="section-head">Types of logs</h2>
+        <div class="accordion" aria-label="Log types">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">System logs <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>System logs</strong> record details about the operating system, services, hardware, and configuration changes. They can show when a service stops, a program starts, or a system setting changes unexpectedly.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Authentication logs <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Authentication logs</strong> record logins, failed logins, and sign-in events. A pattern of repeated failed login attempts from one source is often a warning sign.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Application logs <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Application logs</strong> show what a program or service is doing. They can reveal configuration changes, unexpected errors, unusual actions, or suspicious administrative tasks.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Network and firewall logs <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Network and firewall logs</strong> capture connections, blocked traffic, and unusual communication attempts. These logs help analysts see whether a host is contacting suspicious addresses or receiving repeated connection attempts.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">Reading suspicious patterns</h2>
+        <div class="scenario-card">
+          <h3>Example timeline</h3>
+          <div class="reflect-box">
+            <p>2026-10-02 09:14:02 Login failed: user=alex</p>
+            <p>2026-10-02 09:14:08 Login failed: user=alex</p>
+            <p>2026-10-02 09:14:15 Login failed: user=alex</p>
+            <p>2026-10-02 09:14:21 Login failed: user=alex</p>
+            <p>2026-10-02 09:14:29 Login success: user=alex</p>
+          </div>
+          <p>Several failed attempts followed by a success could indicate password guessing, a user entering the wrong password, or an attacker testing credentials. The analyst should look for source IP, unusual timing, the account involved, and any subsequent actions.</p>
+        </div>
+
+        <div class="diagram-card">
+          <span class="tag">IoCs</span>
+          <h3>Indicators of compromise</h3>
+          <p>An <strong>indicator of compromise (IoC)</strong> is evidence suggesting system or account compromise. Examples include:</p>
+          <ul class="compare-list">
+            <li>Many failed logins against one account</li>
+            <li>Unexpected new admin accounts</li>
+            <li>Unfamiliar processes running on a device</li>
+            <li>Unauthorized system changes</li>
+            <li>Connections to suspicious external servers</li>
+          </ul>
+          <p>IoCs do not automatically prove an attack succeeded, but they are strong reasons to investigate further.</p>
+        </div>
+
+        <div class="notes-box">
+          <span class="tag">Investigation workflow</span>
+          <p>When analyzing suspicious activity, investigators try to answer:</p>
+          <ul class="compare-list">
+            <li><strong>What happened?</strong> Identify the recorded event.</li>
+            <li><strong>When did it happen?</strong> Use timestamps to build a timeline.</li>
+            <li><strong>Where did it happen?</strong> Identify the device, account, or source involved.</li>
+            <li><strong>What may have been affected?</strong> Determine which accounts, files, or systems were involved.</li>
+          </ul>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know the main log types: system, authentication, application, and network.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain why repeated failed logins matter.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I understand what an IoC is.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know how timestamps help build a timeline.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Logs are evidence, not assumptions.</li>
+            <li>Patterns matter more than single events.</li>
+            <li>One failed login may be normal; repeated failures deserve investigation.</li>
+            <li>Analysts combine evidence from several systems before concluding what happened.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Unit wrap-up</h2>
+        <div class="unit-card-list">
+          <a class="unit-link-card" href="index.html">
+            <span>Unit</span>
+            <strong>Return to Unit 4 overview</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Connect the whole cycle.</h2>
+        <p>Use strong passwords, secure authentication, and device protections, then monitor logs and respond to suspicious patterns before damage grows.</p>
+        <a href="index.html">Back to overview →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 4 • 4.4</span></div></footer>
+</body>
+</html>

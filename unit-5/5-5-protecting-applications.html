@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5.5 — Protecting Applications | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+        <a class="active" href="index.html">Unit 5</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">5.5 • Protecting Applications</p>
+      <h1>Secure by Design</h1>
+      <p class="unit-intro">Secure by design means security is considered during the design and development of an application rather than being added only after the application is completed. Security should be considered throughout the development process.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Application security</span></div>
+        <div class="progress-meter"><span style="width: 82%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="5-1-application-and-data-vulnerabilities.html">5.1</a>
+      <a href="5-2-protecting-applications-and-data.html">5.2</a>
+      <a href="5-3-protecting-stored-data-with-cryptography.html">5.3</a>
+      <a href="5-4-asymmetric-cryptography.html">5.4</a>
+      <a class="active" href="5-5-protecting-applications.html">5.5</a>
+      <a href="5-6-detecting-attacks-on-data-and-applications.html">5.6</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Applications should be secure from the beginning, not patched after the fact.</h2>
+          <p>Instead of building an application, finding security problems, and then trying to fix them, developers should think about security from the beginning. They should plan, design securely, develop carefully, test, deploy, monitor, and update the application over time.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card"><span class="tag">Design</span><h3>Secure by design</h3><p>Security is considered during the design and development process.</p></article>
+          <article class="info-card"><span class="tag">Default</span><h3>Security by default</h3><p>Applications begin with secure settings rather than requiring users to enable them manually.</p></article>
+          <article class="info-card"><span class="tag">Input</span><h3>Sanitize and validate</h3><p>All user input should be treated as untrusted.</p></article>
+        </div>
+
+        <div class="accordion" aria-label="Unit 5.5 content">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">5.5.1 Secure by design <span>−</span></button>
+            <div class="accordion-panel">
+              <p>Secure by design means security is considered during the design and development of an application rather than being added only after the application is completed.</p>
+              <p>Security should be considered throughout the development process:</p>
+              <div class="reflect-box">Plan → Design securely → Develop → Test → Deploy → Monitor → Update</div>
+              <p>The AP framework identifies three important principles: customer security, company responsibility, and leadership and commitment.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.5.2 Security by default <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Security by default means applications should begin with secure settings rather than requiring users to manually enable every security feature.</p>
+              <p>Examples might include strong authentication, secure communication, unnecessary services disabled, and restrictive permissions by default.</p>
+              <p>The basic principle is: <strong>The safest reasonable configuration should be the default configuration.</strong></p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.5.3 Input sanitization <span>+</span></button>
+            <div class="accordion-panel">
+              <p>One of the most important application-security techniques is input sanitization.</p>
+              <p>Whenever a program accepts information from a user, that information should be treated as untrusted.</p>
+              <p>Examples: username, password, search query, comment, file name, URL, or form submission.</p>
+              <p>The application should check whether the input is valid before processing it.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.5.4 Why input validation matters <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Without proper input validation, attackers may attempt to provide unexpected input that changes how the application behaves.</p>
+              <p>The AP framework connects improper input handling to attacks such as SQL injection, cross-site scripting, and directory traversal.</p>
+              <p>Suppose a website expects an age of 15. The application should determine whether the submitted value is actually an appropriate age value. It should not blindly trust <strong>&lt;script&gt;...&lt;/script&gt;</strong> or <strong>../../../private/file</strong> or unexpected database commands.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.5.5 Common application-security principle <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A useful rule for developers is: <strong>Never trust user input.</strong></p>
+              <p>This does not mean users are automatically malicious. It means the application should assume input could be incorrect, unexpected, malicious, or manipulated.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Core rules</h3>
+          <ul class="compact-list">
+            <li>Build security in early.</li>
+            <li>Use secure defaults.</li>
+            <li>Validate every input.</li>
+            <li>Never trust user-provided data.</li>
+            <li>Monitor and update after deployment.</li>
+          </ul>
+        </div>
+        <div class="status-card">
+          <h3>Practice question</h3>
+          <p>If a form accepts a file name and passes it directly to a file handler, what could happen if the input is not validated?</p>
+        </div>
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="Unit 5.5 notes" placeholder="Write down what secure-by-design means, and explain why validating user input is one of the best defenses against common application attacks..."></textarea>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>Security should be built into the application lifecycle from the beginning.</li>
+          <li>Secure by default means the safest reasonable configuration is used automatically.</li>
+          <li>Input sanitization and validation reduce the risk of SQL injection, XSS, and directory traversal.</li>
+          <li>Developers should assume user input may be bad, unexpected, or malicious.</li>
+        </ul>
+      </div>
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Detect suspicious activity.</h2>
+        <p>Even strong applications need monitoring. The final topic focuses on the signs that data or application access may be suspicious.</p>
+        <a href="5-6-detecting-attacks-on-data-and-applications.html">Open 5.6 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 5 • 5.5</span></div></footer>
+</body>
+</html>

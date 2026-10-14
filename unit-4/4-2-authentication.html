@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.2 — Authentication | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a class="active" href="index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">4.2 • Authentication</p>
+      <h1>Authentication</h1>
+      <p class="unit-intro">Authentication verifies identity. A system needs to determine whether a person or device is really who it claims to be before granting access.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Identity verification</span></div>
+        <div class="progress-meter"><span style="width: 100%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="4-1-password-attacks-and-hashing.html">4.1</a>
+      <a class="active" href="4-2-authentication.html">4.2</a>
+      <a href="4-3-protecting-devices.html">4.3</a>
+      <a href="4-4-detecting-attacks-and-logs.html">4.4</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Authentication is not the same as authorization.</h2>
+          <p><strong>Authentication</strong> answers, “Who are you?” while <strong>authorization</strong> answers, “What are you allowed to do?” A user may prove their identity and still lack permission to access certain files or systems.</p>
+          <div class="card-grid">
+            <img src="https://images.openai.com/static-rsc-4/Zj7VowJo8T8q9dD6KjtdlR8AFEoJN7nQG8w6ErzCjwSoyY9xbLfCjAIOc_4yHXVBiBqJRxgl-XFoZ48CyFYy_OJkG6LaVUQkO70I3hsRGUMdarDl0l5sf8bBcWF4VZxpsBxnDcdUu7jmRDZ6rl-YW-xmTLjfbS2kxloqD0s3rbZmd0YRYHq39ZDgVVmniwv3?purpose=inline" alt="Username and password login" style="width:100%; border-radius:12px; border:1px solid var(--line);" />
+            <img src="https://images.openai.com/static-rsc-4/BffoRD2WM5vDJekVz_W1QXJRAwXnXCuoDOBSYE-h_8ZdvvGVQEJt9Lp6VxWU27ilmoHYwgR_0IPjytwflPUOIKckIUJWi2nePRlKAodU13k8TfnsdONT582zWgAynXBhbJhFkK8g14jZTopEvSaPbHKCVaUcj2t4YYXZfn7fldU?purpose=inline" alt="Security key" style="width:100%; border-radius:12px; border:1px solid var(--line);" />
+            <img src="https://images.openai.com/static-rsc-4/vLVWdmglVK2rZHLS_nQaoqdjXu4nmxYdQLnKPCQahNw_HohPapmgYKCfI_qhgJ9GtjkEt_smeM6Gas9rfdMnvt2cOuejHhrWUqmbDjT8GlUu1dvoU37cLKX7Eam1xHokjBuQBPp50Vl5FbnJvDTfO8F57IYIEYRVBXLBl6Evv8164Pxa3rIw8IGkEr8ZnTTp?purpose=inline" alt="Fingerprint biometric authentication" style="width:100%; border-radius:12px; border:1px solid var(--line);" />
+          </div>
+        </div>
+
+        <h2 class="section-head">The four authentication factors</h2>
+        <div class="accordion" aria-label="Authentication factors">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Something you know <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>Knowledge factor</strong> includes passwords, PINs, and answers to security questions.</p>
+              <p>These are useful, but weak if reused, guessed, or exposed in a breach. A PIN and a password are both knowledge factors; using two of them does not automatically create MFA.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Something you have <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Possession factor</strong> uses an item the user physically has, such as a security key, smartphone, or hardware token.</p>
+              <p>This adds protection because the attacker must have both the password and the device or token.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Something you are <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Biometric factor</strong> uses fingerprint, face, iris, or voice data. These are physical or behavioral characteristics that can be measured and compared to enrolled data.</p>
+              <p>Biometrics are useful, but they are not perfect and can sometimes produce false matches or false negatives.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Somewhere you are <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Location factor</strong> uses where the user is signing in from, such as an approved office network or a trusted region.</p>
+              <p>Location is helpful as supporting evidence, but it can be inaccurate or manipulated, so it is often used as part of a risk-based decision rather than a sole factor.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">Multi-factor authentication</h2>
+        <div class="scenario-card">
+          <h3>What MFA means</h3>
+          <p>MFA requires at least two different factor categories. For example:</p>
+          <ul class="compare-list">
+            <li>Password + security key = knowledge + possession</li>
+            <li>Password + fingerprint = knowledge + biometric</li>
+            <li>Security key + fingerprint = possession + biometric</li>
+          </ul>
+          <p>This matters because if one factor is stolen or guessed, the attacker still needs the second one. MFA does not eliminate all risk, but it significantly reduces the chance of a single stolen password providing access.</p>
+        </div>
+
+        <div class="diagram-card">
+          <span class="tag">Passwordless</span>
+          <h3>Authentication without a password</h3>
+          <img src="https://images.openai.com/static-rsc-4/I0e9GWCr6L8dUJOrXGg7B-rHNMi04KFJkpJ-ehaNZ66f51Na4ekX2FEfVxH4Kx1Y17al8a1P9wYKtRXbZP4vKKjNP8jT84xfGGlvSofZ8wx5jNNzJ3vvN85lge8BHZST25EFuuCmvbjEsHk_fwQ24iYBHce26HHX_xMTQxncThc?purpose=inline" alt="Location-based authentication concept" style="width:100%; border-radius:12px; border:1px solid var(--line); margin-bottom:12px;" />
+          <p>Some systems use <strong>passwordless authentication</strong>, such as passkeys or hardware security keys. These often rely on public-key cryptography: the device proves possession of a private key, and the service verifies it using the corresponding public key.</p>
+          <p>Passwordless methods can reduce the risk of password guessing and phishing, depending on how the system is implemented.</p>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain authentication vs. authorization.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know the four factors: knowledge, possession, biometric, and location.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know what MFA requires.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I understand why passwordless methods are useful.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Authentication proves identity.</li>
+            <li>Authorization decides what the identity is allowed to do.</li>
+            <li>MFA uses different factor categories, not just multiple passwords.</li>
+            <li>Strong authentication is crucial for sensitive accounts.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Next topic</h2>
+        <div class="unit-card-list">
+          <a class="unit-link-card" href="4-3-protecting-devices.html">
+            <span>4.3</span>
+            <strong>Protecting Devices</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Reduce risk with layered controls.</h2>
+        <p>Authentication helps verify identity, but device protection is still needed through policies, patches, firewalls, and anti-malware.</p>
+        <a href="4-3-protecting-devices.html">Open 4.3 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 4 • 4.2</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,76 @@
+UNIT 1 REVIEW QUESTION BANK
+Cybersecurity Foundations
+
+Use these scenarios for an end-of-unit review. For each scenario, identify the asset at risk, the warning signs, the most specific problem or attack, the likely impact, and a safe response. Answer keys follow each question. Accept other well-reasoned answers when they identify the same evidence and use an effective defense.
+
+1. The urgent school account notice
+Question: A student receives an email saying their school account will be deleted in 15 minutes. The message links to a login page on an unfamiliar domain and asks for the student's password. What clues should make the student stop? Identify the attack and describe what they should do.
+Answer key: Warning signs are artificial urgency, an unexpected threat, a login link on an unfamiliar domain, and a password request. Identifier: phishing, delivered by email. The asset is the school account; stolen credentials could expose private files or enable impersonation. Do not click or enter credentials. Open the official school site independently, verify through a known school contact, and report the message.
+
+2. The robotics club message
+Question: A student gets a message that appears to come from the robotics advisor. It names the student's team and upcoming competition, then asks them to sign in to a shared document. Which details make this more targeted than a generic scam? Identify the attack and give a response.
+Answer key: The message uses researched details about a specific person and club to build trust. Identifier: spear phishing. A fake document could harvest credentials or deliver malicious content. Verify with the advisor using a separate, known channel; inspect the destination before opening it; report the message. Targeted detail does not prove authenticity.
+
+3. The payroll director request
+Question: The school finance director receives a polished email appearing to come from the superintendent, requesting a confidential payroll export before a board meeting. The sender address differs by one character. What is the likely attack and why is the target relevant?
+Answer key: Warning signs include a high-impact data request, urgency, a subtly altered sender address, and a request to bypass normal handling. Identifier: whaling, a targeted phishing attempt aimed at a high-value individual; it can also be described as spear phishing. Payroll and staff data could be disclosed. Verify the request independently and follow approved data-access and approval procedures; report the message.
+
+4. The package text
+Question: A text says a package cannot be delivered unless the recipient pays a small fee at a link. The student is not expecting a package. Identify the channel-specific attack, warning signs, and safest next step.
+Answer key: Identifier: smishing, phishing by SMS/text. Warning signs include an unexpected delivery problem, a payment request, and an unfamiliar link. The link may steal payment or login information. Do not reply or use the link; check delivery status through the carrier's official app/site using an independently obtained address, then report and delete the text.
+
+5. The caller from technical support
+Question: A caller claiming to be school IT says a student's device is infected and asks them to read a one-time login code aloud. The caller threatens to disable the account if the student refuses. What is being exploited, what is the likely attack, and what should the student do?
+Answer key: The caller exploits fear, authority, and urgency. Identifier: vishing (voice phishing); the invented support role may also be pretexting. A one-time code can let an attacker complete sign-in. Never share passwords or verification codes. Hang up, call IT using the official directory, and report the call.
+
+6. The new employee story
+Question: Someone calls the school technology desk, claims to be a new substitute teacher, and says their account is delayed. They ask the technician to reset a principal's account so they can prepare materials. Identify the deception and the risk-control failure to avoid.
+Answer key: Identifier: pretexting, because the caller creates a false identity and story to justify the request. The request also seeks unauthorized access to a high-value account. Do not accept the story as proof of identity or authority. Follow formal identity verification and account-reset procedures, use least privilege, and escalate/report the request.
+
+7. The free game installer
+Question: A post promises a rare game skin to the first people who download a file and disable antivirus if installation is blocked. What is the lure, what warning signs stand out, and what is the solution?
+Answer key: Identifier: baiting. The appealing free reward and instruction to disable protection are warnings. The download may install malware or steal credentials. Do not download or run it, keep protections enabled, obtain software only from trusted sources, and report the post. If already run, disconnect from the network if directed by support and promptly tell a trusted adult/IT staff.
+
+8. The door held open
+Question: A student badges into a restricted computer room. A stranger carrying boxes says their badge is in another building and asks the student to hold the door. The student lets them in. Identify the physical attack and describe a safer response.
+Answer key: Identifier: tailgating, where an unauthorized person follows an authorized person without proper verification. The room and devices are at risk of theft or tampering. Do not admit the person based on a story; direct them to reception or security and report the access attempt. Follow the site's door and visitor procedures.
+
+9. One password, many accounts
+Question: A student uses the same password for school, gaming, and email. A gaming service reports a breach; soon the school account has unfamiliar sign-in attempts. Name the attack pattern and explain how to reduce the risk.
+Answer key: Identifier: credential stuffing: attackers try known username/password pairs from one breach on other services. Reuse is the key vulnerability. Use a unique strong password for each account, preferably generated and stored by a password manager; enable MFA; change the exposed password anywhere it was reused; review sessions and notify IT.
+
+10. Guessing one common password
+Question: Over several days, an attacker tries the same popular password against many different student accounts, rather than trying hundreds of passwords against one account. Which password attack is this? How is it different from brute force, and what controls help?
+Answer key: Identifier: password spraying. It distributes a small set of common guesses across many accounts to avoid per-account lockouts. Brute force typically tries many guesses against one account. Use unique, non-common passwords and MFA; rate-limit attempts, monitor authentication events, and use carefully designed lockout/detection controls.
+
+11. The exposed password database
+Question: A service reports that its password database was stolen. The attacker tests candidate passwords against the stolen values offline. Explain why storing passwords as plain text is dangerous and name the safer storage approach and related protection.
+Answer key: A plaintext database immediately reveals passwords and enables reuse attacks. Passwords should be stored using a purpose-built, slow password-hashing function with a unique salt per password, not reversible encryption or a fast general-purpose hash alone. Users should change affected/reused passwords and enable MFA; the service should investigate and notify affected users.
+
+12. The unprotected cafe network
+Question: A student connects to an open Wi-Fi network named almost exactly like the cafe's network and signs in to school email. What network deception may be occurring? What should the student do now and in future?
+Answer key: The look-alike network may be an evil twin/rogue access point, potentially allowing eavesdropping or traffic manipulation. Disconnect; do not continue sensitive activity; use the cafe's independently verified network name or a trusted connection, and use HTTPS/VPN where appropriate. If credentials were entered on a suspicious page, change them through the official site and report it.
+
+13. The all-powerful student account
+Question: A shared classroom computer grants every student local administrator rights so they can install any program. One student installs unapproved software that changes security settings. Identify the design weakness and name layered improvements.
+Answer key: The primary weakness is excessive privilege, violating least privilege; it also indicates weak software-installation controls. Limit student accounts to the permissions needed, require approved installation through administrators, keep systems patched and securely configured, use endpoint protections, and retain backups. Defense in depth means no single control is relied on alone.
+
+14. Mapping a school web outage to OSI
+Question: Users can reach a server by IP address, but entering its normal host name fails. Ping to the IP works, and a DNS lookup returns an unexpected address. Which network service/layer is most directly implicated, what attack or failure should be investigated, and what should responders check?
+Answer key: DNS resolution at the application layer is the immediate issue; unexpected answers may indicate DNS spoofing/poisoning or a misconfiguration. Do not assume the server itself is down just because its name fails. Compare trusted DNS results, inspect resolver/server logs and configuration, confirm the destination independently, and avoid entering credentials on a redirected page.
+
+15. A suspicious connection, layer by layer
+Question: A teacher reports that a secure website certificate warning appeared after joining a new wireless access point. Another computer shows duplicate IP-to-MAC mappings. Identify the likely network-layer clues and propose a response without claiming certainty from one indicator.
+Answer key: The access point may be rogue/evil twin, while conflicting ARP mappings may suggest ARP spoofing or a network fault. These clues can indicate on-path interception, but do not prove it. Disconnect affected devices from the suspect network, notify IT, verify the trusted access point, inspect ARP/DNS/network logs and switch/AP details, and do not bypass certificate warnings.
+
+16. What does the incident threaten?
+Question: A ransomware incident makes student records unavailable, changes some grades, and exposes a downloaded copy of the records. Identify which parts of the CIA triad are affected, then name defenses that would reduce impact.
+Answer key: Availability is affected because records cannot be accessed; integrity is affected because grades changed; confidentiality is affected because records were exposed. Use least privilege, MFA, secure configuration and patching, monitoring, encryption where appropriate, tested offline/isolated backups, and a rehearsed recovery process. Report and preserve evidence rather than trying to hide the incident.
+
+17. Authentication versus authorization
+Question: A staff member successfully signs in to a school system, but the system denies access to payroll records. Is this an authentication failure or an authorization decision? What should a secure system record and enforce?
+Answer key: Authentication succeeded (the user proved identity); authorization denied an action the user's role does not permit. Enforce least privilege and role-appropriate access, and maintain accountability through logs that record who did what and when. Do not share another person's account to get around the restriction.
+
+18. Is this two-factor authentication?
+Question: A site asks for a password and then a second password chosen by the user. Another site asks for a password and a code from an authenticator app. Which is stronger MFA and why?
+Answer key: Two passwords are both knowledge factors and therefore are not distinct factor types. Password plus an authenticator possession factor is MFA because it combines different categories. Prefer MFA, protect the device/account that receives codes, and never disclose a one-time code to a caller or message sender.

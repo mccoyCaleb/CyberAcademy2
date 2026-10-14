@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.7 — Detecting Network Attacks | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a class="active" href="index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">3.7 • Detecting Network Attacks</p>
+      <h1>Detecting Network Attacks</h1>
+      <p class="unit-intro">Preventing every attack is unrealistic, so defenders also monitor networks for suspicious behavior. Detection systems look for known attack patterns, unusual behavior, and combinations of events that point to malicious activity.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Monitoring and insight</span></div>
+        <div class="progress-meter"><span style="width: 100%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a href="3-1-network-vulnerabilities.html">3.1</a>
+      <a href="3-2-mac-addresses-and-arp.html">3.2</a>
+      <a href="3-3-protecting-networks.html">3.3</a>
+      <a href="3-4-network-segmentation.html">3.4</a>
+      <a href="3-5-firewalls.html">3.5</a>
+      <a href="3-6-acl-tables.html">3.6</a>
+      <a class="active" href="3-7-detecting-network-attacks.html">3.7</a>
+      <a href="3-8-logs-part-2.html">3.8</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Detection turns logs and traffic into alerts.</h2>
+          <p>Security teams cannot stop every attack in advance, so they monitor network activity for suspicious patterns. Logs, NIDS, NIPS, SIEM, and detection rules help transform raw activity into useful security signals.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Logs</span>
+            <h3>Timeline of activity</h3>
+            <p>Network devices produce logs that record connections, blocked traffic, failed logins, and other security events.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Detection systems</span>
+            <h3>NIDS and NIPS</h3>
+            <p>NIDS detects suspicious activity and generates alerts, while NIPS can block or prevent malicious traffic.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Analysis</span>
+            <h3>Signature vs. anomaly</h3>
+            <p>Security software looks for known patterns or unusual activity compared to a normal baseline.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">Monitoring and detection systems</h2>
+        <div class="accordion" aria-label="Monitoring systems">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Network logs <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>Logs</strong> are records of what happened on network devices or systems. They can include blocked connections, unusual login attempts, port activity, and other events.</p>
+              <p>Analysts use logs to reconstruct what happened and decide whether the behavior was suspicious.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">NIDS and NIPS <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>Network Intrusion Detection System (NIDS)</strong> monitors traffic and creates alerts when suspicious activity is detected. A <strong>Network Intrusion Prevention System (NIPS)</strong> both detects and responds by blocking or preventing the malicious behavior.</p>
+              <p>Think: <strong>NIDS = Detect + Alert</strong>, <strong>NIPS = Detect + Respond</strong>.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">SIEM <span>+</span></button>
+            <div class="accordion-panel">
+              <p>A <strong>SIEM</strong> gathers information from multiple sources such as firewalls, server logs, application logs, and NIDS alerts. This makes it easier to piece together a larger cyber event.</p>
+              <p>One weak signal may not matter, but several events together may reveal a coordinated attack.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">Detection methods</h2>
+        <div class="accordion" aria-label="Detection methods">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Signature-based detection <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>Signature-based detection</strong> searches for known patterns of malicious activity. It is effective against known attacks, but it may miss new or modified attacks.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Anomaly-based detection <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Anomaly-based detection</strong> measures activity against a baseline. If traffic suddenly spikes or behaves differently than expected, the system may generate an alert.</p>
+              <p>This approach can catch unknown attacks, but it can also generate <strong>false positives</strong>.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Hybrid detection <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Hybrid detection</strong> combines signatures and anomaly detection to catch both known attacks and unusual behavior. It can be more effective, but it may also create more alerts and complexity.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">False positives and false negatives <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>False positive:</strong> a legitimate event is mistakenly labeled as malicious.</p>
+              <p><strong>False negative:</strong> an attack occurs but is missed by the detection system.</p>
+              <p><strong>Alert fatigue</strong> happens when too many alerts overwhelm analysts and make it harder to find real threats.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">Detecting specific attacks</h2>
+        <div class="scenario-card">
+          <h3>Common indicators</h3>
+          <ul class="compare-list">
+            <li><strong>Evil twin:</strong> unfamiliar wireless networks that closely resemble legitimate ones.</li>
+            <li><strong>Jamming:</strong> sudden loss of wireless connectivity or widespread interference.</li>
+            <li><strong>ARP poisoning:</strong> unusual ARP messages or unexpected changes to IP-to-MAC mappings.</li>
+            <li><strong>MAC flooding:</strong> a large number of different MAC addresses or changes in the switch’s MAC table.</li>
+            <li><strong>DNS poisoning:</strong> unusual redirection or sudden drop in traffic to an expected site.</li>
+            <li><strong>Smurf attack:</strong> large amounts of ICMP traffic using a broadcast address.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-card" data-correct="thresholds">
+          <p>Which statement best describes the purpose of adjusting detection thresholds?</p>
+          <div class="choice-row">
+            <button class="option-button" type="button" data-answer="thresholds">To balance catching real attacks with avoiding too many false positives</button>
+            <button class="option-button" type="button" data-answer="router">To prevent routers from using firewalls</button>
+            <button class="option-button" type="button" data-answer="vpn">To guarantee a VPN will always work</button>
+          </div>
+          <div class="answer-box" hidden>
+            <strong>Correct:</strong> Detection thresholds must be tuned so the system is sensitive enough to find attacks without overwhelming analysts with unnecessary alerts.
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain the difference between NIDS and NIPS.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know the difference between false positives and false negatives.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can identify key signs of ARP poisoning, DNS poisoning, and jamming.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I understand that detection must balance sensitivity and alert volume.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Detection is about recognizing suspicious patterns, not just blocking everything.</li>
+            <li>Fake alarms can be just as harmful as missed attacks.</li>
+            <li>A strong SIEM connects events across systems.</li>
+            <li>Network monitoring is part of active defense.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Unit wrap-up</h2>
+        <div class="unit-card-list">
+          <a class="unit-link-card" href="index.html">
+            <span>Unit</span>
+            <strong>Return to Unit 3 overview</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Review and apply.</h2>
+        <p>Use the Unit 3 concepts together: identify network risks, design boundaries, apply controls, and monitor for suspicious activity.</p>
+        <a href="index.html">Back to overview →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 3 • 3.7</span></div></footer>
+</body>
+</html>

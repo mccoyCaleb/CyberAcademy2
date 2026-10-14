@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.1 — Cyber Foundations | CyberAcademy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
+      <div class="nav-links" id="main-menu">
+        <a href="../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a class="active" href="index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="unit-page section-wrap">
+    <div class="topic-header">
+      <p class="unit-kicker">2.1 • Cyber Foundations</p>
+      <h1>Cyber Foundations</h1>
+      <p class="unit-intro">This section covers the human layer of cybersecurity, the adversaries behind attacks, and the structured process by which attackers gather information, gain access, move through a system, and try to avoid detection.</p>
+      <div class="progress-block" aria-label="Section progress">
+        <div class="progress-label"><span>Progress</span><span>Human factors</span></div>
+        <div class="progress-meter"><span style="width: 35%;"></span></div>
+      </div>
+    </div>
+
+    <nav class="topic-nav" aria-label="Section navigation">
+      <a href="index.html">Overview</a>
+      <a class="active" href="2-1-cyber-foundations.html">2.1</a>
+      <a href="2-2-physical-vulnerabilities.html">2.2</a>
+      <a href="2-3-protecting-physical-spaces.html">2.3</a>
+      <a href="2-4-network-and-routing.html">2.4</a>
+      <a href="2-5-logs-basics.html">2.5</a>
+    </nav>
+
+    <div class="page-grid">
+      <section class="content-panel">
+        <div class="feature-card">
+          <span class="tag">Big idea</span>
+          <h2>Cybersecurity is not only technical.</h2>
+          <p>Attackers often do not need to defeat technology directly. They may manipulate a person into revealing data, approving access, or allowing entry into a protected space. In fact, social engineering can be more effective than a direct technical exploit because it targets normal human decision-making.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card">
+            <span class="tag">Social engineering</span>
+            <h3>Manipulating behavior</h3>
+            <p>Attackers exploit trust, authority, urgency, fear, familiarity, scarcity, and group pressure to make a target act without full evaluation.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Threat actors</span>
+            <h3>Motivation matters</h3>
+            <p>Script kiddies, hacktivists, insiders, cyberterrorists, and transnational criminal organizations all attack for different reasons and with different capabilities.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="tag">Cyberattack phases</span>
+            <h3>Research to evasion</h3>
+            <p>Attackers often move through reconnaissance, initial access, persistence, lateral movement, taking action, and evasion in a sequence designed to avoid detection.</p>
+          </article>
+        </div>
+
+        <h2 class="section-head">Social engineering</h2>
+        <p>Social engineering is the use of psychological or social techniques to manipulate a person into taking an action that benefits an adversary. Instead of breaking into a computer directly, an attacker may convince a person to open a malicious file, click a link, reveal a password, share personal information, approve a login request, let someone in, transfer money, or ignore a warning.</p>
+
+        <div class="accordion" aria-label="Social engineering tactics">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Pretexting <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>Pretexting</strong> is when an attacker creates a believable story or reason for a request. The attacker invents a pretext that makes the interaction sound legitimate.</p>
+              <p><strong>Example:</strong> An attacker contacts an employee and claims to work in IT, says there is a problem with the employee’s account, and asks for information so the account can be fixed.</p>
+              <p><strong>Student reminder:</strong> Pretexting = a believable story.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Authority <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Authority</strong> occurs when an attacker pretends to be someone with power, status, expertise, or influence.</p>
+              <p>Examples include a principal, teacher, manager, administrator, police officer, or IT employee. People often comply faster when they believe the request comes from someone important.</p>
+              <p><strong>Student reminder:</strong> Authority = pressure created by status or power.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Intimidation <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Intimidation</strong> uses fear or threats of negative consequences. The attacker wants the target to become worried enough that they stop evaluating whether the request is legitimate.</p>
+              <p><strong>Example:</strong> “If you don’t complete this form immediately, your account will be suspended.”</p>
+              <p><strong>Student reminder:</strong> Intimidation = fear of what will happen if you do not comply.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Consensus <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Consensus</strong> creates social pressure by making a person believe that others have already done something.</p>
+              <p><strong>Example:</strong> “Everyone else in your class has already completed this form. You’re the only one who hasn’t.”</p>
+              <p><strong>Student reminder:</strong> Consensus = pressure from the group.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Scarcity <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Scarcity</strong> makes something seem limited or available for only a brief time. The attacker wants the target to believe the opportunity will disappear if they wait.</p>
+              <p>Warning signs include “Only 2 spots left,” “Last chance,” “Offer expires today,” and “You must act before the timer ends.”</p>
+              <p><strong>Student reminder:</strong> Scarcity = limited opportunity.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Familiarity <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Familiarity</strong> occurs when an attacker pretends to be, know, or have a relationship with someone the target already trusts.</p>
+              <p><strong>Example:</strong> An attacker pretends to be a student’s friend and asks for a file or password. Attackers may also mimic the communication style of someone familiar.</p>
+              <p><strong>Student reminder:</strong> Familiarity = trust based on something or someone known.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Urgency <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Urgency</strong> creates pressure to act immediately. It is especially powerful when combined with another tactic.</p>
+              <p><strong>Example:</strong> “Your account will be deleted in 10 minutes unless you verify it.”</p>
+              <p><strong>Authority + Urgency:</strong> “I am from IT, and your account will be locked in five minutes.”</p>
+              <p><strong>Student reminder:</strong> Urgency = pressure to act quickly.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">Social engineering attack types</h2>
+        <div class="accordion" aria-label="Social engineering attack types">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Phishing <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>Phishing</strong> is a social engineering attack that tries to trick someone through a message, often an email, into taking an unsafe action.</p>
+              <p>Possible goals include clicking a malicious link, opening an attachment, providing credentials, revealing financial information, or installing malware.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Spear phishing and whaling <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Spear phishing</strong> is phishing targeted at a specific person or organization rather than mass sent. The attacker may use information about the target to make the message more believable.</p>
+              <p><strong>Whaling</strong> is a targeted phishing attack aimed at a high-value individual, such as an executive or senior decision-maker. The goal is often to exploit authority, access, or the ability to approve important actions.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Vishing and smishing <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Vishing</strong> is voice-based phishing, usually over a phone call or voice communication.</p>
+              <p><strong>Smishing</strong> is phishing sent through text messages or mobile messaging.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Baiting and quid pro quo <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Baiting</strong> uses something attractive or tempting to encourage unsafe behavior, such as a free file, reward, or device.</p>
+              <p><strong>Quid pro quo</strong> offers something in exchange for the target’s action or information. For example, an attacker may claim to provide technical help in exchange for credentials.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">Types of adversaries</h2>
+        <div class="scenario-card">
+          <h3>Not all attackers are the same</h3>
+          <p>Knowing who the adversary is can help defenders predict what they may attempt and what kinds of controls may be necessary.</p>
+          <ul class="compare-list">
+            <li><strong>Script kiddies:</strong> relatively low-skilled attackers who use tools created by others. They may be motivated by curiosity, recognition, entertainment, or greed.</li>
+            <li><strong>Hacktivists:</strong> motivated by social, political, ideological, or personal beliefs; their main goal is often to support a cause or protest an organization.</li>
+            <li><strong>Insider adversaries:</strong> people with legitimate access such as employees, contractors, or former employees whose access remains active. Their motivations may include greed, revenge, pressure, or helping another person.</li>
+            <li><strong>Cyberterrorists:</strong> motivated by political or ideological causes and may target critical infrastructure to create widespread disruption.</li>
+            <li><strong>Transnational criminal organizations:</strong> primarily seek financial gain and may deploy ransomware, steal credentials, steal personal data, or sell stolen information.</li>
+          </ul>
+        </div>
+
+        <h2 class="section-head">Cyberattack phases</h2>
+        <div class="diagram-card">
+          <span class="tag">Attack lifecycle</span>
+          <h3>Six phases</h3>
+          <div class="layer-diagram" aria-label="Cyberattack phases">
+            <span>Reconnaissance</span>
+            <span class="arrow">↓</span>
+            <span>Initial access</span>
+            <span class="arrow">↓</span>
+            <span>Persistence</span>
+            <span class="arrow">↓</span>
+            <span>Lateral movement</span>
+            <span class="arrow">↓</span>
+            <span>Taking action</span>
+            <span class="arrow">↓</span>
+            <span>Evading detection</span>
+          </div>
+          <p><strong>Reconnaissance</strong> is research and information gathering using public sources, profiles, websites, and other available data. <strong>Initial access</strong> is how the attacker gets in. <strong>Persistence</strong> is how they maintain access over time. <strong>Lateral movement</strong> means moving through the environment toward more valuable systems or privileges. <strong>Taking action</strong> means collecting, stealing, modifying, damaging, or exfiltrating data. <strong>Evading detection</strong> means hiding tracks or deleting evidence.</p>
+        </div>
+
+        <div class="accordion" aria-label="Attack phases details">
+          <div class="accordion-item open">
+            <button class="accordion-toggle" type="button" aria-expanded="true">Reconnaissance <span>−</span></button>
+            <div class="accordion-panel">
+              <p><strong>Reconnaissance</strong> is the process of gathering information about a target before or during the attack. This can include publicly available information, employee roles, technology responsibilities, department names, and social media posts.</p>
+              <p><strong>OSINT</strong> refers to open-source intelligence, or information that is publicly available.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Initial access <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Initial access</strong> happens when the attacker establishes an entry point. Possible methods include social engineering, compromised credentials, weak credentials, or the exploitation of a vulnerability.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Persistence <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Persistence</strong> is the ability to maintain access over time. The attacker may use command and control infrastructure, remote access trojans, or rootkits to regain access later.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Lateral movement <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Lateral movement</strong> occurs when the attacker moves from one compromised account or system to others within the environment. The attacker may look for other user accounts, more valuable systems, or accounts with greater privileges.</p>
+              <p><strong>Privilege escalation</strong> means gaining a higher level of access than the attacker originally had.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Taking action and exfiltration <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Taking action</strong> is when the attacker accomplishes the actual objective: collecting, stealing, destroying, modifying, or disrupting data or services.</p>
+              <p><strong>Exfiltration</strong> means moving stolen data out of the target environment.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">Evading detection <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Evading detection</strong> is when attackers try to hide evidence of what they have done by removing log files, deleting malware, or editing records.</p>
+              <p>AP clue: If the attacker is covering tracks or trying not to be noticed, think evading detection.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-head">Risk model</h2>
+        <div class="scenario-card">
+          <h3>Threat + vulnerability + asset</h3>
+          <p><strong>Risk</strong> occurs when a threat can exploit a vulnerability and compromise an asset. A useful model is: <strong>Threat + Vulnerability → Risk to an Asset.</strong></p>
+          <ul class="compare-list">
+            <li><strong>Asset:</strong> Something valuable that needs protection, such as money, data, digital infrastructure, reputation, or physical property.</li>
+            <li><strong>Threat:</strong> A thing capable of causing harm, such as an attacker, malware, an insider, a natural disaster, or equipment failure.</li>
+            <li><strong>Vulnerability:</strong> A weakness or flaw that could allow an asset to be compromised, such as weak authentication, unrestricted access, or an unlocked door.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-card" data-correct="authority">
+          <p>An attacker says, “Your manager asked me to get this file from you.” Which tactic is being used?</p>
+          <div class="choice-row">
+            <button class="option-button" type="button" data-answer="authority">Authority</button>
+            <button class="option-button" type="button" data-answer="scarcity">Scarcity</button>
+            <button class="option-button" type="button" data-answer="consensus">Consensus</button>
+          </div>
+          <div class="answer-box" hidden>
+            <strong>Correct:</strong> This is <strong>authority</strong>. The attacker is using the perceived power or status of the manager to increase compliance.
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <h3>My notes</h3>
+          <textarea aria-label="Notes on cyber foundations" placeholder="Create your own AP-style summary: define one social engineering tactic, explain why it works, and name one clue that would help you recognize it in a question..."></textarea>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel">
+        <div class="status-card">
+          <h3>Checklist</h3>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain social engineering and why it works.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can distinguish common tactics such as pretexting, authority, urgency, and scarcity.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I know the six phases of a cyberattack.</label>
+          <label class="checklist-item"><input type="checkbox" class="completion-toggle"> I can explain the difference between threat, vulnerability, and asset.</label>
+        </div>
+
+        <div class="status-card">
+          <h3>Remember</h3>
+          <ul class="compact-list">
+            <li>Social engineering attacks human behavior, not just systems.</li>
+            <li>AP clues often involve emotions or social pressure.</li>
+            <li>Reconnaissance and lateral movement are common identifiers in attack scenarios.</li>
+            <li>Risk requires a threat, a vulnerability, and a valuable target.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="lesson-layout">
+      <div>
+        <h2>Next section</h2>
+        <div class="unit-card-list">
+          <a class="unit-link-card" href="2-2-physical-vulnerabilities.html">
+            <span>2.2</span>
+            <strong>Physical Vulnerabilities &amp; Attacks</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="next-panel">
+        <p>Next step</p>
+        <h2>Look at the physical layer.</h2>
+        <p>After understanding how attackers manipulate people, study how physical access and weak environments create security risks.</p>
+        <a href="2-2-physical-vulnerabilities.html">Open 2.2 →</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Unit 2 • 2.1</span></div></footer>
+</body>
+</html>
