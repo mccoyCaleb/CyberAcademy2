@@ -1,51 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CyberAcademy | Learn Cybersecurity</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberAcademy | Secure Learning Platform</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav-shell" aria-label="Main navigation">
-      <a class="brand" href="index.html"><span class="brand-mark">CA</span><span>CyberAcademy</span></a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">Menu</button>
-      <div class="nav-links" id="main-menu">
-        <a class="active" href="index.html">Home</a>
-        <a href="unit-1/index.html">Unit 1</a>
-        <a href="unit-2/index.html">Unit 2</a>
-        <a href="unit-3/index.html">Unit 3</a>
-        <a href="unit-4/index.html">Unit 4</a>
-        <a href="unit-5/index.html">Unit 5</a>
+  <header class="topbar">
+    <div class="container nav-wrap">
+      <a href="#home" class="brand" aria-label="CyberAcademy home">
+        <span class="brand-mark">CA</span>
+        <span>CyberAcademy</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#curriculum">Curriculum</a>
+        <a href="#outcomes">Outcomes</a>
+        <a href="#portal">Portal</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="secondary-link" href="/login">Login</a>
+        <a class="primary-button" href="/login">Student & Teacher Portal</a>
       </div>
-    </nav>
+    </div>
   </header>
 
   <main>
-    <section class="hero section-wrap">
-      <p class="eyebrow">Cybersecurity learning hub</p>
-      <h1>Build the habits that keep systems secure.</h1>
-      <p class="hero-copy">A clear path through the foundations of cybersecurity, from core concepts to practical defense.</p>
-      <a class="button" href="unit-1/index.html">Start Unit 1 <span aria-hidden="true">-&gt;</span></a>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Canvas-inspired learning environment</p>
+          <h1>Cybersecurity education built for real learning.</h1>
+          <p class="hero-copy">
+            A modern, secure platform for CompTIA Security+ and AP Cybersecurity learning,
+            organized around five units, guided lessons, teacher oversight, and measurable student progress.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-button" href="/login">Open the portal</a>
+            <a class="secondary-button" href="#curriculum">Explore curriculum</a>
+          </div>
+
+          <div class="stat-row" aria-label="Platform statistics">
+            <div>
+              <strong>5</strong>
+              <span>core units</span>
+            </div>
+            <div>
+              <strong>24/7</strong>
+              <span>learning access</span>
+            </div>
+            <div>
+              <strong>1</strong>
+              <span>shared login</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <div class="mini-header">Program overview</div>
+          <div class="chart">
+            <span style="height: 42%"></span>
+            <span style="height: 65%"></span>
+            <span style="height: 58%"></span>
+            <span style="height: 82%"></span>
+            <span style="height: 94%"></span>
+            <span style="height: 88%"></span>
+          </div>
+          <ul class="hero-list">
+            <li><span class="pill success">Live</span> Structured lessons</li>
+            <li><span class="pill neutral">Secure</span> Student and teacher accounts</li>
+            <li><span class="pill accent">Tracked</span> Progress and activity</li>
+          </ul>
+        </aside>
+      </div>
     </section>
 
-    <section class="units section-wrap" aria-labelledby="units-title">
-      <div class="section-heading">
-        <p class="eyebrow">Your curriculum</p>
-        <h2 id="units-title">Five focused units</h2>
+    <section class="container section" id="curriculum">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Curriculum</p>
+          <h2>Five cybersecurity units</h2>
+        </div>
+        <a class="text-link" href="/login">Go to portal</a>
       </div>
+
       <div class="unit-grid">
-        <a class="unit-card" href="unit-1/index.html"><span class="unit-number">01</span><h3>Cybersecurity Foundations</h3><p>Learn the language, principles, and mindset behind security.</p><span class="card-arrow" aria-hidden="true">-&gt;</span></a>
-        <a class="unit-card" href="unit-2/index.html"><span class="unit-number">02</span><h3>Threats &amp; Vulnerabilities</h3><p>Understand common attacks and the weaknesses they exploit.</p><span class="card-arrow" aria-hidden="true">-&gt;</span></a>
-        <a class="unit-card" href="unit-3/index.html"><span class="unit-number">03</span><h3>Network Defense</h3><p>Explore the tools and practices used to protect connected systems.</p><span class="card-arrow" aria-hidden="true">-&gt;</span></a>
-        <a class="unit-card" href="unit-4/index.html"><span class="unit-number">04</span><h3>Security Operations</h3><p>Connect monitoring, response, and resilient security habits.</p><span class="card-arrow" aria-hidden="true">-&gt;</span></a>
-        <a class="unit-card" href="unit-5/index.html"><span class="unit-number">05</span><h3>Applications &amp; Data</h3><p>Protect the software, data, credentials, and access patterns that attackers target.</p><span class="card-arrow" aria-hidden="true">-&gt;</span></a>
+        <a class="unit-card" href="unit-1/index.html">
+          <span class="unit-number">01</span>
+          <h3>Cybersecurity Foundations</h3>
+          <p>Security principles, attacker types, social engineering, and how defenses reduce risk.</p>
+          <span class="card-arrow">→</span>
+        </a>
+
+        <a class="unit-card" href="unit-2/index.html">
+          <span class="unit-number">02</span>
+          <h3>Securing Spaces</h3>
+          <p>Protecting people, spaces, and network paths with physical and procedural controls.</p>
+          <span class="card-arrow">→</span>
+        </a>
+
+        <a class="unit-card" href="unit-3/index.html">
+          <span class="unit-number">03</span>
+          <h3>Network Defense</h3>
+          <p>MAC addresses, ARP, segmentation, firewalls, ACLs, and detection practices.</p>
+          <span class="card-arrow">→</span>
+        </a>
+
+        <a class="unit-card" href="unit-4/index.html">
+          <span class="unit-number">04</span>
+          <h3>Security Operations</h3>
+          <p>Authentication, hashing, device protection, and low-level attack detection.</p>
+          <span class="card-arrow">→</span>
+        </a>
+
+        <a class="unit-card" href="unit-5/index.html">
+          <span class="unit-number">05</span>
+          <h3>Applications and Data</h3>
+          <p>Application security, data protection, symm/assym cryptography, and defense in depth.</p>
+          <span class="card-arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="container section" id="outcomes">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Student outcomes</p>
+          <h2>Built for practical cybersecurity learning</h2>
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Shared access</h3>
+          <p>One secure login directs students and teachers to the correct portal based on their role.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Curriculum management</h3>
+          <p>Teachers can manage lessons, publish content, and control which material is available.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Progress tracking</h3>
+          <p>Students can see progress, complete lessons, and continue where they left off.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container section" id="portal">
+      <div class="portal-panel">
+        <div>
+          <p class="eyebrow">Portal access</p>
+          <h2>Student and teacher experiences in one platform</h2>
+        </div>
+        <div class="portal-actions">
+          <a class="primary-button" href="/login">Login</a>
+          <a class="secondary-button" href="/student/dashboard">Student dashboard</a>
+          <a class="secondary-button" href="/teacher/dashboard">Teacher dashboard</a>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer"><div class="section-wrap"><span>CyberAcademy</span><span>Learn deliberately. Defend confidently.</span></div></footer>
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <span>CyberAcademy</span>
+      <span>Formal instruction for secure digital practice.</span>
+    </div>
+  </footer>
 </body>
 </html>

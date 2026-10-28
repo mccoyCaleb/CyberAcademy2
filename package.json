@@ -1,0 +1,28 @@
+{
+  "name": "cyberacademy-lms",
+  "version": "1.0.0",
+  "description": "CyberAcademy learning management system",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "cybersecurity",
+    "lms",
+    "education"
+  ],
+  "author": "CyberAcademy",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.7.0",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.1"
+  }
+}

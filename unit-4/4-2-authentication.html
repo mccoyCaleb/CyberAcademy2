@@ -108,6 +108,19 @@
           <p>Some systems use <strong>passwordless authentication</strong>, such as passkeys or hardware security keys. These often rely on public-key cryptography: the device proves possession of a private key, and the service verifies it using the corresponding public key.</p>
           <p>Passwordless methods can reduce the risk of password guessing and phishing, depending on how the system is implemented.</p>
         </div>
+
+        <h2 class="section-head">Authorization and least privilege</h2>
+        <div class="scenario-card">
+          <h3>Authentication is only the first step</h3>
+          <p>After a user proves who they are, the system must decide what the account is allowed to do. That is <strong>authorization</strong>.</p>
+          <ul class="compare-list">
+            <li><strong>Authentication:</strong> “Who are you?”</li>
+            <li><strong>Authorization:</strong> “What can you do?”</li>
+            <li><strong>Least privilege:</strong> grant only the minimum access required for a role or task.</li>
+          </ul>
+          <p>A student may be authenticated to a school portal, but they should not have permission to modify finances, change teacher schedules, or alter other students’ records. A teacher may access grades, but not payroll information unless that role requires it.</p>
+          <p>Using least privilege reduces the impact of a compromised account because the attacker’s access is limited. This is one of the most important ideas in both AP cybersecurity and Security+ practice.</p>
+        </div>
       </section>
 
       <aside class="sidebar-panel">

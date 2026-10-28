@@ -101,6 +101,15 @@
           </div>
 
           <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.4.5 Public key infrastructure and trust <span>+</span></button>
+            <div class="accordion-panel">
+              <p><strong>Public key infrastructure (PKI)</strong> is the system used to bind a public key to a real-world identity. This is usually done through a <strong>digital certificate</strong>, which is issued by a trusted certificate authority (CA).</p>
+              <p>When a browser connects to a website over HTTPS, it often checks whether the server's certificate is signed by a trusted CA. If the certificate is valid and trusted, the browser can have confidence that the public key belongs to the expected website.</p>
+              <p>This matters because public keys are only useful if the party using them can trust that the key belongs to the correct person or service. Without that trust model, someone could claim to be a fake website and share a different public key.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
             <button class="accordion-toggle" type="button" aria-expanded="false">5.4.6 Key length <span>+</span></button>
             <div class="accordion-panel">
               <p>The AP framework emphasizes that key length affects the security of encrypted data. Longer keys generally create a larger keyspace, making brute-force key searching more difficult, although security also depends on the algorithm and implementation.</p>
@@ -138,6 +147,15 @@
                 </tbody>
               </table>
               <p>Modern systems often combine both approaches. Asymmetric cryptography can help establish or exchange a secret, and symmetric cryptography can then efficiently protect large amounts of data.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-toggle" type="button" aria-expanded="false">5.4.9 Real-world idea: trust is a separate problem <span>+</span></button>
+            <div class="accordion-panel">
+              <p>Public keys solve the key-exchange problem, but they do not automatically prove that a key belongs to a trusted party. A certificate authority (CA) and a chain of trust help solve that problem.</p>
+              <p>This is why browsers and operating systems often warn when a certificate is expired, self-signed, or issued by an untrusted source. Security systems do not just trust “any public key”; they trust keys that are verified through a trusted authority or a known chain of trust.</p>
+              <p>In short: <strong>cryptography gives keys power, and trust models decide which keys to trust.</strong></p>
             </div>
           </div>
         </div>

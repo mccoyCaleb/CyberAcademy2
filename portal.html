@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberAcademy Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="portal-page">
+  <div class="portal-shell">
+    <aside class="portal-side">
+      <div class="brand side-brand">
+        <span class="brand-mark">CA</span>
+        <span>CyberAcademy</span>
+      </div>
+
+      <div class="side-panel">
+        <p class="eyebrow">Secure access</p>
+        <h1>One login for the learning platform.</h1>
+        <p>Students and teachers use the same portal and are routed to the correct experience after authentication.</p>
+      </div>
+
+      <div class="side-note">
+        <strong>Demo accounts</strong>
+        <ul>
+          <li>Student: student@cyberacademy.edu</li>
+          <li>Teacher: teacher@cyberacademy.edu</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="portal-main">
+      <div class="portal-card">
+        <div class="card-topline">Welcome back</div>
+        <h2>Sign in to your portal</h2>
+        <p class="portal-subtitle">Use your school email and password to continue.</p>
+
+        <form action="/login" method="POST" class="portal-form">
+          <label>
+            Email
+            <input type="email" name="email" placeholder="name@school.edu" required />
+          </label>
+          <label>
+            Password
+            <input type="password" name="password" placeholder="Enter your password" required />
+          </label>
+          <button type="submit" class="primary-button full-width">Log in</button>
+        </form>
+
+        <div class="portal-meta">
+          <a href="/">Back to home</a>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
