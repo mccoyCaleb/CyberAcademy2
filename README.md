@@ -1,12 +1,6 @@
 # CyberAcademy2
 
-## Publish with GitHub Pages
-
-This project can be published as a static course site. In the repository's GitHub settings, open **Pages**, select **Deploy from a branch**, choose the branch containing the site, and select the repository root (`/`). The homepage is `index.html`; lesson pages and assets use relative paths so they also work when the repository is published under a project URL.
-
-The Pages version provides course browsing without a login. GitHub Pages does not run Express, SQLite, server-side sessions, or form handlers, so account authentication, shared class management, assignments, and progress tracking from `server.js` are not available in that deployment. Do not put real passwords, student records, or private course data in browser-side code or `localStorage`.
-
-## Run the full local LMS
+## Run the full LMS
 
 The database-backed LMS still runs locally with Node.js:
 
@@ -15,4 +9,10 @@ npm install
 npm start
 ```
 
-Open the localhost URL printed by the server. This mode is separate from the GitHub Pages site and is not required to publish or browse the static lessons.
+Open the localhost URL printed by the server. The login page, role-based dashboards, classes, assignments, curriculum tools, and progress tracking are served by this app.
+
+## Hosting
+
+GitHub Pages only serves static files. It cannot run this app's Express server, SQLite database, login sessions, or form handlers, so publishing this repository with Pages will not provide the original LMS behavior. To keep login and the dashboard features working online, deploy this Node.js app to a host that runs `npm start` and supports persistent storage for `data/learning.db`. The app's entry page links directly to the server's `/login` route.
+
+Do not use the browser-only prototype in `script.js` for real accounts: its local-storage data is not secure and is not shared across users or devices.

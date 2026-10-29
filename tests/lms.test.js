@@ -119,6 +119,18 @@ test('login page renders shared portal', async () => {
   assert.match(res.text, /Student and teacher access uses one secure portal/);
 });
 
+test('homepage and portal route account access to the server login', async () => {
+  const homepage = await request(app).get('/');
+  assert.equal(homepage.status, 200);
+  assert.match(homepage.text, /href="\/login"/);
+  assert.match(homepage.text, /href="\/student\/dashboard"/);
+  assert.match(homepage.text, /href="\/teacher\/dashboard"/);
+
+  const portal = await request(app).get('/portal.html');
+  assert.equal(portal.status, 200);
+  assert.match(portal.text, /href="\/login"/);
+});
+
 test('student lesson page includes notes without the activity checklist', async () => {
   const agent = request.agent(app);
   await agent
